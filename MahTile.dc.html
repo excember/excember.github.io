@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+{{ face }}
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;80px&quot;,&quot;height&quot;:&quot;110px&quot;},&quot;kind&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;d1&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;w&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:56,&quot;min&quot;:32,&quot;max&quot;:140,&quot;tsType&quot;:&quot;number&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const kind = String(this.props.kind ?? 'd1');
+    const w = Number(this.props.w ?? 56);
+    const h = Math.round(w * 1.36);
+    const e = React.createElement;
+    const base = { width: w, height: h, background: '#FFFDF6', border: '1px solid #D8CDB8', borderRadius: w * 0.14, boxShadow: '0 2px 4px rgba(36,33,28,.18)', position: 'relative', flex: 'none', boxSizing: 'border-box' };
+    const corner = (txt, color) => e('div', { key: 'c', style: { position: 'absolute', top: w * 0.05, left: w * 0.1, font: `700 ${Math.round(w * 0.2)}px Calibri,Arial,sans-serif`, color } }, txt);
+    const center = { position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' };
+    const cyc = ['#1E7A57', '#C0362C', '#2C6E8F'];
+    let kids = [];
+    const t = kind[0], n = parseInt(kind.slice(1), 10);
+    if (t === 'd' && n >= 1 && n <= 9) {
+      const P = { 1: [[.5, .52]], 2: [[.5, .3], [.5, .74]], 3: [[.24, .28], [.5, .52], [.76, .76]], 4: [[.28, .3], [.72, .3], [.28, .74], [.72, .74]], 5: [[.26, .28], [.74, .28], [.5, .52], [.26, .76], [.74, .76]], 6: [[.32, .28], [.68, .28], [.32, .52], [.68, .52], [.32, .76], [.68, .76]], 7: [[.22, .24], [.5, .3], [.78, .36], [.32, .58], [.68, .58], [.32, .8], [.68, .8]], 8: [[.32, .22], [.68, .22], [.32, .42], [.68, .42], [.32, .62], [.68, .62], [.32, .82], [.68, .82]], 9: [[.24, .28], [.5, .28], [.76, .28], [.24, .52], [.5, .52], [.76, .52], [.24, .76], [.5, .76], [.76, .76]] }[n];
+      const ds = n === 1 ? w * 0.44 : n <= 4 ? w * 0.2 : w * 0.16;
+      kids = [corner(String(n), '#2C6E8F')].concat(P.map(([x, y], i) => e('div', {
+        key: i, style: { position: 'absolute', left: x * w - ds / 2, top: y * h - ds / 2, width: ds, height: ds, borderRadius: '50%', background: n === 1 ? '#C0362C' : cyc[i % 3], boxShadow: n === 1 ? `0 0 0 ${w * 0.06}px #FFFDF6, 0 0 0 ${w * 0.09}px #1E7A57` : 'none' }
+      })));
+    } else if (t === 'b' && n === 1) {
+      kids = [corner('1', '#1E7A57'),
+        e('div', { key: 'b', style: { position: 'absolute', left: w * 0.28, top: h * 0.34, width: w * 0.44, height: w * 0.3, borderRadius: '50%', background: '#1E7A57' } }),
+        e('div', { key: 'h', style: { position: 'absolute', left: w * 0.58, top: h * 0.24, width: w * 0.2, height: w * 0.2, borderRadius: '50%', background: '#1E7A57' } }),
+        e('div', { key: 'k', style: { position: 'absolute', left: w * 0.76, top: h * 0.28, width: 0, height: 0, borderTop: `${w * 0.05}px solid transparent`, borderBottom: `${w * 0.05}px solid transparent`, borderLeft: `${w * 0.1}px solid #C0362C` } }),
+        e('div', { key: 'e', style: { position: 'absolute', left: w * 0.66, top: w * 0.44, width: w * 0.045, height: w * 0.045, borderRadius: '50%', background: '#FFFDF6' } }),
+        e('div', { key: 't', style: { position: 'absolute', left: w * 0.12, top: h * 0.38, width: w * 0.2, height: w * 0.07, borderRadius: w, background: '#1E7A57', transform: 'rotate(20deg)' } }),
+        e('div', { key: 'p', style: { position: 'absolute', left: w * 0.2, top: h * 0.66, width: w * 0.6, height: w * 0.06, borderRadius: w, background: '#C69B3F' } }),
+        e('div', { key: 'p2', style: { position: 'absolute', left: w * 0.44, top: h * 0.66, width: w * 0.06, height: h * 0.16, background: '#C69B3F' } })];
+    } else if (t === 'b') {
+      const rows = { 2: [1, 1], 3: [1, 2], 4: [2, 2], 5: [2, 1, 2], 6: [3, 3], 7: [1, 3, 3], 8: [3, 2, 3], 9: [3, 3, 3] }[n];
+      const sw = w * 0.13, sh = rows.length === 2 ? h * 0.3 : h * 0.2;
+      let idx = 0;
+      kids = [corner(String(n), '#1E7A57'), e('div', { key: 's', style: Object.assign({}, center, { top: h * 0.14, gap: h * 0.045 }) },
+        rows.map((cnt, ri) => e('div', { key: ri, style: { display: 'flex', gap: w * 0.1 } },
+          Array.from({ length: cnt }, (_, ci) => e('div', { key: ci, style: { width: sw, height: sh, borderRadius: sw * 0.45, background: cyc[(idx++) % 3] === '#2C6E8F' ? '#2C6E8F' : '#1E7A57', boxShadow: 'inset 0 0 0 1px rgba(255,253,246,.5)' } }))
+        )))];
+    } else if (t === 'c') {
+      const zh = ['一', '二', '三', '四', '五', '六', '七', '八', '九'][n - 1];
+      kids = [corner(String(n), '#C0362C'), e('div', { key: 'f', style: Object.assign({}, center, { top: h * 0.1, gap: 0 }) },
+        [e('div', { key: 1, style: { font: `700 ${w * 0.34}px Cambria,Georgia,serif`, color: '#24211C', lineHeight: 1.1 } }, zh),
+         e('div', { key: 2, style: { font: `700 ${w * 0.36}px Cambria,Georgia,serif`, color: '#C0362C', lineHeight: 1.1 } }, '萬')])];
+    } else if (t === 'w') {
+      const L = kind[1].toUpperCase();
+      const zh = { E: '東', S: '南', W: '西', N: '北' }[L];
+      kids = [corner(L, '#2C6E8F'), e('div', { key: 'f', style: Object.assign({}, center, { top: h * 0.12 }) },
+        e('div', { key: 1, style: { font: `700 ${w * 0.48}px Cambria,Georgia,serif`, color: '#24211C' } }, zh))];
+    } else if (kind === 'dr' || kind === 'dg') {
+      kids = [e('div', { key: 'f', style: center }, e('div', { style: { font: `700 ${w * 0.5}px Cambria,Georgia,serif`, color: kind === 'dr' ? '#C0362C' : '#1E7A57' } }, kind === 'dr' ? '中' : '發'))];
+    } else if (kind === 'dw') {
+      kids = [e('div', { key: 'f', style: { position: 'absolute', inset: w * 0.16, border: `${Math.max(2, w * 0.05)}px solid #2C6E8F`, borderRadius: w * 0.08 } })];
+    } else if (t === 'f') {
+      const petals = Array.from({ length: 5 }, (_, i) => {
+        const a = -Math.PI / 2 + i * 2 * Math.PI / 5, r = w * 0.17;
+        return e('div', { key: i, style: { position: 'absolute', left: w * 0.5 + Math.cos(a) * r - w * 0.09, top: h * 0.48 + Math.sin(a) * r - w * 0.09, width: w * 0.18, height: w * 0.18, borderRadius: '50%', background: i % 2 ? '#C0362C' : '#1E7A57' } });
+      });
+      kids = [corner(String(n || 1), '#C0362C')].concat(petals, e('div', { key: 'c2', style: { position: 'absolute', left: w * 0.5 - w * 0.07, top: h * 0.48 - w * 0.07, width: w * 0.14, height: w * 0.14, borderRadius: '50%', background: '#C69B3F' } }));
+    } else if (kind === 'j') {
+      kids = [e('div', { key: 'f', style: Object.assign({}, center, { gap: h * 0.06 }) },
+        [e('div', { key: 1, style: { width: w * 0.42, height: w * 0.42, borderRadius: '50%', border: `${Math.max(2, w * 0.045)}px solid #2C6E8F`, display: 'flex', alignItems: 'center', justifyContent: 'center' } },
+           e('div', { style: { font: `700 ${w * 0.24}px Cambria,Georgia,serif`, color: '#1E7A57' } }, '發')),
+         e('div', { key: 2, style: { font: `800 ${w * 0.14}px Calibri,Arial,sans-serif`, letterSpacing: w * 0.02, color: '#C0362C' } }, 'JOKER')])];
+    }
+    return { face: e('div', { style: base }, kids) };
+  }
+}
+</script>
+</body>
+</html>

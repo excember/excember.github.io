@@ -1,0 +1,2321 @@
+{
+ "slides": [
+  {
+   "n": 1,
+   "shapes": [
+    {
+     "name": "Text 0",
+     "text": "CONTENT-COMPLETE BUILD · FOR YOUR REVIEW"
+    },
+    {
+     "name": "Text 1",
+     "text": "Confident at the Table"
+    },
+    {
+     "name": "Text 2",
+     "text": "The complete American Mah Jongg course — standard (common) rules · 13 tiles in hand, 14 for East"
+    },
+    {
+     "name": "Text 4",
+     "text": "1"
+    },
+    {
+     "name": "Text 9",
+     "text": "1"
+    },
+    {
+     "name": "Text 18",
+     "text": "5"
+    },
+    {
+     "name": "Text 19",
+     "text": "五"
+    },
+    {
+     "name": "Text 20",
+     "text": "萬"
+    },
+    {
+     "name": "Text 22",
+     "text": "E"
+    },
+    {
+     "name": "Text 23",
+     "text": "東"
+    },
+    {
+     "name": "Text 25",
+     "text": "中"
+    },
+    {
+     "name": "Text 29",
+     "text": "JOKER"
+    },
+    {
+     "name": "Text 34",
+     "text": "1 Dot"
+    },
+    {
+     "name": "Text 35",
+     "text": "1 Bam (bird)"
+    },
+    {
+     "name": "Text 36",
+     "text": "5 Crak"
+    },
+    {
+     "name": "Text 37",
+     "text": "East wind"
+    },
+    {
+     "name": "Text 38",
+     "text": "Red dragon"
+    },
+    {
+     "name": "Text 39",
+     "text": "Soap (white)"
+    },
+    {
+     "name": "Text 40",
+     "text": "Joker"
+    },
+    {
+     "name": "Text 41",
+     "text": "All tiles rendered to match a standard American set (per your cheat-sheet and joker uploads) so you can verify every ID."
+    },
+    {
+     "name": "Text 42",
+     "text": "7 modules · quiz + scenario in each · capstone hand · precedes the single-file HTML build"
+    }
+   ],
+   "notes": "Hey, welcome in. So you want to play American mahjong — with friends, or maybe you're brave enough to sit down with total strangers. Good news: it's absolutely learnable, and by the end of this course you'll play a full hand without a rulebook open on your knee. Everything here follows standard American play — the common rules you'll meet at most tables — and one number to hold onto from the start: you keep thirteen tiles in your hand, and the dealer, East, holds fourteen. Let's get you table-ready."
+  },
+  {
+   "n": 2,
+   "shapes": [
+    {
+     "name": "Text 4",
+     "text": "COURSE MAP"
+    },
+    {
+     "name": "Text 5",
+     "text": "Seven modules, one capstone"
+    },
+    {
+     "name": "Text 8",
+     "text": "1"
+    },
+    {
+     "name": "Text 9",
+     "text": "Meet the Tiles"
+    },
+    {
+     "name": "Text 10",
+     "text": "Full tile ID — every suit, honor & special"
+    },
+    {
+     "name": "Text 13",
+     "text": "2"
+    },
+    {
+     "name": "Text 14",
+     "text": "Table & Setup"
+    },
+    {
+     "name": "Text 15",
+     "text": "East, the wall, the 13/14 deal"
+    },
+    {
+     "name": "Text 18",
+     "text": "3"
+    },
+    {
+     "name": "Text 19",
+     "text": "The Card, Sets & Jokers"
+    },
+    {
+     "name": "Text 20",
+     "text": "Match a listed hand; strict joker rules"
+    },
+    {
+     "name": "Text 23",
+     "text": "4"
+    },
+    {
+     "name": "Text 24",
+     "text": "The Charleston"
+    },
+    {
+     "name": "Text 25",
+     "text": "Passes, blind pass, courtesy pass"
+    },
+    {
+     "name": "Text 28",
+     "text": "5"
+    },
+    {
+     "name": "Text 29",
+     "text": "Playing a Round"
+    },
+    {
+     "name": "Text 30",
+     "text": "Turns, calling, dead hands"
+    },
+    {
+     "name": "Text 33",
+     "text": "6"
+    },
+    {
+     "name": "Text 34",
+     "text": "Winning & Scoring"
+    },
+    {
+     "name": "Text 35",
+     "text": "Card values, doubles, wall games"
+    },
+    {
+     "name": "Text 38",
+     "text": "7"
+    },
+    {
+     "name": "Text 39",
+     "text": "Playing with Strangers"
+    },
+    {
+     "name": "Text 40",
+     "text": "Etiquette & the questions to ask"
+    },
+    {
+     "name": "Text 42",
+     "text": "★  Capstone"
+    },
+    {
+     "name": "Text 43",
+     "text": "Play one full hand: ≤ 2 errors, 0 illegal claims, correct payout."
+    },
+    {
+     "name": "Text 44",
+     "text": "Every module = short audio lesson → concept quiz → practice scenario. This deck shows the full content of all three layers, with answers visible so you can review and correct."
+    },
+    {
+     "name": "Text 46",
+     "text": "Rules basis: standard American (NMJL-style) play — updated from the booklet where the two differ."
+    }
+   ],
+   "notes": "Here's the road ahead. Seven modules, each one short: you'll listen to a quick lesson, take a concept check, then apply what you learned to a real game situation. Module one is all about the tiles themselves, because nothing else works until you can name what's in your hand. Then we set the table, learn the goal, run the Charleston, play real turns, score a win, and finish with the habits that make you welcome at any table. At the very end, a capstone: one complete hand, played start to finish."
+  },
+  {
+   "n": 3,
+   "shapes": [
+    {
+     "name": "Text 4",
+     "text": "SCOPE"
+    },
+    {
+     "name": "Text 5",
+     "text": "This course teaches American mahjong only"
+    },
+    {
+     "name": "Text 7",
+     "text": "AMERICAN — taught"
+    },
+    {
+     "name": "Text 9",
+     "text": "CHINESE — not taught"
+    },
+    {
+     "name": "Text 10",
+     "text": "Winning"
+    },
+    {
+     "name": "Text 12",
+     "text": "Match one hand printed on the card"
+    },
+    {
+     "name": "Text 14",
+     "text": "Any 4 sets of 3 + a pair"
+    },
+    {
+     "name": "Text 15",
+     "text": "Runs (chows)"
+    },
+    {
+     "name": "Text 17",
+     "text": "Never used"
+    },
+    {
+     "name": "Text 19",
+     "text": "Core building block"
+    },
+    {
+     "name": "Text 20",
+     "text": "Jokers & flowers"
+    },
+    {
+     "name": "Text 22",
+     "text": "8 jokers (wild in big sets) · 8 flowers used in hands"
+    },
+    {
+     "name": "Text 24",
+     "text": "No jokers; flowers are bonuses"
+    },
+    {
+     "name": "Text 25",
+     "text": "Charleston"
+    },
+    {
+     "name": "Text 27",
+     "text": "Mandatory pre-game passing"
+    },
+    {
+     "name": "Text 29",
+     "text": "Doesn't exist"
+    },
+    {
+     "name": "Text 30",
+     "text": "Scoring"
+    },
+    {
+     "name": "Text 32",
+     "text": "Card value + doubles"
+    },
+    {
+     "name": "Text 34",
+     "text": "fu × 2^fan"
+    },
+    {
+     "name": "Text 36",
+     "text": "The tell: if you hear “chow,” “run,” or “fu and fan,” you’re at a Chinese table — politely confirm before sitting down."
+    }
+   ],
+   "notes": "One quick guardrail before we start. There's more than one mahjong in the world. Chinese mahjong builds free-form hands out of runs and uses a points-and-doubles system called fu and fan. American mahjong — our game — is different: you match one specific hand printed on a card, there are no runs at all, and it adds jokers, flowers, and a pre-game tile swap called the Charleston. So here's the tell: if you ever hear someone say \"chow,\" \"run,\" or \"fu and fan,\" you're at a Chinese table. Different game. Politely check before you sit down."
+  },
+  {
+   "n": 4,
+   "shapes": [
+    {
+     "name": "Text 4",
+     "text": "MODULE 1 · MEET THE TILES"
+    },
+    {
+     "name": "Text 5",
+     "text": "The full set: 152 tiles in play"
+    },
+    {
+     "name": "Text 7",
+     "text": "Dots (Circles)"
+    },
+    {
+     "name": "Text 8",
+     "text": "36"
+    },
+    {
+     "name": "Text 9",
+     "text": "1–9, four of each"
+    },
+    {
+     "name": "Text 11",
+     "text": "Bams (Bamboo)"
+    },
+    {
+     "name": "Text 12",
+     "text": "36"
+    },
+    {
+     "name": "Text 13",
+     "text": "1–9, four of each — the 1 Bam is a bird"
+    },
+    {
+     "name": "Text 15",
+     "text": "Craks (Characters)"
+    },
+    {
+     "name": "Text 16",
+     "text": "36"
+    },
+    {
+     "name": "Text 17",
+     "text": "1–9, four of each"
+    },
+    {
+     "name": "Text 19",
+     "text": "Winds"
+    },
+    {
+     "name": "Text 20",
+     "text": "16"
+    },
+    {
+     "name": "Text 21",
+     "text": "North, East, West, South — four of each"
+    },
+    {
+     "name": "Text 23",
+     "text": "Dragons"
+    },
+    {
+     "name": "Text 24",
+     "text": "12"
+    },
+    {
+     "name": "Text 25",
+     "text": "Red, Green, White (“Soap”) — four of each"
+    },
+    {
+     "name": "Text 27",
+     "text": "Flowers"
+    },
+    {
+     "name": "Text 28",
+     "text": "8"
+    },
+    {
+     "name": "Text 29",
+     "text": "numbered 1–8, all interchangeable"
+    },
+    {
+     "name": "Text 31",
+     "text": "Jokers"
+    },
+    {
+     "name": "Text 32",
+     "text": "8"
+    },
+    {
+     "name": "Text 33",
+     "text": "wild — American mahjong only"
+    },
+    {
+     "name": "Text 34",
+     "text": "One of each family"
+    },
+    {
+     "name": "Text 36",
+     "text": "3"
+    },
+    {
+     "name": "Text 47",
+     "text": "3"
+    },
+    {
+     "name": "Text 55",
+     "text": "3"
+    },
+    {
+     "name": "Text 56",
+     "text": "三"
+    },
+    {
+     "name": "Text 57",
+     "text": "萬"
+    },
+    {
+     "name": "Text 59",
+     "text": "S"
+    },
+    {
+     "name": "Text 60",
+     "text": "南"
+    },
+    {
+     "name": "Text 62",
+     "text": "發"
+    },
+    {
+     "name": "Text 64",
+     "text": "1"
+    },
+    {
+     "name": "Text 73",
+     "text": "JOKER"
+    },
+    {
+     "name": "Text 78",
+     "text": "3 Dot"
+    },
+    {
+     "name": "Text 79",
+     "text": "3 Bam"
+    },
+    {
+     "name": "Text 80",
+     "text": "3 Crak"
+    },
+    {
+     "name": "Text 81",
+     "text": "South"
+    },
+    {
+     "name": "Text 82",
+     "text": "Green"
+    },
+    {
+     "name": "Text 83",
+     "text": "Flower"
+    },
+    {
+     "name": "Text 84",
+     "text": "Joker"
+    },
+    {
+     "name": "Text 86",
+     "text": "36 + 36 + 36 + 16 + 12 + 8 + 8 = 152"
+    },
+    {
+     "name": "Text 87",
+     "text": "Any extra tiles in the box are spares — set them aside."
+    },
+    {
+     "name": "Text 88",
+     "text": "Learners must ID every tile on sight before Module 2 — the next four screens drill each family."
+    }
+   ],
+   "notes": "Let's open the box. American mahjong plays with one hundred fifty-two tiles, and they sort into seven families. Thirty-six Dots, thirty-six Bams, thirty-six Craks — those are your three suits, numbers one through nine, four copies of each. Then sixteen Winds — north, east, west, south, four of each. Twelve Dragons — red, green, and white, four of each. Eight Flowers. And eight Jokers, the wild tiles that make American mahjong American. Thirty-six, thirty-six, thirty-six, sixteen, twelve, eight, and eight — one fifty-two. Anything else in the box is a spare. Over the next few minutes we'll walk each family so every tile reads instantly."
+  },
+  {
+   "n": 5,
+   "shapes": [
+    {
+     "name": "Text 4",
+     "text": "MODULE 1 · SUIT 1 OF 3"
+    },
+    {
+     "name": "Text 5",
+     "text": "Dots (Circles) — 1 through 9"
+    },
+    {
+     "name": "Text 7",
+     "text": "1"
+    },
+    {
+     "name": "Text 11",
+     "text": "1"
+    },
+    {
+     "name": "Text 13",
+     "text": "2"
+    },
+    {
+     "name": "Text 20",
+     "text": "2"
+    },
+    {
+     "name": "Text 22",
+     "text": "3"
+    },
+    {
+     "name": "Text 32",
+     "text": "3"
+    },
+    {
+     "name": "Text 34",
+     "text": "4"
+    },
+    {
+     "name": "Text 47",
+     "text": "4"
+    },
+    {
+     "name": "Text 49",
+     "text": "5"
+    },
+    {
+     "name": "Text 65",
+     "text": "5"
+    },
+    {
+     "name": "Text 67",
+     "text": "6"
+    },
+    {
+     "name": "Text 86",
+     "text": "6"
+    },
+    {
+     "name": "Text 88",
+     "text": "7"
+    },
+    {
+     "name": "Text 110",
+     "text": "7"
+    },
+    {
+     "name": "Text 112",
+     "text": "8"
+    },
+    {
+     "name": "Text 137",
+     "text": "8"
+    },
+    {
+     "name": "Text 139",
+     "text": "9"
+    },
+    {
+     "name": "Text 167",
+     "text": "9"
+    },
+    {
+     "name": "Text 169",
+     "text": "Each Dot tile shows its number as a pattern of circles; the small corner number is your fast read.\nFour copies of each tile — 36 Dots in the set. Colors vary by set; the patterns don’t."
+    },
+    {
+     "name": "Text 171",
+     "text": "SPOT-CHECK"
+    },
+    {
+     "name": "Text 172",
+     "text": "The 1 Dot is the big single medallion — beginners sometimes mistake it for a flower. If it’s one large circle, it’s the 1 Dot."
+    }
+   ],
+   "notes": "First suit: the Dots, sometimes called Circles. Each Dot tile shows its number as a pattern of circles — one circle for the one, two for the two, all the way up to a three-by-three grid for the nine. And there's a shortcut printed right on the tile: a small number in the corner. Trust the corner. One thing to watch: the one Dot is a single big medallion, and brand-new players sometimes mistake it for a flower. If it's one large circle, it's the one Dot. Four copies of every number — thirty-six Dots in all."
+  },
+  {
+   "n": 6,
+   "shapes": [
+    {
+     "name": "Text 4",
+     "text": "MODULE 1 · SUIT 2 OF 3"
+    },
+    {
+     "name": "Text 5",
+     "text": "Bams (Bamboo) — 1 through 9"
+    },
+    {
+     "name": "Text 7",
+     "text": "1"
+    },
+    {
+     "name": "Text 15",
+     "text": "1"
+    },
+    {
+     "name": "Text 17",
+     "text": "2"
+    },
+    {
+     "name": "Text 22",
+     "text": "2"
+    },
+    {
+     "name": "Text 24",
+     "text": "3"
+    },
+    {
+     "name": "Text 31",
+     "text": "3"
+    },
+    {
+     "name": "Text 33",
+     "text": "4"
+    },
+    {
+     "name": "Text 42",
+     "text": "4"
+    },
+    {
+     "name": "Text 44",
+     "text": "5"
+    },
+    {
+     "name": "Text 55",
+     "text": "5"
+    },
+    {
+     "name": "Text 57",
+     "text": "6"
+    },
+    {
+     "name": "Text 70",
+     "text": "6"
+    },
+    {
+     "name": "Text 72",
+     "text": "7"
+    },
+    {
+     "name": "Text 87",
+     "text": "7"
+    },
+    {
+     "name": "Text 89",
+     "text": "8"
+    },
+    {
+     "name": "Text 106",
+     "text": "8"
+    },
+    {
+     "name": "Text 108",
+     "text": "9"
+    },
+    {
+     "name": "Text 127",
+     "text": "9"
+    },
+    {
+     "name": "Text 129",
+     "text": "★  THE ONE EVERYONE MISSES: the 1 Bam is a BIRD"
+    },
+    {
+     "name": "Text 130",
+     "text": "There are no bamboo sticks on the 1 Bam — it’s a bird on a perch. New players discard it thinking it’s a bonus tile, or fail to call it. Drill it until the bird instantly reads as “1 Bam.”"
+    },
+    {
+     "name": "Text 132",
+     "text": "2–9 show that many bamboo sticks; corner number confirms. Four of each — 36 Bams total."
+    }
+   ],
+   "notes": "Second suit: the Bams, short for bamboo. Twos through nines show that many bamboo sticks — count the sticks or read the corner number. But here's the one everybody misses, so lean in: the one Bam is a bird. No sticks at all — a bird sitting on a perch. New players throw it away thinking it's a decoration, or stare right past it when they need it. Burn this in now: bird equals one Bam. Four of each, thirty-six total."
+  },
+  {
+   "n": 7,
+   "shapes": [
+    {
+     "name": "Text 4",
+     "text": "MODULE 1 · SUIT 3 OF 3"
+    },
+    {
+     "name": "Text 5",
+     "text": "Craks (Characters) — 1 through 9"
+    },
+    {
+     "name": "Text 7",
+     "text": "1"
+    },
+    {
+     "name": "Text 8",
+     "text": "一"
+    },
+    {
+     "name": "Text 9",
+     "text": "萬"
+    },
+    {
+     "name": "Text 10",
+     "text": "1"
+    },
+    {
+     "name": "Text 12",
+     "text": "2"
+    },
+    {
+     "name": "Text 13",
+     "text": "二"
+    },
+    {
+     "name": "Text 14",
+     "text": "萬"
+    },
+    {
+     "name": "Text 15",
+     "text": "2"
+    },
+    {
+     "name": "Text 17",
+     "text": "3"
+    },
+    {
+     "name": "Text 18",
+     "text": "三"
+    },
+    {
+     "name": "Text 19",
+     "text": "萬"
+    },
+    {
+     "name": "Text 20",
+     "text": "3"
+    },
+    {
+     "name": "Text 22",
+     "text": "4"
+    },
+    {
+     "name": "Text 23",
+     "text": "四"
+    },
+    {
+     "name": "Text 24",
+     "text": "萬"
+    },
+    {
+     "name": "Text 25",
+     "text": "4"
+    },
+    {
+     "name": "Text 27",
+     "text": "5"
+    },
+    {
+     "name": "Text 28",
+     "text": "五"
+    },
+    {
+     "name": "Text 29",
+     "text": "萬"
+    },
+    {
+     "name": "Text 30",
+     "text": "5"
+    },
+    {
+     "name": "Text 32",
+     "text": "6"
+    },
+    {
+     "name": "Text 33",
+     "text": "六"
+    },
+    {
+     "name": "Text 34",
+     "text": "萬"
+    },
+    {
+     "name": "Text 35",
+     "text": "6"
+    },
+    {
+     "name": "Text 37",
+     "text": "7"
+    },
+    {
+     "name": "Text 38",
+     "text": "七"
+    },
+    {
+     "name": "Text 39",
+     "text": "萬"
+    },
+    {
+     "name": "Text 40",
+     "text": "7"
+    },
+    {
+     "name": "Text 42",
+     "text": "8"
+    },
+    {
+     "name": "Text 43",
+     "text": "八"
+    },
+    {
+     "name": "Text 44",
+     "text": "萬"
+    },
+    {
+     "name": "Text 45",
+     "text": "8"
+    },
+    {
+     "name": "Text 47",
+     "text": "9"
+    },
+    {
+     "name": "Text 48",
+     "text": "九"
+    },
+    {
+     "name": "Text 49",
+     "text": "萬"
+    },
+    {
+     "name": "Text 50",
+     "text": "9"
+    },
+    {
+     "name": "Text 52",
+     "text": "How to read a Crak"
+    },
+    {
+     "name": "Text 53",
+     "text": "Top character = the number (一 through 九). Bottom red character 萬 (“wan,” ten-thousand) marks the suit.\nYou never need to read Chinese: the Arabic numeral in the corner tells you the number on American sets."
+    },
+    {
+     "name": "Text 55",
+     "text": "Four of each — 36 Craks total. If the tile has the red 萬 at the bottom, it’s a Crak; say the corner number and “Crak.”"
+    }
+   ],
+   "notes": "Third suit: the Craks, short for characters. Each Crak has two Chinese characters: the top one is the number, and the bottom one — the red character, wan — is the suit marker. Here's the good news: you never need to read Chinese. American sets print the number in the corner, so your read is simply: red character at the bottom means Crak, corner number tells you which one. \"Five Crak.\" Done. Four of each, thirty-six total."
+  },
+  {
+   "n": 8,
+   "shapes": [
+    {
+     "name": "Text 4",
+     "text": "MODULE 1 · HONORS"
+    },
+    {
+     "name": "Text 5",
+     "text": "Winds & Dragons"
+    },
+    {
+     "name": "Text 6",
+     "text": "WINDS — 16 tiles (4 of each)"
+    },
+    {
+     "name": "Text 8",
+     "text": "E"
+    },
+    {
+     "name": "Text 9",
+     "text": "東"
+    },
+    {
+     "name": "Text 10",
+     "text": "East"
+    },
+    {
+     "name": "Text 12",
+     "text": "S"
+    },
+    {
+     "name": "Text 13",
+     "text": "南"
+    },
+    {
+     "name": "Text 14",
+     "text": "South"
+    },
+    {
+     "name": "Text 16",
+     "text": "W"
+    },
+    {
+     "name": "Text 17",
+     "text": "西"
+    },
+    {
+     "name": "Text 18",
+     "text": "West"
+    },
+    {
+     "name": "Text 20",
+     "text": "N"
+    },
+    {
+     "name": "Text 21",
+     "text": "北"
+    },
+    {
+     "name": "Text 22",
+     "text": "North"
+    },
+    {
+     "name": "Text 24",
+     "text": "The corner letter (N·E·W·S) is your read — no Chinese needed. Winds appear in many card hands, including NEWS runs."
+    },
+    {
+     "name": "Text 25",
+     "text": "DRAGONS — 12 tiles (4 of each color)"
+    },
+    {
+     "name": "Text 27",
+     "text": "中"
+    },
+    {
+     "name": "Text 28",
+     "text": "Red (中)"
+    },
+    {
+     "name": "Text 30",
+     "text": "發"
+    },
+    {
+     "name": "Text 31",
+     "text": "Green (發)"
+    },
+    {
+     "name": "Text 34",
+     "text": "White = “Soap”"
+    },
+    {
+     "name": "Text 36",
+     "text": "The Soap is just a bone tile with a blue frame — it looks blank. It is NOT a spare: it’s the White dragon, and on the card it also stands in as zero (0)."
+    },
+    {
+     "name": "Text 38",
+     "text": "Dragon–suit pairing on the card"
+    },
+    {
+     "name": "Text 39",
+     "text": "When a card hand mixes a suit with dragons: Craks go with Red · Bams go with Green · Dots go with Soap (White). Memory hook: C-R, B-G, D-W."
+    }
+   ],
+   "notes": "Now the honor tiles. Winds first: north, east, west, and south, and every wind has its letter printed in the corner — N, E, W, S — so they read at a glance. Four of each, sixteen winds. Then the Dragons, three colors: the red dragon, the green dragon, and the white dragon. The white one deserves special attention — it's basically a blank tile with a blue frame, and players call it the Soap. It is not a spare! It's a live dragon, and on the card it can even stand in for the number zero. Last thing, and it matters for reading the card: when a hand mixes a suit with dragons, they pair up — Craks with red, Bams with green, Dots with the Soap. C-R, B-G, D-W."
+  },
+  {
+   "n": 9,
+   "shapes": [
+    {
+     "name": "Text 4",
+     "text": "MODULE 1 · SPECIALS"
+    },
+    {
+     "name": "Text 5",
+     "text": "Flowers & Jokers"
+    },
+    {
+     "name": "Text 6",
+     "text": "FLOWERS — 8 tiles"
+    },
+    {
+     "name": "Text 8",
+     "text": "1"
+    },
+    {
+     "name": "Text 17",
+     "text": "2"
+    },
+    {
+     "name": "Text 25",
+     "text": "…numbered 1–8"
+    },
+    {
+     "name": "Text 27",
+     "text": "All 8 flowers are interchangeable — any flower fills any “F” on the card, whatever its number or picture.\nFlowers are real hand tiles in American play, not bonuses: many card hands require them.\nSeasons count as flowers in American sets — that’s why there are 8."
+    },
+    {
+     "name": "Text 28",
+     "text": "JOKERS — 8 tiles"
+    },
+    {
+     "name": "Text 30",
+     "text": "JOKER"
+    },
+    {
+     "name": "Text 35",
+     "text": "Matches your set: red JOKER, green dragon face in a blue ring."
+    },
+    {
+     "name": "Text 37",
+     "text": "Joker quick rules (full rules in Module 3)"
+    },
+    {
+     "name": "Text 38",
+     "text": "Wild — but only inside groups of 3+ (pung, kong, quint)\nNever in a pair, never as a single, never in NEWS-style runs of singles\nNever passed in the Charleston\nUnique to American mahjong"
+    }
+   ],
+   "notes": "Two special families left. Flowers: there are eight, numbered one through eight, and here's the American twist — they're all interchangeable. Any flower fills any flower spot in a hand, no matter its number or picture. And flowers are real working tiles here, not bonuses; plenty of winning hands require them. Then the stars of the show: eight Jokers, wild tiles unique to American mahjong. A joker can stand in for other tiles — but under strict rules we'll cover properly in module three. The headline version: jokers work only inside groups of three or more. Never in a pair, never alone, and never, ever passed in the Charleston."
+  },
+  {
+   "n": 10,
+   "shapes": [
+    {
+     "name": "Text 4",
+     "text": "MODULE 1 · KNOWLEDGE CHECK"
+    },
+    {
+     "name": "Text 5",
+     "text": "Tile identification"
+    },
+    {
+     "name": "Text 7",
+     "text": "CONCEPT QUIZ"
+    },
+    {
+     "name": "Text 8",
+     "text": "1.  Which suit’s “1” tile is a bird?"
+    },
+    {
+     "name": "Text 9",
+     "text": "✓  The Bams — the 1 Bam is a bird on a perch."
+    },
+    {
+     "name": "Text 10",
+     "text": "2.  What tile is nicknamed the “Soap,” and what else can it do?"
+    },
+    {
+     "name": "Text 11",
+     "text": "✓  The White dragon (blank with a blue frame). On the card it can also serve as zero."
+    },
+    {
+     "name": "Text 12",
+     "text": "3.  How many tiles are in play, and how many are jokers?"
+    },
+    {
+     "name": "Text 13",
+     "text": "✓  152 in play; 8 are jokers."
+    },
+    {
+     "name": "Text 15",
+     "text": "PRACTICE SCENARIO"
+    },
+    {
+     "name": "Text 16",
+     "text": "You draw a bone-colored tile with nothing on it but a blue rectangular frame. A tablemate says “spare tile, toss it.” What is it really?"
+    },
+    {
+     "name": "Text 18",
+     "text": "Reveal"
+    },
+    {
+     "name": "Text 19",
+     "text": "It’s the Soap — the White dragon. It’s a live, playable tile (and the card’s zero). Keep or discard it on strategy, not because it looks blank."
+    }
+   ],
+   "notes": "Time for your first check. Pause on each question, answer out loud, then compare. And try the scenario before you reveal it — it's the blank-looking tile that fools everyone at least once."
+  },
+  {
+   "n": 11,
+   "shapes": [
+    {
+     "name": "Text 4",
+     "text": "MODULE 2"
+    },
+    {
+     "name": "Text 5",
+     "text": "The table & setup"
+    },
+    {
+     "name": "Text 7",
+     "text": "1"
+    },
+    {
+     "name": "Text 8",
+     "text": "Roll for East"
+    },
+    {
+     "name": "Text 9",
+     "text": "Highest roll deals and holds the extra tile. East rotates right after each hand."
+    },
+    {
+     "name": "Text 11",
+     "text": "2"
+    },
+    {
+     "name": "Text 12",
+     "text": "Build the wall"
+    },
+    {
+     "name": "Text 13",
+     "text": "All 152 tiles face down. Each player: 19 stacks long, 2 tiles high (38 tiles)."
+    },
+    {
+     "name": "Text 15",
+     "text": "3"
+    },
+    {
+     "name": "Text 16",
+     "text": "Break & deal"
+    },
+    {
+     "name": "Text 17",
+     "text": "East rolls, counts that many stacks from the right of a wall, and deals from there: 4 tiles at a time until everyone has 12, then 1 more each — East takes 2."
+    },
+    {
+     "name": "Text 19",
+     "text": "Everyone 13 tiles · East 14 · play moves counter-clockwise (to your right)"
+    },
+    {
+     "name": "Text 42",
+     "text": "19 stacks × 2 high"
+    },
+    {
+     "name": "Text 43",
+     "text": "N"
+    },
+    {
+     "name": "Text 44",
+     "text": "E (dealer)"
+    },
+    {
+     "name": "Text 45",
+     "text": "W"
+    },
+    {
+     "name": "Text 46",
+     "text": "S"
+    }
+   ],
+   "notes": "Let's set the table. Step one: everybody rolls the dice, and the highest roll becomes East — the dealer. East gets the extra tile and, after each hand, the deal rotates to the right. Step two: build the wall. All one fifty-two tiles go face down, and each player builds a wall in front of their rack — nineteen stacks long, two tiles high. Four walls, one square, every tile accounted for. Step three: East rolls again, counts that many stacks in from the right of the indicated wall, and the deal begins there — four tiles at a time around the table until everyone has twelve, then one more each, with East taking two. Final count, say it with me: everyone thirteen, East fourteen. And play will move counter-clockwise — to the right."
+  },
+  {
+   "n": 12,
+   "shapes": [
+    {
+     "name": "Text 4",
+     "text": "MODULE 2 · KNOWLEDGE CHECK"
+    },
+    {
+     "name": "Text 5",
+     "text": "Setup & the deal"
+    },
+    {
+     "name": "Text 7",
+     "text": "CONCEPT QUIZ"
+    },
+    {
+     "name": "Text 8",
+     "text": "1.  How big is each player’s wall?"
+    },
+    {
+     "name": "Text 9",
+     "text": "✓  19 stacks long, 2 tiles high — 38 tiles; four walls hold all 152."
+    },
+    {
+     "name": "Text 10",
+     "text": "2.  After the deal, who holds 14 tiles?"
+    },
+    {
+     "name": "Text 11",
+     "text": "✓  Only East. Everyone else holds 13. East opens by discarding one."
+    },
+    {
+     "name": "Text 12",
+     "text": "3.  Which direction does the turn move?"
+    },
+    {
+     "name": "Text 13",
+     "text": "✓  Counter-clockwise — to the right of the player who just went."
+    },
+    {
+     "name": "Text 15",
+     "text": "PRACTICE SCENARIO"
+    },
+    {
+     "name": "Text 16",
+     "text": "East rolls the dice and gets 7. What does East do with that number?"
+    },
+    {
+     "name": "Text 18",
+     "text": "Reveal"
+    },
+    {
+     "name": "Text 19",
+     "text": "Count 7 stacks in from the right-hand end of the indicated wall and break there — dealing starts from that point, 4 tiles at a time."
+    }
+   ],
+   "notes": "Quick check on the setup. If you can answer these three cold, you can physically start a game anywhere. The scenario walks the dice roll — the piece most beginners have to see once before it clicks."
+  },
+  {
+   "n": 13,
+   "shapes": [
+    {
+     "name": "Text 4",
+     "text": "MODULE 3"
+    },
+    {
+     "name": "Text 5",
+     "text": "The card, and the sets that build it"
+    },
+    {
+     "name": "Text 7",
+     "text": "You win by matching the card"
+    },
+    {
+     "name": "Text 8",
+     "text": "Every legal hand is printed on the players’ card (most tables use the NMJL card, reissued every year).\nYour 14 tiles must match one listed hand exactly — no freestyle combinations.\nHands are worth 25–75 points, printed beside each hand."
+    },
+    {
+     "name": "Text 9",
+     "text": "The building blocks"
+    },
+    {
+     "name": "Text 11",
+     "text": "7"
+    },
+    {
+     "name": "Text 12",
+     "text": "七"
+    },
+    {
+     "name": "Text 13",
+     "text": "萬"
+    },
+    {
+     "name": "Text 15",
+     "text": "7"
+    },
+    {
+     "name": "Text 16",
+     "text": "七"
+    },
+    {
+     "name": "Text 17",
+     "text": "萬"
+    },
+    {
+     "name": "Text 18",
+     "text": "Pair (2)"
+    },
+    {
+     "name": "Text 19",
+     "text": "two identical tiles"
+    },
+    {
+     "name": "Text 21",
+     "text": "7"
+    },
+    {
+     "name": "Text 22",
+     "text": "七"
+    },
+    {
+     "name": "Text 23",
+     "text": "萬"
+    },
+    {
+     "name": "Text 25",
+     "text": "7"
+    },
+    {
+     "name": "Text 26",
+     "text": "七"
+    },
+    {
+     "name": "Text 27",
+     "text": "萬"
+    },
+    {
+     "name": "Text 29",
+     "text": "7"
+    },
+    {
+     "name": "Text 30",
+     "text": "七"
+    },
+    {
+     "name": "Text 31",
+     "text": "萬"
+    },
+    {
+     "name": "Text 32",
+     "text": "Pung (3)"
+    },
+    {
+     "name": "Text 33",
+     "text": "three identical"
+    },
+    {
+     "name": "Text 35",
+     "text": "7"
+    },
+    {
+     "name": "Text 36",
+     "text": "七"
+    },
+    {
+     "name": "Text 37",
+     "text": "萬"
+    },
+    {
+     "name": "Text 39",
+     "text": "7"
+    },
+    {
+     "name": "Text 40",
+     "text": "七"
+    },
+    {
+     "name": "Text 41",
+     "text": "萬"
+    },
+    {
+     "name": "Text 43",
+     "text": "7"
+    },
+    {
+     "name": "Text 44",
+     "text": "七"
+    },
+    {
+     "name": "Text 45",
+     "text": "萬"
+    },
+    {
+     "name": "Text 47",
+     "text": "7"
+    },
+    {
+     "name": "Text 48",
+     "text": "七"
+    },
+    {
+     "name": "Text 49",
+     "text": "萬"
+    },
+    {
+     "name": "Text 50",
+     "text": "Kong (4)"
+    },
+    {
+     "name": "Text 51",
+     "text": "four identical"
+    },
+    {
+     "name": "Text 53",
+     "text": "7"
+    },
+    {
+     "name": "Text 54",
+     "text": "七"
+    },
+    {
+     "name": "Text 55",
+     "text": "萬"
+    },
+    {
+     "name": "Text 57",
+     "text": "7"
+    },
+    {
+     "name": "Text 58",
+     "text": "七"
+    },
+    {
+     "name": "Text 59",
+     "text": "萬"
+    },
+    {
+     "name": "Text 61",
+     "text": "7"
+    },
+    {
+     "name": "Text 62",
+     "text": "七"
+    },
+    {
+     "name": "Text 63",
+     "text": "萬"
+    },
+    {
+     "name": "Text 65",
+     "text": "7"
+    },
+    {
+     "name": "Text 66",
+     "text": "七"
+    },
+    {
+     "name": "Text 67",
+     "text": "萬"
+    },
+    {
+     "name": "Text 69",
+     "text": "JOKER"
+    },
+    {
+     "name": "Text 74",
+     "text": "Quint (5)"
+    },
+    {
+     "name": "Text 75",
+     "text": "five identical — only possible with jokers"
+    },
+    {
+     "name": "Text 77",
+     "text": "Exposed vs concealed"
+    },
+    {
+     "name": "Text 78",
+     "text": "Call a discard to complete a pung/kong/quint → that set is exposed face-up on your rack.\nHands marked C (concealed) on the card allow no exposures — you may only claim a discard for mahjong itself.\nExposed hands are easier; concealed hands score more."
+    },
+    {
+     "name": "Text 80",
+     "text": "A “sextet” (6) appears on some cards — same idea, jokers required. Your table’s card governs."
+    }
+   ],
+   "notes": "So what are you actually building? Here's the heart of American mahjong: you win by matching your fourteen tiles, exactly, to one of the hands printed on the card — most tables use the National Mah Jongg League card, which is reissued every year. No freestyle. Your building blocks are simple: a pair is two identical tiles, a pung is three, a kong is four, and a quint is five — and since only four copies of any tile exist, a quint is only possible with jokers. One more distinction that shapes your whole game: exposed versus concealed. When you call a discard to finish a pung, kong, or quint, that set gets flipped face-up on your rack — exposed. Hands marked C on the card are concealed: no exposures allowed, and you can only claim a discard for the win itself. Concealed is harder, and it pays more."
+  },
+  {
+   "n": 14,
+   "shapes": [
+    {
+     "name": "Text 4",
+     "text": "MODULE 3"
+    },
+    {
+     "name": "Text 5",
+     "text": "Joker rules — strict, and worth memorizing"
+    },
+    {
+     "name": "Text 7",
+     "text": "LEGAL"
+    },
+    {
+     "name": "Text 9",
+     "text": "7"
+    },
+    {
+     "name": "Text 25",
+     "text": "7"
+    },
+    {
+     "name": "Text 41",
+     "text": "7"
+    },
+    {
+     "name": "Text 57",
+     "text": "JOKER"
+    },
+    {
+     "name": "Text 62",
+     "text": "✓"
+    },
+    {
+     "name": "Text 63",
+     "text": "Kong of 7 Bams using a joker — jokers fill any spot in a group of 3 or more (pung, kong, quint, sextet)."
+    },
+    {
+     "name": "Text 65",
+     "text": "NEVER"
+    },
+    {
+     "name": "Text 67",
+     "text": "3"
+    },
+    {
+     "name": "Text 78",
+     "text": "JOKER"
+    },
+    {
+     "name": "Text 83",
+     "text": "✗"
+    },
+    {
+     "name": "Text 84",
+     "text": "No joker in a pair. No joker as a single (including year, NEWS, or 2026-style number hands). This is the #1 joker error."
+    },
+    {
+     "name": "Text 86",
+     "text": "The joker exchange — free upgrades"
+    },
+    {
+     "name": "Text 87",
+     "text": "On your turn (after drawing), if any player’s exposed set contains a joker and you hold the matching natural tile, you may swap your tile for that joker — including from your own exposures.\nA discarded joker is just a dead discard: no one may call it, and it stops being wild.\nJokers are never passed in the Charleston — receive one by mistake and it goes straight back."
+    }
+   ],
+   "notes": "Joker rules — strict, short, and worth memorizing, because joker mistakes are the most common fouls in the game. Rule one: jokers live only in groups of three or more. A pung, a kong, a quint — perfect. A pair? Never. A single tile? Never. Rule two — and this one wins games — the joker exchange. On your turn, after you draw, if any exposed set on the table shows a joker and you're holding the matching real tile, you can swap your tile for that joker. Even from your own exposures. A free wild tile, just for paying attention. Rule three: a discarded joker is dead — nobody can call it, and its wildness is gone. And rule four: jokers never travel in the Charleston. If someone passes you one by mistake, straight back it goes."
+  },
+  {
+   "n": 15,
+   "shapes": [
+    {
+     "name": "Text 4",
+     "text": "MODULE 3 · KNOWLEDGE CHECK"
+    },
+    {
+     "name": "Text 5",
+     "text": "The card, sets & jokers"
+    },
+    {
+     "name": "Text 7",
+     "text": "CONCEPT QUIZ"
+    },
+    {
+     "name": "Text 8",
+     "text": "1.  Can a joker complete a pair?"
+    },
+    {
+     "name": "Text 9",
+     "text": "✓  No. Jokers work only in groups of 3+ — pung, kong, quint, sextet."
+    },
+    {
+     "name": "Text 10",
+     "text": "2.  What is a quint, and why does it need jokers?"
+    },
+    {
+     "name": "Text 11",
+     "text": "✓  Five identical tiles; only four naturals exist, so at least one joker is required."
+    },
+    {
+     "name": "Text 12",
+     "text": "3.  Your hand is marked C on the card. When may you call a discard?"
+    },
+    {
+     "name": "Text 13",
+     "text": "✓  Only for mahjong itself — concealed hands allow no exposures."
+    },
+    {
+     "name": "Text 15",
+     "text": "PRACTICE SCENARIO"
+    },
+    {
+     "name": "Text 16",
+     "text": "An opponent’s exposed kong of 4 Craks shows a joker, and you’re holding a natural 4 Crak you don’t need there. What’s your move?"
+    },
+    {
+     "name": "Text 18",
+     "text": "Reveal"
+    },
+    {
+     "name": "Text 19",
+     "text": "On your turn, after you draw: exchange your natural 4 Crak for their joker. You now own a wild tile — one of the strongest moves in the game."
+    }
+   ],
+   "notes": "Check yourself on the card and the jokers. The scenario is the joker exchange — honestly one of the most satisfying moves in the game, and one many beginners never realize they're allowed to make."
+  },
+  {
+   "n": 16,
+   "shapes": [
+    {
+     "name": "Text 4",
+     "text": "MODULE 4"
+    },
+    {
+     "name": "Text 5",
+     "text": "The Charleston"
+    },
+    {
+     "name": "Text 6",
+     "text": "FIRST — required: right, across, left"
+    },
+    {
+     "name": "Text 11",
+     "text": "YOU"
+    },
+    {
+     "name": "Text 13",
+     "text": "Across"
+    },
+    {
+     "name": "Text 15",
+     "text": "Right"
+    },
+    {
+     "name": "Text 17",
+     "text": "Left"
+    },
+    {
+     "name": "Text 19",
+     "text": "1"
+    },
+    {
+     "name": "Text 21",
+     "text": "2"
+    },
+    {
+     "name": "Text 23",
+     "text": "3"
+    },
+    {
+     "name": "Text 24",
+     "text": "SECOND — optional: left, across, right"
+    },
+    {
+     "name": "Text 29",
+     "text": "YOU"
+    },
+    {
+     "name": "Text 31",
+     "text": "Across"
+    },
+    {
+     "name": "Text 33",
+     "text": "Right"
+    },
+    {
+     "name": "Text 35",
+     "text": "Left"
+    },
+    {
+     "name": "Text 37",
+     "text": "1"
+    },
+    {
+     "name": "Text 39",
+     "text": "2"
+    },
+    {
+     "name": "Text 41",
+     "text": "3"
+    },
+    {
+     "name": "Text 42",
+     "text": "3 tiles per pass · any single player may stop the second Charleston before it starts"
+    },
+    {
+     "name": "Text 44",
+     "text": "Blind pass"
+    },
+    {
+     "name": "Text 45",
+     "text": "only on the LAST pass of each Charleston — pass received tiles unseen"
+    },
+    {
+     "name": "Text 46",
+     "text": "Courtesy pass"
+    },
+    {
+     "name": "Text 47",
+     "text": "after it all ends: swap 0–3 with the player across; the lower number rules"
+    },
+    {
+     "name": "Text 48",
+     "text": "Jokers"
+    },
+    {
+     "name": "Text 49",
+     "text": "never passed — hand one back immediately if you receive it"
+    }
+   ],
+   "notes": "Now the famous part: the Charleston, the pre-game tile swap. First Charleston — this one's required: pass three tiles to your right, then three across the table, then three to your left. Right, across, left. Second Charleston — optional, and here's the key: it takes everyone. Any single player can call it off. If it runs, it mirrors back: left, across, right. Two special moves. The blind pass: on the last pass of either Charleston, if you love your hand, you may pass along tiles you just received without even looking at them. And the courtesy pass: after all the passing ends, you and the player across from you may swap zero to three tiles — and the lower number rules. You want three, they want one? You each pass one. And the golden rule one more time: jokers never pass."
+  },
+  {
+   "n": 17,
+   "shapes": [
+    {
+     "name": "Text 4",
+     "text": "MODULE 4 · KNOWLEDGE CHECK"
+    },
+    {
+     "name": "Text 5",
+     "text": "The Charleston"
+    },
+    {
+     "name": "Text 7",
+     "text": "CONCEPT QUIZ"
+    },
+    {
+     "name": "Text 8",
+     "text": "1.  Order of the first (required) Charleston?"
+    },
+    {
+     "name": "Text 9",
+     "text": "✓  Right, across, left — three tiles each pass."
+    },
+    {
+     "name": "Text 10",
+     "text": "2.  When is a blind pass allowed?"
+    },
+    {
+     "name": "Text 11",
+     "text": "✓  Only on the last pass of each Charleston (first’s left; second’s right)."
+    },
+    {
+     "name": "Text 12",
+     "text": "3.  Courtesy pass: you want to swap 3, the player across wants 1."
+    },
+    {
+     "name": "Text 13",
+     "text": "✓  You each pass 1 — the lower number always governs."
+    },
+    {
+     "name": "Text 15",
+     "text": "PRACTICE SCENARIO"
+    },
+    {
+     "name": "Text 16",
+     "text": "The table finishes the first Charleston. Three players want the second; one says no. What happens?"
+    },
+    {
+     "name": "Text 18",
+     "text": "Reveal"
+    },
+    {
+     "name": "Text 19",
+     "text": "No second Charleston — any single player can stop it. The table moves straight to the optional courtesy pass, then East discards to start play."
+    }
+   ],
+   "notes": "Charleston check. The pass order, the blind pass timing, and the courtesy-pass numbers game are the three things that trip up new players — nail these and you'll look like a veteran before the first tile is ever drawn."
+  },
+  {
+   "n": 18,
+   "shapes": [
+    {
+     "name": "Text 4",
+     "text": "MODULE 5"
+    },
+    {
+     "name": "Text 5",
+     "text": "Playing a round"
+    },
+    {
+     "name": "Text 7",
+     "text": "1"
+    },
+    {
+     "name": "Text 8",
+     "text": "Draw"
+    },
+    {
+     "name": "Text 9",
+     "text": "one tile from the wall"
+    },
+    {
+     "name": "Text 12",
+     "text": "2"
+    },
+    {
+     "name": "Text 13",
+     "text": "Rack it"
+    },
+    {
+     "name": "Text 14",
+     "text": "keep your hand hidden"
+    },
+    {
+     "name": "Text 17",
+     "text": "3"
+    },
+    {
+     "name": "Text 18",
+     "text": "Discard"
+    },
+    {
+     "name": "Text 19",
+     "text": "face-up, name it aloud"
+    },
+    {
+     "name": "Text 21",
+     "text": "Always back to 13"
+    },
+    {
+     "name": "Text 22",
+     "text": "(East plays 14 → 13) · counter-clockwise"
+    },
+    {
+     "name": "Text 24",
+     "text": "Calling a discard"
+    },
+    {
+     "name": "Text 25",
+     "text": "Only the most recent discard is callable — earlier ones are gone.\nCall to expose a pung, kong, or quint — or to declare mahjong.\nA pair may only be completed by a discard if it wins the game.\nName the tile correctly; a wrong name voids the claim.\nTwo callers? Mahjong beats an exposure call; otherwise the player next in turn from the discarder gets it.\nAfter you call, expose the full set on your rack, then discard."
+    },
+    {
+     "name": "Text 27",
+     "text": "Fouls & the dead hand"
+    },
+    {
+     "name": "Text 28",
+     "text": "Don’t draw out of turn; look at only one wall tile per draw.\nWrong tile count (not 13/14)? Your hand is DEAD: stop playing, keep tiles hidden, and you still pay the winner.\nA false “Mah Jongg” with tiles exposed also kills the hand.\nAntidote: one-second count before every discard."
+    },
+    {
+     "name": "Text 29",
+     "text": "Wall empties with no winner → wall game (covered in scoring)."
+    }
+   ],
+   "notes": "Let's play. On your turn: draw one tile from the wall, rack it, and discard one face-up in the middle — naming it out loud. \"Six Dot.\" \"Soap.\" Then it's the next player's turn, moving counter-clockwise. Simple rhythm, one golden number: after your discard you hold exactly thirteen. Now, calling. Only the most recent discard is ever up for grabs — the moment the next player draws, it's gone. You can call a discard to expose a pung, kong, or quint, or to declare mahjong. A pair? Only if it wins you the game on the spot. If two players want the same tile, mahjong beats an exposure, and otherwise it goes to whoever's turn comes next. And the thing to fear: the dead hand. Wrong tile count — twelve tiles, fifteen tiles — and you're out: you stop playing, keep your tiles hidden, and you still pay the winner. The cure costs one second: count before every discard."
+  },
+  {
+   "n": 19,
+   "shapes": [
+    {
+     "name": "Text 4",
+     "text": "MODULE 5 · KNOWLEDGE CHECK"
+    },
+    {
+     "name": "Text 5",
+     "text": "Turns & calling"
+    },
+    {
+     "name": "Text 7",
+     "text": "CONCEPT QUIZ"
+    },
+    {
+     "name": "Text 8",
+     "text": "1.  Which discard can you call?"
+    },
+    {
+     "name": "Text 9",
+     "text": "✓  Only the most recent one — once the next player draws, it’s dead."
+    },
+    {
+     "name": "Text 10",
+     "text": "2.  May you call a discard to finish a pair?"
+    },
+    {
+     "name": "Text 11",
+     "text": "✓  Only if that pair completes your mahjong. Otherwise pairs come from the wall."
+    },
+    {
+     "name": "Text 12",
+     "text": "3.  Two players call the same tile — who wins?"
+    },
+    {
+     "name": "Text 13",
+     "text": "✓  A mahjong call beats an exposure call; between equals, the player next in turn from the discarder."
+    },
+    {
+     "name": "Text 15",
+     "text": "PRACTICE SCENARIO"
+    },
+    {
+     "name": "Text 16",
+     "text": "Mid-game you glance down and count 12 tiles. What now?"
+    },
+    {
+     "name": "Text 18",
+     "text": "Reveal"
+    },
+    {
+     "name": "Text 19",
+     "text": "Your hand is dead: announce it, stop drawing and discarding, keep your tiles concealed — and you still pay the winner at the end. This is why the pre-discard count matters."
+    }
+   ],
+   "notes": "Turn mechanics check. The scenario is the dead hand — it stings, but walking through it once here means you'll never actually live it at the table."
+  },
+  {
+   "n": 20,
+   "shapes": [
+    {
+     "name": "Text 4",
+     "text": "MODULE 6"
+    },
+    {
+     "name": "Text 5",
+     "text": "Winning & scoring"
+    },
+    {
+     "name": "Text 7",
+     "text": "Declare it"
+    },
+    {
+     "name": "Text 8",
+     "text": "14th tile completes a card hand → say “Mah Jongg” and show it.\nThe table verifies against the card.\nIts printed value (25–75) is the base."
+    },
+    {
+     "name": "Text 10",
+     "text": "Win by discard"
+    },
+    {
+     "name": "Text 11",
+     "text": "Discarder pays 2×"
+    },
+    {
+     "name": "Text 12",
+     "text": "Other two pay 1×"
+    },
+    {
+     "name": "Text 13",
+     "text": "Throwing the winning tile is expensive — defense matters."
+    },
+    {
+     "name": "Text 15",
+     "text": "Win by self-pick"
+    },
+    {
+     "name": "Text 16",
+     "text": "Everyone pays 2×"
+    },
+    {
+     "name": "Text 17",
+     "text": "Draw your own winning tile from the wall and all three opponents pay double."
+    },
+    {
+     "name": "Text 19",
+     "text": "Bonus & edge cases"
+    },
+    {
+     "name": "Text 20",
+     "text": "Jokerless: winning with zero jokers doubles the value again — bonuses stack. (Doesn’t apply to Singles-and-Pairs hands, which can’t use jokers anyway.)\nWall game: tiles run out with no winner → nobody pays; shuffle and redeal.\nValues and hands come from the card in play — confirm the year before starting."
+    },
+    {
+     "name": "Text 22",
+     "text": "Worked example"
+    },
+    {
+     "name": "Text 23",
+     "text": "25-pt hand, won on a discard:\ndiscarder pays 50 · others pay 25 each = 100 in.\nSame hand self-picked & jokerless:\n25 × 2 × 2 = 100 from each player."
+    }
+   ],
+   "notes": "The good part: getting paid. When your fourteenth tile completes a card hand, say \"Mah Jongg,\" show your tiles, and the table checks them against the card. The printed value — twenty-five to seventy-five points — is your base. Then how you won sets the multiplier. Won on somebody's discard? That player pays you double, and the other two pay single — which is why careless discards are expensive. Drew the winning tile yourself off the wall? Self-pick: everybody pays double. And if your winning hand used zero jokers, double it again — the bonuses stack. Quick example: a twenty-five point hand, self-picked, jokerless — twenty-five, doubled, doubled — that's a hundred from every player. One more outcome to know: if the wall runs out with no winner, that's a wall game. Nobody pays. Shuffle up, rotate East, go again."
+  },
+  {
+   "n": 21,
+   "shapes": [
+    {
+     "name": "Text 4",
+     "text": "MODULE 6 · KNOWLEDGE CHECK"
+    },
+    {
+     "name": "Text 5",
+     "text": "Scoring"
+    },
+    {
+     "name": "Text 7",
+     "text": "CONCEPT QUIZ"
+    },
+    {
+     "name": "Text 8",
+     "text": "1.  A 25-point hand wins on Priya’s discard. Who pays what?"
+    },
+    {
+     "name": "Text 9",
+     "text": "✓  Priya pays 50 (double); the other two pay 25 each."
+    },
+    {
+     "name": "Text 10",
+     "text": "2.  A 30-point hand wins by self-pick. Who pays what?"
+    },
+    {
+     "name": "Text 11",
+     "text": "✓  All three opponents pay 60 — self-pick doubles for everyone."
+    },
+    {
+     "name": "Text 12",
+     "text": "3.  What does a jokerless win add?"
+    },
+    {
+     "name": "Text 13",
+     "text": "✓  Another doubling, stacked on top (not applicable to Singles-and-Pairs hands)."
+    },
+    {
+     "name": "Text 15",
+     "text": "PRACTICE SCENARIO"
+    },
+    {
+     "name": "Text 16",
+     "text": "The last wall tile is drawn and discarded with no winner. What happens to payments?"
+    },
+    {
+     "name": "Text 18",
+     "text": "Reveal"
+    },
+    {
+     "name": "Text 19",
+     "text": "It’s a wall game: no one pays anything. Shuffle, rebuild the walls, rotate East to the right, and deal the next hand."
+    }
+   ],
+   "notes": "Scoring check. Do the arithmetic out loud on these — payment math is the thing veteran players silently judge, and the thing you'll be glad is automatic."
+  },
+  {
+   "n": 22,
+   "shapes": [
+    {
+     "name": "Text 4",
+     "text": "MODULE 7"
+    },
+    {
+     "name": "Text 5",
+     "text": "Playing with strangers"
+    },
+    {
+     "name": "Text 6",
+     "text": "Ask before the first Charleston"
+    },
+    {
+     "name": "Text 9",
+     "text": "1"
+    },
+    {
+     "name": "Text 10",
+     "text": "Which card?"
+    },
+    {
+     "name": "Text 11",
+     "text": "“Are we on this year’s NMJL card?” Hands and values change every year — bring or borrow the right one."
+    },
+    {
+     "name": "Text 14",
+     "text": "2"
+    },
+    {
+     "name": "Text 15",
+     "text": "House rules?"
+    },
+    {
+     "name": "Text 16",
+     "text": "Courtesy pass in use? Any local joker or payment quirks? Thirty seconds now prevents every argument later."
+    },
+    {
+     "name": "Text 19",
+     "text": "3"
+    },
+    {
+     "name": "Text 20",
+     "text": "Stakes?"
+    },
+    {
+     "name": "Text 21",
+     "text": "Chips, coins, or just score? Confirm what a point is worth before anyone owes anything."
+    },
+    {
+     "name": "Text 23",
+     "text": "Table etiquette"
+    },
+    {
+     "name": "Text 24",
+     "text": "Keep pace — draw, decide, discard; the table has a rhythm.\nName every discard clearly; call claims promptly.\nRacks hide your hand; comment on no one’s tiles but your own.\nWin and lose the same way: pleasantly."
+    },
+    {
+     "name": "Text 26",
+     "text": "The one-second self-check"
+    },
+    {
+     "name": "Text 27",
+     "text": "Before every discard: Do I have 13? Is this the tile I mean to throw? That glance is the whole difference between a smooth player and a dead hand."
+    }
+   ],
+   "notes": "Last module: sitting down with strangers and looking like you belong. Three questions before the first Charleston. One: which card are we on? The card changes every year, and playing last year's hands is the classic newcomer mistake. Two: any house rules? Courtesy pass, payment quirks — thirty seconds now saves an argument later. Three: what are the stakes? Chips, coins, or bragging rights — know before anyone owes anything. Then just be good company: keep the rhythm moving, name your discards clearly, never comment on anyone's tiles, and win or lose the same pleasant way. And keep your one-second self-check: thirteen tiles? Right tile? Discard."
+  },
+  {
+   "n": 23,
+   "shapes": [
+    {
+     "name": "Text 4",
+     "text": "MODULE 7 · KNOWLEDGE CHECK"
+    },
+    {
+     "name": "Text 5",
+     "text": "At a new table"
+    },
+    {
+     "name": "Text 7",
+     "text": "CONCEPT QUIZ"
+    },
+    {
+     "name": "Text 8",
+     "text": "1.  What’s the first question at an unfamiliar table?"
+    },
+    {
+     "name": "Text 9",
+     "text": "✓  Which card (and which year) is in play — it defines every legal hand and value."
+    },
+    {
+     "name": "Text 10",
+     "text": "2.  You call a discard but name it wrong. What happens?"
+    },
+    {
+     "name": "Text 11",
+     "text": "✓  The claim is void. Name tiles exactly: “five Bam,” “Soap,” “north.”"
+    },
+    {
+     "name": "Text 12",
+     "text": "3.  What’s the habit that prevents most beginner errors?"
+    },
+    {
+     "name": "Text 13",
+     "text": "✓  The one-second pre-discard self-check: count 13, confirm the tile."
+    },
+    {
+     "name": "Text 15",
+     "text": "PRACTICE SCENARIO"
+    },
+    {
+     "name": "Text 16",
+     "text": "You join three strangers at a café. In twenty seconds, what do you ask before tiles move?"
+    },
+    {
+     "name": "Text 18",
+     "text": "Reveal"
+    },
+    {
+     "name": "Text 19",
+     "text": "“Which year’s card are we on? Any house rules I should know — courtesy pass, payments? And what are we playing for?” Then build your wall like you’ve done it forever."
+    }
+   ],
+   "notes": "Final module check. The scenario is your twenty-second script for joining a strange table — practice saying it out loud once, and that first café game will feel like your hundredth."
+  },
+  {
+   "n": 24,
+   "shapes": [
+    {
+     "name": "Text 4",
+     "text": "CAPSTONE"
+    },
+    {
+     "name": "Text 5",
+     "text": "One full hand, start to finish"
+    },
+    {
+     "name": "Text 6",
+     "text": "The learner runs a complete hand — live with three players, or through the course’s scripted walkthrough — and must, unprompted:"
+    },
+    {
+     "name": "Text 8",
+     "text": "Set up"
+    },
+    {
+     "name": "Text 9",
+     "text": "Racks, dice for East, four 19×2 walls, correct 13/14 deal"
+    },
+    {
+     "name": "Text 11",
+     "text": "Charleston"
+    },
+    {
+     "name": "Text 12",
+     "text": "Run the required passes; handle blind & courtesy passes correctly"
+    },
+    {
+     "name": "Text 14",
+     "text": "Play"
+    },
+    {
+     "name": "Text 15",
+     "text": "5+ rounds of legal draws and named discards; at least one legal call with proper exposure"
+    },
+    {
+     "name": "Text 17",
+     "text": "Joker law"
+    },
+    {
+     "name": "Text 18",
+     "text": "Use a joker legally and execute or explain a joker exchange"
+    },
+    {
+     "name": "Text 20",
+     "text": "Trap check"
+    },
+    {
+     "name": "Text 21",
+     "text": "Catch one injected dead-hand or illegal-call situation"
+    },
+    {
+     "name": "Text 23",
+     "text": "Score"
+    },
+    {
+     "name": "Text 24",
+     "text": "Declare a win and compute the payout, including a double"
+    },
+    {
+     "name": "Text 26",
+     "text": "Mastery bar:  ≤ 2 procedural errors  ·  0 illegal claims  ·  correct final payout"
+    }
+   ],
+   "notes": "This is where it all comes together: the capstone. One complete hand, start to finish — live with three other players if you can, or through the guided walkthrough. You'll set up, deal thirteen-fourteen, run the Charleston, play real turns with at least one legal call, handle jokers lawfully, catch a planted trap, and score the win — payments and all. The bar: no more than two procedural slips, zero illegal claims, and the payout computed correctly. Clear that, and you're not learning mahjong anymore. You're playing it."
+  },
+  {
+   "n": 25,
+   "shapes": [
+    {
+     "name": "Text 4",
+     "text": "READY FOR A REAL TABLE"
+    },
+    {
+     "name": "Text 5",
+     "text": "The confident-player checklist"
+    },
+    {
+     "name": "Text 7",
+     "text": "✓"
+    },
+    {
+     "name": "Text 8",
+     "text": "Name any of the 152 tiles on sight — including the 1 Bam bird and the Soap"
+    },
+    {
+     "name": "Text 10",
+     "text": "✓"
+    },
+    {
+     "name": "Text 11",
+     "text": "Pair the right dragon with the right suit (Crak-Red, Bam-Green, Dot-Soap)"
+    },
+    {
+     "name": "Text 13",
+     "text": "✓"
+    },
+    {
+     "name": "Text 14",
+     "text": "Build a 19×2 wall, roll for East, and deal 13/14 without prompting"
+    },
+    {
+     "name": "Text 16",
+     "text": "✓"
+    },
+    {
+     "name": "Text 17",
+     "text": "Run both Charlestons, a blind pass, and a courtesy pass correctly"
+    },
+    {
+     "name": "Text 19",
+     "text": "✓"
+    },
+    {
+     "name": "Text 20",
+     "text": "Keep exactly 13 tiles and catch a dead hand — yours or anyone’s"
+    },
+    {
+     "name": "Text 22",
+     "text": "✓"
+    },
+    {
+     "name": "Text 23",
+     "text": "Use jokers only in 3+ groups, and spot an available joker exchange"
+    },
+    {
+     "name": "Text 25",
+     "text": "✓"
+    },
+    {
+     "name": "Text 26",
+     "text": "Call only the latest discard, name it exactly, expose correctly"
+    },
+    {
+     "name": "Text 28",
+     "text": "✓"
+    },
+    {
+     "name": "Text 29",
+     "text": "Score any win: discard double, self-pick double, jokerless stack, wall game"
+    },
+    {
+     "name": "Text 30",
+     "text": "All eight, without notes → the learner is table-ready."
+    }
+   ],
+   "notes": "Before you go find a game, run this list honestly. Eight skills, no notes allowed. Every one of them maps to a module you've finished, so anything shaky — jump back, it's a two-minute refresh. All eight solid? Then there's nothing left to learn from me that a real table won't teach you better."
+  },
+  {
+   "n": 26,
+   "shapes": [
+    {
+     "name": "Text 0",
+     "text": "NEXT"
+    },
+    {
+     "name": "Text 1",
+     "text": "Approve → I build the single-file HTML course"
+    },
+    {
+     "name": "Text 3",
+     "text": "✓"
+    },
+    {
+     "name": "Text 4",
+     "text": "Everything in this deck"
+    },
+    {
+     "name": "Text 5",
+     "text": "All 7 modules, quizzes, scenarios, capstone & checklist — same text, same order."
+    },
+    {
+     "name": "Text 7",
+     "text": "✓"
+    },
+    {
+     "name": "Text 8",
+     "text": "These exact tiles"
+    },
+    {
+     "name": "Text 9",
+     "text": "Every tile you just verified redrawn as inline SVG — crisp at any size, zero external files."
+    },
+    {
+     "name": "Text 11",
+     "text": "✓"
+    },
+    {
+     "name": "Text 12",
+     "text": "Interactive layer"
+    },
+    {
+     "name": "Text 13",
+     "text": "Tile-ID flash drills, tap-to-answer quizzes with instant grading, reveal-style scenarios, progress tracking."
+    },
+    {
+     "name": "Text 15",
+     "text": "✓"
+    },
+    {
+     "name": "Text 16",
+     "text": "One .html file"
+    },
+    {
+     "name": "Text 17",
+     "text": "Self-contained, offline-capable, no folders — open it anywhere."
+    },
+    {
+     "name": "Text 18",
+     "text": "Review this deck for content errors — rules, tile art, wording — and send corrections. The HTML build follows your sign-off."
+    }
+   ],
+   "notes": "That's the course. You know all one hundred fifty-two tiles, the setup, the card, the Charleston, real turns, real scoring, and how to sit down anywhere with confidence. Grab your set, find three people, and play a hand tonight. The tiles are waiting. Good luck — and may you always be jokerless when it counts."
+  }
+ ],
+ "theme": "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><a:theme xmlns:a=\"http://schemas.openxmlformats.org/drawingml/2006/main\" name=\"Office Theme\"><a:themeElements><a:clrScheme name=\"Office\"><a:dk1><a:sysClr val=\"windowText\" lastClr=\"000000\"/></a:dk1><a:lt1><a:sysClr val=\"window\" lastClr=\"FFFFFF\"/></a:lt1><a:dk2><a:srgbClr val=\"44546A\"/></a:dk2><a:lt2><a:srgbClr val=\"E7E6E6\"/></a:lt2><a:accent1><a:srgbClr val=\"4472C4\"/></a:accent1><a:accent2><a:srgbClr val=\"ED7D31\"/></a:accent2><a:accent3><a:srgbClr val=\"A5A5A5\"/></a:accent3><a:accent4><a:srgbClr val=\"FFC000\"/></a:accent4><a:accent5><a:srgbClr val=\"5B9BD5\"/></a:accent5><a:accent6><a:srgbClr val=\"70AD47\"/></a:accent6><a:hlink><a:srgbClr val=\"0563C1\"/></a:hlink><a:folHlink><a:srgbClr val=\"954F72\"/></a:folHlink></a:clrScheme><a:fontScheme name=\"Office\"><a:majorFont><a:latin typeface=\"Calibri Light\" panose=\"020F0302020204030204\"/><a:ea typeface=\"\"/><a:cs typeface=\"\"/><a:font script=\"Jpan\" typeface=\"游ゴシック Light\"/><a:font script=\"Hang\" typeface=\"맑은 고딕\"/><a:font script=\"Hans\" typeface=\"等线 Light\"/><a:font script=\"Hant\" typeface=\"新細明體\"/><a:font script=\"Arab\" typeface=\"Times New Roman\"/><a:font script=\"Hebr\" typeface=\"Times New Roman\"/><a:font script=\"Thai\" typeface=\"Angsana New\"/><a:font script=\"Ethi\" typeface=\"Nyala\"/><a:font script=\"Beng\" typeface=\"Vrinda\"/><a:font script=\"Gujr\" typeface=\"Shruti\"/><a:font script=\"Khmr\" typeface=\"MoolBoran\"/><a:font script=\"Knda\" typeface=\"Tunga\"/><a:font script=\"Guru\" typeface=\"Raavi\"/><a:font script=\"Cans\" typeface=\"Euphemia\"/><a:font script=\"Cher\" typeface=\"Plantagenet Cherokee\"/><a:font script=\"Yiii\" typeface=\"Microsoft Yi Baiti\"/><a:font script=\"Tibt\" typeface=\"Microsoft Himalaya\"/><a:font script=\"Thaa\" typeface=\"MV Boli\"/><a:font script=\"Deva\" typeface=\"Mangal\"/><a:font script=\"Telu\" typeface=\"Gautami\"/><a:font script=\"Taml\" typeface=\"Latha\"/><a:font script=\"Syrc\" typeface=\"Estrangelo Edessa\"/><a:font script=\"Orya\" typeface=\"Kalinga\"/><a:font script=\"Mlym\" typeface=\"Kartika\"/><a:font script=\"Laoo\" typeface=\"DokChampa\"/><a:font script=\"Sinh\" typeface=\"Iskoola Pota\"/><a:font script=\"Mong\" typeface=\"Mongolian Baiti\"/><a:font script=\"Viet\" typeface=\"Times New Roman\"/><a:font script=\"Uigh\" typeface=\"Microsoft Uighur\"/><a:font script=\"Geor\" typeface=\"Sylfaen\"/><a:font script=\"Armn\" typeface=\"Arial\"/><a:font script=\"Bugi\" typeface=\"Leelawadee UI\"/><a:font script=\"Bopo\" typeface=\"Microsoft JhengHei\"/><a:font script=\"Java\" typeface=\"Javanese Text\"/><a:font script=\"Lisu\" typeface=\"Segoe UI\"/><a:font script=\"Mymr\" typeface=\"Myanmar Text\"/><a:font script=\"Nkoo\" typeface=\"Ebrima\"/><a:font script=\"Olck\" typeface=\"Nirmala UI\"/><a:font script=\"Osma\" typeface=\"Ebrima\"/><a:font script=\"Phag\" typeface=\"Phagspa\"/><a:font script=\"Syrn\" typeface=\"Estrangelo Edessa\"/><a:font script=\"Syrj\" typeface=\"Estrangelo Edessa\"/><a:font script=\"Syre\" typeface=\"Estrangelo Edessa\"/><a:font script=\"Sora\" typeface=\"Nirmala UI\"/><a:font script=\"Tale\" typeface=\"Microsoft Tai Le\"/><a:font script=\"Talu\" typeface=\"Microsoft New Tai Lue\"/><a:font script=\"Tfng\" typeface=\"Ebrima\"/></a:majorFont><a:minorFont><a:latin typeface=\"Calibri\" panose=\"020F0502020204030204\"/><a:ea typeface=\"\"/><a:cs typeface=\"\"/><a:font script=\"Jpan\" typeface=\"游ゴシック\"/><a:font script=\"Hang\" typeface=\"맑은 고딕\"/><a:font script=\"Hans\" typeface=\"等线\"/><a:font script=\"Hant\" typeface=\"新細明體\"/><a:font script=\"Arab\" typeface=\"Arial\"/><a:font script=\"Hebr\" typeface=\"Arial\"/><a:font script=\"Thai\" typeface=\"Cordia New\"/><a:font script=\"Ethi\" typeface=\"Nyala\"/><a:font script=\"Beng\" typeface=\"Vrinda\"/><a:font script=\"Gujr\" typeface=\"Shruti\"/><a:font script=\"Khmr\" typeface=\"DaunPenh\"/><a:font script=\"Knda\" typeface=\"Tunga\"/><a:font script=\"Guru\" typeface=\"Raavi\"/><a:font script=\"Cans\" typeface=\"Euphemia\"/><a:font script=\"Cher\" typeface=\"Plantagenet Cherokee\"/><a:font script=\"Yiii\" typeface=\"Microsoft Yi Baiti\"/><a:font script=\"Tibt\" typeface=\"Microsoft Himalaya\"/><a:font script=\"Thaa\" typeface=\"MV Boli\"/><a:font script=\"Deva\" typeface=\"Mangal\"/><a:font script=\"Telu\" typeface=\"Gautami\"/><a:font script=\"Taml\" typeface=\"Latha\"/><a:font script=\"Syrc\" typeface=\"Estrangelo Edessa\"/><a:font script=\"Orya\" typeface=\"Kalinga\"/><a:font script=\"Mlym\" typeface=\"Kartika\"/><a:font script=\"Laoo\" typeface=\"DokChampa\"/><a:font script=\"Sinh\" typeface=\"Iskoola Pota\"/><a:font script=\"Mong\" typeface=\"Mongolian Baiti\"/><a:font script=\"Viet\" typeface=\"Arial\"/><a:font script=\"Uigh\" typeface=\"Microsoft Uighur\"/><a:font script=\"Geor\" typeface=\"Sylfaen\"/><a:font script=\"Armn\" typeface=\"Arial\"/><a:font script=\"Bugi\" typeface=\"Leelawadee UI\"/><a:font script=\"Bopo\" typeface=\"Microsoft JhengHei\"/><a:font script=\"Java\" typeface=\"Javanese Text\"/><a:font script=\"Lisu\" typeface=\"Segoe UI\"/><a:font script=\"Mymr\" typeface=\"Myanmar Text\"/><a:font script=\"Nkoo\" typeface=\"Ebrima\"/><a:font script=\"Olck\" typeface=\"Nirmala UI\"/><a:font script=\"Osma\" typeface=\"Ebrima\"/><a:font script=\"Phag\" typeface=\"Phagspa\"/><a:font script=\"Syrn\" typeface=\"Estrangelo Edessa\"/><a:font script=\"Syrj\" typeface=\"Estrangelo Edessa\"/><a:font script=\"Syre\" typeface=\"Estrangelo Edessa\"/><a:font script=\"Sora\" typeface=\"Nirmala UI\"/><a:font script=\"Tale\" typeface=\"Microsoft Tai Le\"/><a:font script=\"Talu\" typeface=\"Microsoft New Tai Lue\"/><a:font script=\"Tfng\" typeface=\"Ebrima\"/></a:minorFont></a:fontScheme><a:fmtScheme name=\"Office\"><a:fillStyleLst><a:solidFill><a:schemeClr val=\"phClr\"/></a:solidFill><a:gradFill rotWithShape=\"1\"><a:gsLst><a:gs pos=\"0\"><a:schemeClr val=\"phClr\"><a:lumMod val=\"110000\"/><a:satMod val=\"105000\"/><a:tint val=\"67000\"/></a:schemeClr></a:gs><a:gs pos=\"50000\"><a:schemeClr val=\"phClr\"><a:lumMod val=\"105000\"/><a:satMod val=\"103000\"/><a:tint val=\"73000\"/></a:schemeClr></a:gs><a:gs pos=\"100000\"><a:schemeClr val=\"phClr\"><a:lumMod val=\"105000\"/><a:satMod val=\"109000\"/><a:tint val=\"81000\"/></a:schemeClr></a:gs></a:gsLst><a:lin ang=\"5400000\" scaled=\"0\"/></a:gradFill><a:gradFill rotWithShape=\"1\"><a:gsLst><a:gs pos=\"0\"><a:schemeClr val=\"phClr\"><a:satMod val=\"103000\"/><a:lumMod val=\"102000\"/><a:tint val=\"94000\"/></a:schemeClr></a:gs><a:gs pos=\"50000\"><a:schemeClr val=\"phClr\"><a:satMod val=\"110000\"/><a:lumMod val=\"100000\"/><a:shade val=\"100000\"/></a:schemeClr></a:gs><a:gs pos=\"100000\"><a:schemeClr val=\"phClr\"><a:lumMod val=\"99000\"/><a:satMod val=\"120000\"/><a:shade val=\"78000\"/></a:schemeClr></a:gs></a:gsLst><a:lin ang=\"5400000\" scaled=\"0\"/></a:gradFill></a:fillStyleLst><a:lnStyleLst><a:ln w=\"6350\" cap=\"flat\" cmpd=\"sng\" algn=\"ctr\"><a:solidFill><a:schemeClr val=\"phClr\"/></a:solidFill><a:prstDash val=\"solid\"/><a:miter lim=\"800000\"/></a:ln><a:ln w=\"12700\" cap=\"flat\" cmpd=\"sng\" algn=\"ctr\"><a:solidFill><a:schemeClr val=\"phClr\"/></a:solidFill><a:prstDash val=\"solid\"/><a:miter lim=\"800000\"/></a:ln><a:ln w=\"19050\" cap=\"flat\" cmpd=\"sng\" algn=\"ctr\"><a:solidFill><a:schemeClr val=\"phClr\"/></a:solidFill><a:prstDash val=\"solid\"/><a:miter lim=\"800000\"/></a:ln></a:lnStyleLst><a:effectStyleLst><a:effectStyle><a:effectLst/></a:effectStyle><a:effectStyle><a:effectLst/></a:effectStyle><a:effectStyle><a:effectLst><a:outerShdw blurRad=\"57150\" dist=\"19050\" dir=\"5400000\" algn=\"ctr\" rotWithShape=\"0\"><a:srgbClr val=\"000000\"><a:alpha val=\"63000\"/></a:srgbClr></a:outerShdw></a:effectLst></a:effectStyle></a:effectStyleLst><a:bgFillStyleLst><a:solidFill><a:schemeClr val=\"phClr\"/></a:solidFill><a:solidFill><a:schemeClr val=\"phClr\"><a:tint val=\"95000\"/><a:satMod val=\"170000\"/></a:schemeClr></a:solidFill><a:gradFill rotWithShape=\"1\"><a:gsLst><a:gs pos=\"0\"><a:schemeClr val=\"phClr\"><a:tint val=\"93000\"/><a:satMod val=\"150000\"/><a:shade val=\"98000\"/><a:lumMod val=\"102000\"/></a:schemeClr></a:gs><a:gs pos=\"50000\"><a:schemeClr val=\"phClr\"><a:tint val=\"98000\"/><a:satMod val=\"130000\"/><a:shade val=\"90000\"/><a:lumMod val=\"103000\"/></a:schemeClr></a:gs><a:gs pos=\"100000\"><a:schemeClr val=\"phClr\"><a:shade val=\"63000\"/><a:satMod val=\"120000\"/></a:schemeClr></a:gs></a:gsLst><a:lin ang=\"5400000\" scaled=\"0\"/></a:gradFill></a:bgFillStyleLst></a:fmtScheme></a:themeElements><a:objectDefaults/><a:extraClrSchemeLst/><a:extLst><a:ext uri=\"{05A4C25C-085E-4340-85A3-A5531E510DB2}\"><thm15:themeFamily xmlns:thm15=\"http://schemas.microsoft.com/office/thememl/2012/main\" name=\"Office Theme\" id=\"{62F939B6-93AF-4DB8-9C6B-D6C7DFDC589F}\" vid=\"{4A3C46E8-61CC-4603-A589-7422A47A8E4A}\"/></a:ext></a:extLst></a:theme>"
+}
