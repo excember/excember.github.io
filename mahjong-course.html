@@ -13,47 +13,60 @@ html,body{margin:0;padding:0;height:100%;background:#F5EFE2}
 a{color:#2C6E8F}a:hover{color:#13543E}
 button{font-family:Calibri,Arial,sans-serif}
 @media (max-width:719px){
-  .mj-app{flex-direction:column !important}
-  .mj-sb{width:100% !important;flex:none !important;overflow:visible !important}
-  .mj-sbhead{padding:14px 16px 8px !important}
-  .mj-sub{display:none}
-  .mj-nav{flex-direction:row !important;overflow-x:auto;padding:6px 10px 12px !important;-webkit-overflow-scrolling:touch}
-  .mj-navbtn{width:auto !important;white-space:nowrap;flex:none}
-  .mj-prog{display:none}
-  .mj-content{padding:22px 16px 56px !important}
+  .mj-head{padding:10px 16px !important;flex-wrap:wrap}
+  .mj-content{padding:36px 20px 48px !important}
+  .mj-foot{padding:12px 16px !important}
+  .mj-poslabel{display:none}
 }
 </style>
 </helmet>
-<div class="mj-app" style="display:flex;height:100vh;background:#F5EFE2;color:#24211C;font-family:Calibri,'Segoe UI',Arial,sans-serif;overflow:hidden">
-  <div class="mj-sb" style="width:248px;flex:none;background:#13543E;color:#F5EFE2;display:flex;flex-direction:column;overflow-y:auto">
-    <div class="mj-sbhead" style="padding:24px 20px 18px;border-bottom:1px solid rgba(245,239,226,.18)">
-      <div style="font:700 11px Calibri,Arial,sans-serif;letter-spacing:3px;color:#C69B3F;margin-bottom:8px">ON-DEMAND COURSE</div>
-      <div style="font:700 21px/1.2 Cambria,Georgia,serif;color:#F5EFE2">Confident at the Table</div>
-      <div class="mj-sub" style="font:13px/1.4 Calibri,Arial,sans-serif;color:#AEC9B8;margin-top:6px">American Mah Jongg, start to table-ready</div>
+<div style="display:flex;flex-direction:column;height:100vh;background:#F5EFE2;color:#24211C;font-family:Calibri,'Segoe UI',Arial,sans-serif;overflow:hidden">
+
+  <div style="flex:none;background:#13543E;color:#F5EFE2">
+    <div class="mj-head" style="display:flex;align-items:center;gap:14px;padding:12px 24px">
+      <div style="font:700 16px Cambria,Georgia,serif">Confident at the Table</div>
+      <div style="font:700 11px Calibri,Arial,sans-serif;letter-spacing:2px;color:#C69B3F">{{ moduleTag }}</div>
+      <div style="flex:1"></div>
+      <sc-if value="{{ txAvailable }}" hint-placeholder-val="{{ true }}">
+        <button onClick="{{ toggleTx }}" aria-pressed="{{ txOpen }}" style="background:transparent;color:#F5EFE2;border:1px solid rgba(245,239,226,.35);border-radius:8px;padding:7px 14px;font:700 13px Calibri,Arial,sans-serif;cursor:pointer">{{ txLabel }}</button>
+        <button onClick="{{ toggleAudio }}" style="background:#C69B3F;color:#13543E;border:none;border-radius:8px;padding:7px 14px;font:700 13px Calibri,Arial,sans-serif;cursor:pointer">{{ audioLabel }}</button>
+      </sc-if>
+      <div style="font:12px Calibri,Arial,sans-serif;color:#AEC9B8">{{ modulesDoneLabel }}</div>
+      <button onClick="{{ toggleContents }}" style="background:rgba(245,239,226,.14);color:#F5EFE2;border:none;border-radius:8px;padding:7px 14px;font:700 13px Calibri,Arial,sans-serif;cursor:pointer">{{ contentsLabel }}</button>
+      <div style="font:700 13px Calibri,Arial,sans-serif;color:#C69B3F">{{ counter }}</div>
     </div>
-    <div class="mj-nav" style="flex:1;padding:10px 10px 16px;display:flex;flex-direction:column;gap:2px">
+    <div style="height:4px;background:rgba(245,239,226,.2)"><div style="{{ progressBarStyle }}"></div></div>
+  </div>
+
+  <sc-if value="{{ txOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="flex:none;background:#0E4432;color:#F5EFE2;max-height:32vh;overflow-y:auto;border-bottom:1px solid rgba(245,239,226,.15)">
+      <div style="max-width:820px;margin:0 auto;padding:16px 44px 18px">
+        <div style="font:700 11px Calibri,Arial,sans-serif;letter-spacing:2.5px;color:#C69B3F;margin-bottom:8px">INSTRUCTOR · AUDIO TRANSCRIPT — {{ txScreenLabel }}</div>
+        <p style="margin:0;font:15px/1.6 Cambria,Georgia,serif;white-space:pre-line;user-select:text">{{ txText }}</p>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ contentsOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="flex:none;background:#0E4432;padding:14px 24px 18px;display:flex;gap:8px;flex-wrap:wrap;max-height:40vh;overflow-y:auto">
       <sc-for list="{{ navItems }}" as="it" hint-placeholder-count="10">
-        <button class="mj-navbtn" onClick="{{ it.onClick }}" style="{{ it.style }}">
+        <button onClick="{{ it.onClick }}" style="{{ it.style }}">
           <span style="{{ it.numStyle }}">{{ it.num }}</span>
-          <span style="flex:1;text-align:left">{{ it.label }}</span>
+          <span>{{ it.label }}</span>
           <span style="color:#C69B3F;font-weight:700">{{ it.badge }}</span>
         </button>
       </sc-for>
     </div>
-    <div class="mj-prog" style="padding:16px 20px 20px;border-top:1px solid rgba(245,239,226,.18)">
-      <div style="display:flex;justify-content:space-between;font:12px Calibri,Arial,sans-serif;color:#AEC9B8;margin-bottom:7px"><span>Progress</span><span>{{ progressLabel }}</span></div>
-      <div style="height:6px;border-radius:3px;background:rgba(245,239,226,.2)"><div style="{{ progressBarStyle }}"></div></div>
-    </div>
-  </div>
+  </sc-if>
 
   <div ref="{{ mainRef }}" style="flex:1;overflow-y:auto;min-width:0">
-  <div class="mj-content" style="max-width:860px;margin:0 auto;padding:40px 44px 72px">
+  <div class="mj-content" style="max-width:820px;margin:0 auto;padding:64px 44px 72px">
 
-  <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
-    <div style="font:700 12px Calibri,Arial,sans-serif;letter-spacing:3px;color:#8A7F6A;margin-bottom:8px">WELCOME</div>
-    <h1 style="margin:0 0 10px;font:700 40px/1.1 Cambria,Georgia,serif;color:#13543E">Confident at the Table</h1>
-    <p style="margin:0 0 24px;font:17px/1.5 Calibri,Arial,sans-serif;color:#6E675B">The complete American Mah Jongg course — standard (common) rules · 13 tiles in hand, 14 for East</p>
-    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:8px">
+  <sc-if value="{{ sH1 }}" hint-placeholder-val="{{ true }}">
+    <div style="font:700 12px Calibri,Arial,sans-serif;letter-spacing:3px;color:#8A7F6A;margin-bottom:12px">WELCOME · ON-DEMAND COURSE</div>
+    <h1 style="margin:0 0 14px;font:700 46px/1.1 Cambria,Georgia,serif;color:#13543E">Confident at the Table</h1>
+    <p style="margin:0 0 40px;font:18px/1.55 Calibri,Arial,sans-serif;color:#6E675B">The complete American Mah Jongg course — standard (common) rules · 13 tiles in hand, 14 for East</p>
+    <div style="display:flex;gap:14px;flex-wrap:wrap;margin-bottom:8px">
       <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><dc-import name="MahTile" kind="d1" w="58" hint-size="60px,81px"></dc-import><div style="font:12px Calibri,Arial,sans-serif;color:#6E675B">1 Dot</div></div>
       <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><dc-import name="MahTile" kind="b1" w="58" hint-size="60px,81px"></dc-import><div style="font:12px Calibri,Arial,sans-serif;color:#6E675B">1 Bam (bird)</div></div>
       <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><dc-import name="MahTile" kind="c5" w="58" hint-size="60px,81px"></dc-import><div style="font:12px Calibri,Arial,sans-serif;color:#6E675B">5 Crak</div></div>
@@ -62,36 +75,28 @@ button{font-family:Calibri,Arial,sans-serif}
       <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><dc-import name="MahTile" kind="dw" w="58" hint-size="60px,81px"></dc-import><div style="font:12px Calibri,Arial,sans-serif;color:#6E675B">Soap (white)</div></div>
       <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><dc-import name="MahTile" kind="j" w="58" hint-size="60px,81px"></dc-import><div style="font:12px Calibri,Arial,sans-serif;color:#6E675B">Joker</div></div>
     </div>
-    <sc-if value="{{ showTranscripts }}" hint-placeholder-val="{{ true }}">
-      <div style="background:#13543E;border-radius:10px;padding:16px 20px;margin-top:20px;display:flex;gap:14px;align-items:flex-start">
-        <div style="flex:none;width:34px;height:34px;border-radius:50%;background:#C69B3F;color:#13543E;display:flex;align-items:center;justify-content:center;font:700 14px Calibri,Arial,sans-serif">▸</div>
-        <div><div style="font:700 11px Calibri,Arial,sans-serif;letter-spacing:2.5px;color:#C69B3F;margin-bottom:6px">INSTRUCTOR · AUDIO TRANSCRIPT</div>
-        <p style="margin: 0; font: 15px/1.55 Cambria,Georgia,serif; color: #F5EFE2; font-style: normal">Hey, welcome in. So you want to play American mahjong — with friends, or maybe you're brave enough to sit down with total strangers. Good news: it's absolutely learnable, and by the end of this course you'll play a full hand without a rulebook open on your knee. Everything here follows standard American play — the common rules you'll meet at most tables — and one number to hold onto from the start: you keep thirteen tiles in your hand, and the dealer, East, holds fourteen. Let's get you table-ready.</p></div>
-      </div>
-    </sc-if>
+  </sc-if>
 
-    <h2 style="margin:44px 0 4px;font:700 28px Cambria,Georgia,serif;color:#13543E">Seven modules, one capstone</h2>
-    <p style="margin:0 0 18px;font:15px/1.5 Calibri,Arial,sans-serif;color:#6E675B">Every module = short lesson → concept quiz → practice scenario. Your quiz results are saved as you go.</p>
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px">
+  <sc-if value="{{ sH2 }}" hint-placeholder-val="{{ false }}">
+    <div style="font:700 12px Calibri,Arial,sans-serif;letter-spacing:3px;color:#8A7F6A;margin-bottom:12px">COURSE MAP</div>
+    <h1 style="margin:0 0 10px;font:700 36px/1.15 Cambria,Georgia,serif;color:#13543E">Seven modules, one capstone</h1>
+    <p style="margin:0 0 32px;font:16px/1.55 Calibri,Arial,sans-serif;color:#6E675B">Every module = short lesson → concept quiz → practice scenario. Your quiz results are saved as you go.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px">
       <sc-for list="{{ mapCards }}" as="c" hint-placeholder-count="8">
-        <button onClick="{{ c.onClick }}" style="display:flex;gap:12px;align-items:flex-start;background:#FFFDF6;border:1px solid #D8CDB8;border-radius:10px;padding:14px 16px;cursor:pointer;text-align:left">
+        <button onClick="{{ c.onClick }}" style="display:flex;gap:12px;align-items:flex-start;background:#FFFDF6;border:1px solid #D8CDB8;border-radius:10px;padding:16px 18px;cursor:pointer;text-align:left">
           <span style="flex:none;width:28px;height:28px;border-radius:50%;background:#13543E;color:#C69B3F;display:flex;align-items:center;justify-content:center;font:700 14px Cambria,Georgia,serif">{{ c.num }}</span>
           <span><span style="display:block;font:700 15px Calibri,Arial,sans-serif;color:#13543E">{{ c.title }}</span>
           <span style="display:block;font:13px/1.4 Calibri,Arial,sans-serif;color:#6E675B;margin-top:2px">{{ c.sub }}</span></span>
         </button>
       </sc-for>
     </div>
-    <p style="margin:14px 0 0;font:13px Calibri,Arial,sans-serif;color:#8A7F6A">Rules basis: standard American (NMJL-style) play.</p>
-    <sc-if value="{{ showTranscripts }}" hint-placeholder-val="{{ true }}">
-      <div style="background:#13543E;border-radius:10px;padding:16px 20px;margin-top:20px;display:flex;gap:14px;align-items:flex-start">
-        <div style="flex:none;width:34px;height:34px;border-radius:50%;background:#C69B3F;color:#13543E;display:flex;align-items:center;justify-content:center;font:700 14px Calibri,Arial,sans-serif">▸</div>
-        <div><div style="font:700 11px Calibri,Arial,sans-serif;letter-spacing:2.5px;color:#C69B3F;margin-bottom:6px">INSTRUCTOR · AUDIO TRANSCRIPT</div>
-        <p style="margin:0;font:15px/1.55 Cambria,Georgia,serif;color:#F5EFE2">Here's the road ahead. Seven modules, each one short: you'll listen to a quick lesson, take a concept check, then apply what you learned to a real game situation. Module one is all about the tiles themselves, because nothing else works until you can name what's in your hand. Then we set the table, learn the goal, run the Charleston, play real turns, score a win, and finish with the habits that make you welcome at any table. At the very end, a capstone: one complete hand, played start to finish.</p></div>
-      </div>
-    </sc-if>
+    <p style="margin:18px 0 0;font:13px Calibri,Arial,sans-serif;color:#8A7F6A">Rules basis: standard American (NMJL-style) play.</p>
+  </sc-if>
 
-    <h2 style="margin:44px 0 4px;font:700 28px Cambria,Georgia,serif;color:#13543E">Scope: this course teaches American mahjong only</h2>
-    <p style="margin:0 0 18px;font:15px/1.5 Calibri,Arial,sans-serif;color:#6E675B">There's more than one mahjong in the world — make sure you're at the right table.</p>
+  <sc-if value="{{ sH3 }}" hint-placeholder-val="{{ false }}">
+    <div style="font:700 12px Calibri,Arial,sans-serif;letter-spacing:3px;color:#8A7F6A;margin-bottom:12px">BEFORE WE START</div>
+    <h1 style="margin:0 0 10px;font:700 36px/1.15 Cambria,Georgia,serif;color:#13543E">Scope: this course teaches American mahjong only</h1>
+    <p style="margin:0 0 32px;font:16px/1.55 Calibri,Arial,sans-serif;color:#6E675B">There's more than one mahjong in the world — make sure you're at the right table.</p>
     <div style="background:#FFFDF6;border:1px solid #D8CDB8;border-radius:10px;overflow:hidden">
       <div style="display:grid;grid-template-columns:130px 1fr 1fr;background:#13543E;color:#F5EFE2;font:700 12px Calibri,Arial,sans-serif;letter-spacing:1px">
         <div style="padding:10px 14px"></div><div style="padding:10px 14px;color:#C69B3F">AMERICAN — TAUGHT</div><div style="padding:10px 14px;color:#AEC9B8">CHINESE — NOT TAUGHT</div>
@@ -104,19 +109,12 @@ button{font-family:Calibri,Arial,sans-serif}
         </div>
       </sc-for>
     </div>
-    <div style="margin-top:14px;background:#FBEEE9;border:1px solid #C0362C;border-radius:10px;padding:13px 16px;font:14px/1.5 Calibri,Arial,sans-serif;color:#24211C"><strong style="color:#C0362C">The tell:</strong> if you hear “chow,” “run,” or “fu and fan,” you’re at a Chinese table — politely confirm before sitting down.</div>
-    <sc-if value="{{ showTranscripts }}" hint-placeholder-val="{{ true }}">
-      <div style="background:#13543E;border-radius:10px;padding:16px 20px;margin-top:20px;display:flex;gap:14px;align-items:flex-start">
-        <div style="flex:none;width:34px;height:34px;border-radius:50%;background:#C69B3F;color:#13543E;display:flex;align-items:center;justify-content:center;font:700 14px Calibri,Arial,sans-serif">▸</div>
-        <div><div style="font:700 11px Calibri,Arial,sans-serif;letter-spacing:2.5px;color:#C69B3F;margin-bottom:6px">INSTRUCTOR · AUDIO TRANSCRIPT</div>
-        <p style="margin:0;font:15px/1.55 Cambria,Georgia,serif;color:#F5EFE2">One quick guardrail before we start. There's more than one mahjong in the world. Chinese mahjong builds free-form hands out of runs and uses a points-and-doubles system called fu and fan. American mahjong — our game — is different: you match one specific hand printed on a card, there are no runs at all, and it adds jokers, flowers, and a pre-game tile swap called the Charleston. So here's the tell: if you ever hear someone say "chow," "run," or "fu and fan," you're at a Chinese table. Different game. Politely check before you sit down.</p></div>
-      </div>
-    </sc-if>
+    <div style="margin-top:20px;background:#FBEEE9;border:1px solid #C0362C;border-radius:10px;padding:13px 16px;font:14px/1.5 Calibri,Arial,sans-serif;color:#24211C"><strong style="color:#C0362C">The tell:</strong> if you hear “chow,” “run,” or “fu and fan,” you’re at a Chinese table — politely confirm before sitting down.</div>
   </sc-if>
 
-  <sc-if value="{{ isM1 }}" hint-placeholder-val="{{ false }}">
-    <div style="font:700 12px Calibri,Arial,sans-serif;letter-spacing:3px;color:#8A7F6A;margin-bottom:8px">MODULE 1 · MEET THE TILES</div>
-    <h1 style="margin:0 0 24px;font:700 34px/1.15 Cambria,Georgia,serif;color:#13543E">The full set: 152 tiles in play</h1>
+  <sc-if value="{{ sM1a }}" hint-placeholder-val="{{ false }}">
+    <div style="font:700 12px Calibri,Arial,sans-serif;letter-spacing:3px;color:#8A7F6A;margin-bottom:12px">MODULE 1 · MEET THE TILES</div>
+    <h1 style="margin:0 0 32px;font:700 36px/1.15 Cambria,Georgia,serif;color:#13543E">The full set: 152 tiles in play</h1>
     <div style="background:#FFFDF6;border:1px solid #D8CDB8;border-radius:10px;overflow:hidden;margin-bottom:14px">
       <sc-for list="{{ familyRows }}" as="f" hint-placeholder-count="7">
         <div style="display:grid;grid-template-columns:1fr 56px 1.6fr;border-bottom:1px solid #EDE5D2;font:14px/1.45 Calibri,Arial,sans-serif;align-items:center">
@@ -127,101 +125,74 @@ button{font-family:Calibri,Arial,sans-serif}
       </sc-for>
       <div style="padding:11px 14px;font:700 14px Calibri,Arial,sans-serif;color:#13543E;background:#EAF1EC">36 + 36 + 36 + 16 + 12 + 8 + 8 = 152 · any extra tiles in the box are spares — set them aside</div>
     </div>
-    <sc-if value="{{ showTranscripts }}" hint-placeholder-val="{{ true }}">
-      <div style="background:#13543E;border-radius:10px;padding:16px 20px;display:flex;gap:14px;align-items:flex-start">
-        <div style="flex:none;width:34px;height:34px;border-radius:50%;background:#C69B3F;color:#13543E;display:flex;align-items:center;justify-content:center;font:700 14px Calibri,Arial,sans-serif">▸</div>
-        <div><div style="font:700 11px Calibri,Arial,sans-serif;letter-spacing:2.5px;color:#C69B3F;margin-bottom:6px">INSTRUCTOR · AUDIO TRANSCRIPT</div>
-        <p style="margin:0;font:15px/1.55 Cambria,Georgia,serif;color:#F5EFE2">Let's open the box. American mahjong plays with one hundred fifty-two tiles, and they sort into seven families. Thirty-six Dots, thirty-six Bams, thirty-six Craks — those are your three suits, numbers one through nine, four copies of each. Then sixteen Winds — north, east, west, south, four of each. Twelve Dragons — red, green, and white, four of each. Eight Flowers. And eight Jokers, the wild tiles that make American mahjong American. Thirty-six, thirty-six, thirty-six, sixteen, twelve, eight, and eight — one fifty-two. Anything else in the box is a spare. Over the next few minutes we'll walk each family so every tile reads instantly.</p></div>
-      </div>
-    </sc-if>
+  </sc-if>
 
-    <h2 style="margin:40px 0 4px;font:700 26px Cambria,Georgia,serif;color:#13543E">Suit 1 of 3 · Dots (Circles)</h2>
-    <p style="margin:0 0 16px;font:15px/1.5 Calibri,Arial,sans-serif;color:#6E675B">Each Dot tile shows its number as a pattern of circles; the small corner number is your fast read. Four copies of each — 36 Dots in the set.</p>
-    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px">
+  <sc-if value="{{ sM1b }}" hint-placeholder-val="{{ false }}">
+    <div style="font:700 12px Calibri,Arial,sans-serif;letter-spacing:3px;color:#8A7F6A;margin-bottom:12px">MODULE 1 · MEET THE TILES</div>
+    <h1 style="margin:0 0 10px;font:700 36px/1.15 Cambria,Georgia,serif;color:#13543E">Suit 1 of 3 · Dots (Circles)</h1>
+    <p style="margin:0 0 28px;font:16px/1.55 Calibri,Arial,sans-serif;color:#6E675B">Each Dot tile shows its number as a pattern of circles; the small corner number is your fast read. Four copies of each — 36 Dots in the set.</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px">
       <dc-import name="MahTile" kind="d1" w="52" hint-size="54px,73px"></dc-import><dc-import name="MahTile" kind="d2" w="52" hint-size="54px,73px"></dc-import><dc-import name="MahTile" kind="d3" w="52" hint-size="54px,73px"></dc-import><dc-import name="MahTile" kind="d4" w="52" hint-size="54px,73px"></dc-import><dc-import name="MahTile" kind="d5" w="52" hint-size="54px,73px"></dc-import><dc-import name="MahTile" kind="d6" w="52" hint-size="54px,73px"></dc-import><dc-import name="MahTile" kind="d7" w="52" hint-size="54px,73px"></dc-import><dc-import name="MahTile" kind="d8" w="52" hint-size="54px,73px"></dc-import><dc-import name="MahTile" kind="d9" w="52" hint-size="54px,73px"></dc-import>
     </div>
     <div style="background:#FBEEE9;border:1px solid #C0362C;border-radius:10px;padding:13px 16px;font:14px/1.5 Calibri,Arial,sans-serif"><strong style="color:#C0362C">SPOT-CHECK:</strong> the 1 Dot is the big single medallion — beginners sometimes mistake it for a flower. If it’s one large circle, it’s the 1 Dot.</div>
-    <sc-if value="{{ showTranscripts }}" hint-placeholder-val="{{ true }}">
-      <div style="background:#13543E;border-radius:10px;padding:16px 20px;margin-top:16px;display:flex;gap:14px;align-items:flex-start">
-        <div style="flex:none;width:34px;height:34px;border-radius:50%;background:#C69B3F;color:#13543E;display:flex;align-items:center;justify-content:center;font:700 14px Calibri,Arial,sans-serif">▸</div>
-        <div><div style="font:700 11px Calibri,Arial,sans-serif;letter-spacing:2.5px;color:#C69B3F;margin-bottom:6px">INSTRUCTOR · AUDIO TRANSCRIPT</div>
-        <p style="margin:0;font:15px/1.55 Cambria,Georgia,serif;color:#F5EFE2">First suit: the Dots, sometimes called Circles. Each Dot tile shows its number as a pattern of circles — one circle for the one, two for the two, all the way up to a three-by-three grid for the nine. And there's a shortcut printed right on the tile: a small number in the corner. Trust the corner. One thing to watch: the one Dot is a single big medallion, and brand-new players sometimes mistake it for a flower. If it's one large circle, it's the one Dot. Four copies of every number — thirty-six Dots in all.</p></div>
-      </div>
-    </sc-if>
+  </sc-if>
 
-    <h2 style="margin:40px 0 4px;font:700 26px Cambria,Georgia,serif;color:#13543E">Suit 2 of 3 · Bams (Bamboo)</h2>
-    <p style="margin:0 0 16px;font:15px/1.5 Calibri,Arial,sans-serif;color:#6E675B">2–9 show that many bamboo sticks; the corner number confirms. Four of each — 36 Bams total.</p>
-    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px">
+  <sc-if value="{{ sM1c }}" hint-placeholder-val="{{ false }}">
+    <div style="font:700 12px Calibri,Arial,sans-serif;letter-spacing:3px;color:#8A7F6A;margin-bottom:12px">MODULE 1 · MEET THE TILES</div>
+    <h1 style="margin:0 0 10px;font:700 36px/1.15 Cambria,Georgia,serif;color:#13543E">Suit 2 of 3 · Bams (Bamboo)</h1>
+    <p style="margin:0 0 28px;font:16px/1.55 Calibri,Arial,sans-serif;color:#6E675B">2–9 show that many bamboo sticks; the corner number confirms. Four of each — 36 Bams total.</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px">
       <dc-import name="MahTile" kind="b1" w="52" hint-size="54px,73px"></dc-import><dc-import name="MahTile" kind="b2" w="52" hint-size="54px,73px"></dc-import><dc-import name="MahTile" kind="b3" w="52" hint-size="54px,73px"></dc-import><dc-import name="MahTile" kind="b4" w="52" hint-size="54px,73px"></dc-import><dc-import name="MahTile" kind="b5" w="52" hint-size="54px,73px"></dc-import><dc-import name="MahTile" kind="b6" w="52" hint-size="54px,73px"></dc-import><dc-import name="MahTile" kind="b7" w="52" hint-size="54px,73px"></dc-import><dc-import name="MahTile" kind="b8" w="52" hint-size="54px,73px"></dc-import><dc-import name="MahTile" kind="b9" w="52" hint-size="54px,73px"></dc-import>
     </div>
     <div style="background:#FBEEE9;border:1px solid #C0362C;border-radius:10px;padding:13px 16px;font:14px/1.5 Calibri,Arial,sans-serif"><strong style="color:#C0362C">★ THE ONE EVERYONE MISSES:</strong> the 1 Bam is a <strong>bird</strong>. There are no bamboo sticks on it — it’s a bird on a perch. New players discard it thinking it’s a bonus tile, or fail to call it. Drill it until the bird instantly reads as “1 Bam.”</div>
-    <sc-if value="{{ showTranscripts }}" hint-placeholder-val="{{ true }}">
-      <div style="background:#13543E;border-radius:10px;padding:16px 20px;margin-top:16px;display:flex;gap:14px;align-items:flex-start">
-        <div style="flex:none;width:34px;height:34px;border-radius:50%;background:#C69B3F;color:#13543E;display:flex;align-items:center;justify-content:center;font:700 14px Calibri,Arial,sans-serif">▸</div>
-        <div><div style="font:700 11px Calibri,Arial,sans-serif;letter-spacing:2.5px;color:#C69B3F;margin-bottom:6px">INSTRUCTOR · AUDIO TRANSCRIPT</div>
-        <p style="margin:0;font:15px/1.55 Cambria,Georgia,serif;color:#F5EFE2">Second suit: the Bams, short for bamboo. Twos through nines show that many bamboo sticks — count the sticks or read the corner number. But here's the one everybody misses, so lean in: the one Bam is a bird. No sticks at all — a bird sitting on a perch. New players throw it away thinking it's a decoration, or stare right past it when they need it. Burn this in now: bird equals one Bam. Four of each, thirty-six total.</p></div>
-      </div>
-    </sc-if>
+  </sc-if>
 
-    <h2 style="margin:40px 0 4px;font:700 26px Cambria,Georgia,serif;color:#13543E">Suit 3 of 3 · Craks (Characters)</h2>
-    <p style="margin:0 0 16px;font:15px/1.5 Calibri,Arial,sans-serif;color:#6E675B">Top character = the number (一 through 九). The bottom red character 萬 (“wan,” ten-thousand) marks the suit. You never need to read Chinese: the Arabic numeral in the corner tells you the number.</p>
-    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px">
+  <sc-if value="{{ sM1d }}" hint-placeholder-val="{{ false }}">
+    <div style="font:700 12px Calibri,Arial,sans-serif;letter-spacing:3px;color:#8A7F6A;margin-bottom:12px">MODULE 1 · MEET THE TILES</div>
+    <h1 style="margin:0 0 10px;font:700 36px/1.15 Cambria,Georgia,serif;color:#13543E">Suit 3 of 3 · Craks (Characters)</h1>
+    <p style="margin:0 0 28px;font:16px/1.55 Calibri,Arial,sans-serif;color:#6E675B">Top character = the number (一 through 九). The bottom red character 萬 (“wan,” ten-thousand) marks the suit. You never need to read Chinese: the Arabic numeral in the corner tells you the number.</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px">
       <dc-import name="MahTile" kind="c1" w="52" hint-size="54px,73px"></dc-import><dc-import name="MahTile" kind="c2" w="52" hint-size="54px,73px"></dc-import><dc-import name="MahTile" kind="c3" w="52" hint-size="54px,73px"></dc-import><dc-import name="MahTile" kind="c4" w="52" hint-size="54px,73px"></dc-import><dc-import name="MahTile" kind="c5" w="52" hint-size="54px,73px"></dc-import><dc-import name="MahTile" kind="c6" w="52" hint-size="54px,73px"></dc-import><dc-import name="MahTile" kind="c7" w="52" hint-size="54px,73px"></dc-import><dc-import name="MahTile" kind="c8" w="52" hint-size="54px,73px"></dc-import><dc-import name="MahTile" kind="c9" w="52" hint-size="54px,73px"></dc-import>
     </div>
     <div style="background:#FFFDF6;border:1px solid #D8CDB8;border-radius:10px;padding:13px 16px;font:14px/1.5 Calibri,Arial,sans-serif">Four of each — 36 Craks total. If the tile has the red 萬 at the bottom, it’s a Crak; say the corner number and “Crak.”</div>
-    <sc-if value="{{ showTranscripts }}" hint-placeholder-val="{{ true }}">
-      <div style="background:#13543E;border-radius:10px;padding:16px 20px;margin-top:16px;display:flex;gap:14px;align-items:flex-start">
-        <div style="flex:none;width:34px;height:34px;border-radius:50%;background:#C69B3F;color:#13543E;display:flex;align-items:center;justify-content:center;font:700 14px Calibri,Arial,sans-serif">▸</div>
-        <div><div style="font:700 11px Calibri,Arial,sans-serif;letter-spacing:2.5px;color:#C69B3F;margin-bottom:6px">INSTRUCTOR · AUDIO TRANSCRIPT</div>
-        <p style="margin:0;font:15px/1.55 Cambria,Georgia,serif;color:#F5EFE2">Third suit: the Craks, short for characters. Each Crak has two Chinese characters: the top one is the number, and the bottom one — the red character, wan — is the suit marker. Here's the good news: you never need to read Chinese. American sets print the number in the corner, so your read is simply: red character at the bottom means Crak, corner number tells you which one. "Five Crak." Done. Four of each, thirty-six total.</p></div>
-      </div>
-    </sc-if>
+  </sc-if>
 
-    <h2 style="margin:40px 0 4px;font:700 26px Cambria,Georgia,serif;color:#13543E">Honors · Winds &amp; Dragons</h2>
-    <p style="margin:0 0 16px;font:15px/1.5 Calibri,Arial,sans-serif;color:#6E675B">WINDS — 16 tiles (4 of each). The corner letter (N·E·W·S) is your read — no Chinese needed. Winds appear in many card hands, including NEWS runs.</p>
-    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px">
+  <sc-if value="{{ sM1e }}" hint-placeholder-val="{{ false }}">
+    <div style="font:700 12px Calibri,Arial,sans-serif;letter-spacing:3px;color:#8A7F6A;margin-bottom:12px">MODULE 1 · MEET THE TILES</div>
+    <h1 style="margin:0 0 10px;font:700 36px/1.15 Cambria,Georgia,serif;color:#13543E">Honors · Winds &amp; Dragons</h1>
+    <p style="margin:0 0 24px;font:16px/1.55 Calibri,Arial,sans-serif;color:#6E675B">WINDS — 16 tiles (4 of each). The corner letter (N·E·W·S) is your read — no Chinese needed. Winds appear in many card hands, including NEWS runs.</p>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px">
       <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><dc-import name="MahTile" kind="wE" w="52" hint-size="54px,73px"></dc-import><div style="font:12px Calibri,Arial,sans-serif;color:#6E675B">East</div></div>
       <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><dc-import name="MahTile" kind="wS" w="52" hint-size="54px,73px"></dc-import><div style="font:12px Calibri,Arial,sans-serif;color:#6E675B">South</div></div>
       <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><dc-import name="MahTile" kind="wW" w="52" hint-size="54px,73px"></dc-import><div style="font:12px Calibri,Arial,sans-serif;color:#6E675B">West</div></div>
       <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><dc-import name="MahTile" kind="wN" w="52" hint-size="54px,73px"></dc-import><div style="font:12px Calibri,Arial,sans-serif;color:#6E675B">North</div></div>
     </div>
-    <p style="margin:0 0 16px;font:15px/1.5 Calibri,Arial,sans-serif;color:#6E675B">DRAGONS — 12 tiles (4 of each color).</p>
-    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:14px">
+    <p style="margin:0 0 24px;font:16px/1.55 Calibri,Arial,sans-serif;color:#6E675B">DRAGONS — 12 tiles (4 of each color).</p>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:22px">
       <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><dc-import name="MahTile" kind="dr" w="52" hint-size="54px,73px"></dc-import><div style="font:12px Calibri,Arial,sans-serif;color:#6E675B">Red (中)</div></div>
       <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><dc-import name="MahTile" kind="dg" w="52" hint-size="54px,73px"></dc-import><div style="font:12px Calibri,Arial,sans-serif;color:#6E675B">Green (發)</div></div>
       <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><dc-import name="MahTile" kind="dw" w="52" hint-size="54px,73px"></dc-import><div style="font:12px Calibri,Arial,sans-serif;color:#6E675B">White = “Soap”</div></div>
     </div>
     <div style="background:#FBEEE9;border:1px solid #C0362C;border-radius:10px;padding:13px 16px;font:14px/1.5 Calibri,Arial,sans-serif;margin-bottom:12px"><strong style="color:#C0362C">The Soap</strong> is just a bone tile with a blue frame — it looks blank. It is NOT a spare: it’s the White dragon, and on the card it also stands in as zero (0).</div>
     <div style="background:#FFFDF6;border:1px solid #D8CDB8;border-radius:10px;padding:13px 16px;font:14px/1.5 Calibri,Arial,sans-serif"><strong style="color:#13543E">Dragon–suit pairing on the card:</strong> when a hand mixes a suit with dragons, Craks go with Red · Bams go with Green · Dots go with Soap (White). Memory hook: <strong>C-R, B-G, D-W</strong>.</div>
-    <sc-if value="{{ showTranscripts }}" hint-placeholder-val="{{ true }}">
-      <div style="background:#13543E;border-radius:10px;padding:16px 20px;margin-top:16px;display:flex;gap:14px;align-items:flex-start">
-        <div style="flex:none;width:34px;height:34px;border-radius:50%;background:#C69B3F;color:#13543E;display:flex;align-items:center;justify-content:center;font:700 14px Calibri,Arial,sans-serif">▸</div>
-        <div><div style="font:700 11px Calibri,Arial,sans-serif;letter-spacing:2.5px;color:#C69B3F;margin-bottom:6px">INSTRUCTOR · AUDIO TRANSCRIPT</div>
-        <p style="margin:0;font:15px/1.55 Cambria,Georgia,serif;color:#F5EFE2">Now the honor tiles. Winds first: north, east, west, and south, and every wind has its letter printed in the corner — N, E, W, S — so they read at a glance. Four of each, sixteen winds. Then the Dragons, three colors: the red dragon, the green dragon, and the white dragon. The white one deserves special attention — it's basically a blank tile with a blue frame, and players call it the Soap. It is not a spare! It's a live dragon, and on the card it can even stand in for the number zero. Last thing, and it matters for reading the card: when a hand mixes a suit with dragons, they pair up — Craks with red, Bams with green, Dots with the Soap. C-R, B-G, D-W.</p></div>
-      </div>
-    </sc-if>
+  </sc-if>
 
-    <h2 style="margin:40px 0 4px;font:700 26px Cambria,Georgia,serif;color:#13543E">Specials · Flowers &amp; Jokers</h2>
-    <div style="display:flex;gap:12px;flex-wrap:wrap;margin:16px 0 14px">
+  <sc-if value="{{ sM1f }}" hint-placeholder-val="{{ false }}">
+    <div style="font:700 12px Calibri,Arial,sans-serif;letter-spacing:3px;color:#8A7F6A;margin-bottom:12px">MODULE 1 · MEET THE TILES</div>
+    <h1 style="margin:0 0 24px;font:700 36px/1.15 Cambria,Georgia,serif;color:#13543E">Specials · Flowers &amp; Jokers</h1>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin:0 0 24px">
       <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><dc-import name="MahTile" kind="f1" w="52" hint-size="54px,73px"></dc-import><div style="font:12px Calibri,Arial,sans-serif;color:#6E675B">Flower 1</div></div>
       <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><dc-import name="MahTile" kind="f2" w="52" hint-size="54px,73px"></dc-import><div style="font:12px Calibri,Arial,sans-serif;color:#6E675B">Flower 2 … to 8</div></div>
       <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><dc-import name="MahTile" kind="j" w="52" hint-size="54px,73px"></dc-import><div style="font:12px Calibri,Arial,sans-serif;color:#6E675B">Joker ×8</div></div>
     </div>
     <div style="background:#FFFDF6;border:1px solid #D8CDB8;border-radius:10px;padding:13px 16px;font:14px/1.5 Calibri,Arial,sans-serif;margin-bottom:12px"><strong style="color:#13543E">FLOWERS — 8 tiles,</strong> numbered 1–8, all interchangeable: any flower fills any “F” on the card, whatever its number or picture. Flowers are real hand tiles in American play, not bonuses — many card hands require them. Seasons count as flowers in American sets; that’s why there are 8.</div>
     <div style="background:#FFFDF6;border:1px solid #D8CDB8;border-radius:10px;padding:13px 16px;font:14px/1.5 Calibri,Arial,sans-serif"><strong style="color:#13543E">JOKER QUICK RULES</strong> (full rules in Module 3): wild — but only inside groups of 3+ (pung, kong, quint). Never in a pair, never as a single, never in NEWS-style runs of singles. Never passed in the Charleston. Unique to American mahjong.</div>
-    <sc-if value="{{ showTranscripts }}" hint-placeholder-val="{{ true }}">
-      <div style="background:#13543E;border-radius:10px;padding:16px 20px;margin-top:16px;display:flex;gap:14px;align-items:flex-start">
-        <div style="flex:none;width:34px;height:34px;border-radius:50%;background:#C69B3F;color:#13543E;display:flex;align-items:center;justify-content:center;font:700 14px Calibri,Arial,sans-serif">▸</div>
-        <div><div style="font:700 11px Calibri,Arial,sans-serif;letter-spacing:2.5px;color:#C69B3F;margin-bottom:6px">INSTRUCTOR · AUDIO TRANSCRIPT</div>
-        <p style="margin:0;font:15px/1.55 Cambria,Georgia,serif;color:#F5EFE2">Two special families left. Flowers: there are eight, numbered one through eight, and here's the American twist — they're all interchangeable. Any flower fills any flower spot in a hand, no matter its number or picture. And flowers are real working tiles here, not bonuses; plenty of winning hands require them. Then the stars of the show: eight Jokers, wild tiles unique to American mahjong. A joker can stand in for other tiles — but under strict rules we'll cover properly in module three. The headline version: jokers work only inside groups of three or more. Never in a pair, never alone, and never, ever passed in the Charleston.</p></div>
-      </div>
-    </sc-if>
   </sc-if>
 
-  <sc-if value="{{ isM2 }}" hint-placeholder-val="{{ false }}">
-    <div style="font:700 12px Calibri,Arial,sans-serif;letter-spacing:3px;color:#8A7F6A;margin-bottom:8px">MODULE 2</div>
-    <h1 style="margin:0 0 24px;font:700 34px/1.15 Cambria,Georgia,serif;color:#13543E">The table &amp; setup</h1>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-bottom:16px">
+  <sc-if value="{{ sM2a }}" hint-placeholder-val="{{ false }}">
+    <div style="font:700 12px Calibri,Arial,sans-serif;letter-spacing:3px;color:#8A7F6A;margin-bottom:12px">MODULE 2</div>
+    <h1 style="margin:0 0 32px;font:700 36px/1.15 Cambria,Georgia,serif;color:#13543E">The table &amp; setup</h1>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-bottom:24px">
       <div style="background:#FFFDF6;border:1px solid #D8CDB8;border-radius:10px;padding:16px 18px">
         <div style="width:28px;height:28px;border-radius:50%;background:#13543E;color:#C69B3F;display:flex;align-items:center;justify-content:center;font:700 14px Cambria,Georgia,serif;margin-bottom:10px">1</div>
         <div style="font:700 16px Calibri,Arial,sans-serif;color:#13543E;margin-bottom:4px">Roll for East</div>
@@ -249,40 +220,29 @@ button{font-family:Calibri,Arial,sans-serif}
       </div>
       <div style="flex:1;min-width:260px;background:#13543E;border-radius:10px;padding:18px 22px;color:#F5EFE2;font:700 18px/1.5 Cambria,Georgia,serif">Everyone 13 tiles · East 14 · play moves counter-clockwise <span style="color:#C69B3F">(to your right)</span></div>
     </div>
-    <sc-if value="{{ showTranscripts }}" hint-placeholder-val="{{ true }}">
-      <div style="background:#13543E;border-radius:10px;padding:16px 20px;display:flex;gap:14px;align-items:flex-start">
-        <div style="flex:none;width:34px;height:34px;border-radius:50%;background:#C69B3F;color:#13543E;display:flex;align-items:center;justify-content:center;font:700 14px Calibri,Arial,sans-serif">▸</div>
-        <div><div style="font:700 11px Calibri,Arial,sans-serif;letter-spacing:2.5px;color:#C69B3F;margin-bottom:6px">INSTRUCTOR · AUDIO TRANSCRIPT</div>
-        <p style="margin:0;font:15px/1.55 Cambria,Georgia,serif;color:#F5EFE2">Let's set the table. Step one: everybody rolls the dice, and the highest roll becomes East — the dealer. East gets the extra tile and, after each hand, the deal rotates to the right. Step two: build the wall. All one fifty-two tiles go face down, and each player builds a wall in front of their rack — nineteen stacks long, two tiles high. Four walls, one square, every tile accounted for. Step three: East rolls again, counts that many stacks in from the right of the indicated wall, and the deal begins there — four tiles at a time around the table until everyone has twelve, then one more each, with East taking two. Final count, say it with me: everyone thirteen, East fourteen. And play will move counter-clockwise — to the right.</p></div>
-      </div>
-    </sc-if>
   </sc-if>
 
-  <sc-if value="{{ isM3 }}" hint-placeholder-val="{{ false }}">
-    <div style="font:700 12px Calibri,Arial,sans-serif;letter-spacing:3px;color:#8A7F6A;margin-bottom:8px">MODULE 3</div>
-    <h1 style="margin:0 0 24px;font:700 34px/1.15 Cambria,Georgia,serif;color:#13543E">The card, sets &amp; jokers</h1>
-    <div style="background:#FFFDF6;border:1px solid #D8CDB8;border-radius:10px;padding:16px 20px;margin-bottom:20px;font:14px/1.6 Calibri,Arial,sans-serif">
+  <sc-if value="{{ sM3a }}" hint-placeholder-val="{{ false }}">
+    <div style="font:700 12px Calibri,Arial,sans-serif;letter-spacing:3px;color:#8A7F6A;margin-bottom:12px">MODULE 3</div>
+    <h1 style="margin:0 0 32px;font:700 36px/1.15 Cambria,Georgia,serif;color:#13543E">The card &amp; the building blocks</h1>
+    <div style="background:#FFFDF6;border:1px solid #D8CDB8;border-radius:10px;padding:16px 20px;margin-bottom:28px;font:14px/1.6 Calibri,Arial,sans-serif">
       <div style="font:700 16px Calibri,Arial,sans-serif;color:#13543E;margin-bottom:6px">You win by matching the card</div>
       Every legal hand is printed on the players’ card (most tables use the NMJL card, reissued every year). Your 14 tiles must match one listed hand <strong>exactly</strong> — no freestyle combinations. Hands are worth 25–75 points, printed beside each hand.
     </div>
-    <h2 style="margin:0 0 12px;font:700 22px Cambria,Georgia,serif;color:#13543E">The building blocks</h2>
-    <div style="display:flex;gap:22px;flex-wrap:wrap;margin-bottom:16px">
+    <h2 style="margin:0 0 16px;font:700 22px Cambria,Georgia,serif;color:#13543E">The building blocks</h2>
+    <div style="display:flex;gap:22px;flex-wrap:wrap;margin-bottom:22px">
       <div><div style="display:flex;gap:5px"><dc-import name="MahTile" kind="c7" w="42" hint-size="44px,59px"></dc-import><dc-import name="MahTile" kind="c7" w="42" hint-size="44px,59px"></dc-import></div><div style="font:13px Calibri,Arial,sans-serif;color:#6E675B;margin-top:6px;text-align:center"><strong style="color:#13543E">Pair (2)</strong> · identical</div></div>
       <div><div style="display:flex;gap:5px"><dc-import name="MahTile" kind="c7" w="42" hint-size="44px,59px"></dc-import><dc-import name="MahTile" kind="c7" w="42" hint-size="44px,59px"></dc-import><dc-import name="MahTile" kind="c7" w="42" hint-size="44px,59px"></dc-import></div><div style="font:13px Calibri,Arial,sans-serif;color:#6E675B;margin-top:6px;text-align:center"><strong style="color:#13543E">Pung (3)</strong></div></div>
       <div><div style="display:flex;gap:5px"><dc-import name="MahTile" kind="c7" w="42" hint-size="44px,59px"></dc-import><dc-import name="MahTile" kind="c7" w="42" hint-size="44px,59px"></dc-import><dc-import name="MahTile" kind="c7" w="42" hint-size="44px,59px"></dc-import><dc-import name="MahTile" kind="c7" w="42" hint-size="44px,59px"></dc-import></div><div style="font:13px Calibri,Arial,sans-serif;color:#6E675B;margin-top:6px;text-align:center"><strong style="color:#13543E">Kong (4)</strong></div></div>
       <div><div style="display:flex;gap:5px"><dc-import name="MahTile" kind="c7" w="42" hint-size="44px,59px"></dc-import><dc-import name="MahTile" kind="c7" w="42" hint-size="44px,59px"></dc-import><dc-import name="MahTile" kind="c7" w="42" hint-size="44px,59px"></dc-import><dc-import name="MahTile" kind="c7" w="42" hint-size="44px,59px"></dc-import><dc-import name="MahTile" kind="j" w="42" hint-size="44px,59px"></dc-import></div><div style="font:13px Calibri,Arial,sans-serif;color:#6E675B;margin-top:6px;text-align:center"><strong style="color:#13543E">Quint (5)</strong> · only possible with jokers</div></div>
     </div>
-    <div style="background:#FFFDF6;border:1px solid #D8CDB8;border-radius:10px;padding:13px 16px;font:14px/1.6 Calibri,Arial,sans-serif;margin-bottom:12px"><strong style="color:#13543E">Exposed vs concealed:</strong> call a discard to complete a pung/kong/quint → that set is exposed face-up on your rack. Hands marked <strong>C</strong> (concealed) on the card allow no exposures — you may only claim a discard for mahjong itself. Exposed hands are easier; concealed hands score more. A “sextet” (6) appears on some cards — same idea, jokers required. Your table’s card governs.</div>
-    <sc-if value="{{ showTranscripts }}" hint-placeholder-val="{{ true }}">
-      <div style="background:#13543E;border-radius:10px;padding:16px 20px;display:flex;gap:14px;align-items:flex-start">
-        <div style="flex:none;width:34px;height:34px;border-radius:50%;background:#C69B3F;color:#13543E;display:flex;align-items:center;justify-content:center;font:700 14px Calibri,Arial,sans-serif">▸</div>
-        <div><div style="font:700 11px Calibri,Arial,sans-serif;letter-spacing:2.5px;color:#C69B3F;margin-bottom:6px">INSTRUCTOR · AUDIO TRANSCRIPT</div>
-        <p style="margin:0;font:15px/1.55 Cambria,Georgia,serif;color:#F5EFE2">So what are you actually building? Here's the heart of American mahjong: you win by matching your fourteen tiles, exactly, to one of the hands printed on the card — most tables use the National Mah Jongg League card, which is reissued every year. No freestyle. Your building blocks are simple: a pair is two identical tiles, a pung is three, a kong is four, and a quint is five — and since only four copies of any tile exist, a quint is only possible with jokers. One more distinction that shapes your whole game: exposed versus concealed. When you call a discard to finish a pung, kong, or quint, that set gets flipped face-up on your rack — exposed. Hands marked C on the card are concealed: no exposures allowed, and you can only claim a discard for the win itself. Concealed is harder, and it pays more.</p></div>
-      </div>
-    </sc-if>
+    <div style="background:#FFFDF6;border:1px solid #D8CDB8;border-radius:10px;padding:13px 16px;font:14px/1.6 Calibri,Arial,sans-serif"><strong style="color:#13543E">Exposed vs concealed:</strong> call a discard to complete a pung/kong/quint → that set is exposed face-up on your rack. Hands marked <strong>C</strong> (concealed) on the card allow no exposures — you may only claim a discard for mahjong itself. Exposed hands are easier; concealed hands score more. A “sextet” (6) appears on some cards — same idea, jokers required. Your table’s card governs.</div>
+  </sc-if>
 
-    <h2 style="margin:40px 0 12px;font:700 26px Cambria,Georgia,serif;color:#13543E">Joker rules — strict, and worth memorizing</h2>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-bottom:16px">
+  <sc-if value="{{ sM3b }}" hint-placeholder-val="{{ false }}">
+    <div style="font:700 12px Calibri,Arial,sans-serif;letter-spacing:3px;color:#8A7F6A;margin-bottom:12px">MODULE 3</div>
+    <h1 style="margin:0 0 32px;font:700 36px/1.15 Cambria,Georgia,serif;color:#13543E">Joker rules — strict, and worth memorizing</h1>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-bottom:24px">
       <div style="background:#EAF1EC;border:1px solid #1E7A57;border-radius:10px;padding:16px 18px">
         <div style="font:700 13px Calibri,Arial,sans-serif;letter-spacing:2px;color:#1E7A57;margin-bottom:10px">✓ LEGAL</div>
         <div style="display:flex;gap:5px;margin-bottom:10px"><dc-import name="MahTile" kind="b7" w="42" hint-size="44px,59px"></dc-import><dc-import name="MahTile" kind="b7" w="42" hint-size="44px,59px"></dc-import><dc-import name="MahTile" kind="b7" w="42" hint-size="44px,59px"></dc-import><dc-import name="MahTile" kind="j" w="42" hint-size="44px,59px"></dc-import></div>
@@ -298,19 +258,12 @@ button{font-family:Calibri,Arial,sans-serif}
       <div style="font:700 16px Calibri,Arial,sans-serif;color:#13543E;margin-bottom:6px">The joker exchange — free upgrades</div>
       On your turn (after drawing), if any player’s exposed set contains a joker and you hold the matching natural tile, you may swap your tile for that joker — including from your own exposures.<br>A discarded joker is just a dead discard: no one may call it, and it stops being wild.<br>Jokers are never passed in the Charleston — receive one by mistake and it goes straight back.
     </div>
-    <sc-if value="{{ showTranscripts }}" hint-placeholder-val="{{ true }}">
-      <div style="background:#13543E;border-radius:10px;padding:16px 20px;margin-top:16px;display:flex;gap:14px;align-items:flex-start">
-        <div style="flex:none;width:34px;height:34px;border-radius:50%;background:#C69B3F;color:#13543E;display:flex;align-items:center;justify-content:center;font:700 14px Calibri,Arial,sans-serif">▸</div>
-        <div><div style="font:700 11px Calibri,Arial,sans-serif;letter-spacing:2.5px;color:#C69B3F;margin-bottom:6px">INSTRUCTOR · AUDIO TRANSCRIPT</div>
-        <p style="margin:0;font:15px/1.55 Cambria,Georgia,serif;color:#F5EFE2">Joker rules — strict, short, and worth memorizing, because joker mistakes are the most common fouls in the game. Rule one: jokers live only in groups of three or more. A pung, a kong, a quint — perfect. A pair? Never. A single tile? Never. Rule two — and this one wins games — the joker exchange. On your turn, after you draw, if any exposed set on the table shows a joker and you're holding the matching real tile, you can swap your tile for that joker. Even from your own exposures. A free wild tile, just for paying attention. Rule three: a discarded joker is dead — nobody can call it, and its wildness is gone. And rule four: jokers never travel in the Charleston. If someone passes you one by mistake, straight back it goes.</p></div>
-      </div>
-    </sc-if>
   </sc-if>
 
-  <sc-if value="{{ isM4 }}" hint-placeholder-val="{{ false }}">
-    <div style="font:700 12px Calibri,Arial,sans-serif;letter-spacing:3px;color:#8A7F6A;margin-bottom:8px">MODULE 4</div>
-    <h1 style="margin:0 0 24px;font:700 34px/1.15 Cambria,Georgia,serif;color:#13543E">The Charleston</h1>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-bottom:16px">
+  <sc-if value="{{ sM4a }}" hint-placeholder-val="{{ false }}">
+    <div style="font:700 12px Calibri,Arial,sans-serif;letter-spacing:3px;color:#8A7F6A;margin-bottom:12px">MODULE 4</div>
+    <h1 style="margin:0 0 32px;font:700 36px/1.15 Cambria,Georgia,serif;color:#13543E">The Charleston</h1>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-bottom:24px">
       <div style="background:#FFFDF6;border:1px solid #D8CDB8;border-radius:10px;padding:16px 18px">
         <div style="font:700 13px Calibri,Arial,sans-serif;letter-spacing:2px;color:#13543E;margin-bottom:12px">FIRST — REQUIRED</div>
         <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
@@ -328,33 +281,26 @@ button{font-family:Calibri,Arial,sans-serif}
         </div>
       </div>
     </div>
-    <div style="background:#13543E;border-radius:10px;padding:14px 20px;color:#F5EFE2;font:700 15px Cambria,Georgia,serif;margin-bottom:16px">3 tiles per pass · any single player may stop the second Charleston before it starts</div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">
+    <div style="background:#13543E;border-radius:10px;padding:14px 20px;color:#F5EFE2;font:700 15px Cambria,Georgia,serif;margin-bottom:24px">3 tiles per pass · any single player may stop the second Charleston before it starts</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px">
       <div style="background:#FFFDF6;border:1px solid #D8CDB8;border-radius:10px;padding:14px 16px;font:14px/1.5 Calibri,Arial,sans-serif"><strong style="color:#13543E">Blind pass</strong><br>Only on the LAST pass of each Charleston — pass received tiles unseen.</div>
       <div style="background:#FFFDF6;border:1px solid #D8CDB8;border-radius:10px;padding:14px 16px;font:14px/1.5 Calibri,Arial,sans-serif"><strong style="color:#13543E">Courtesy pass</strong><br>After it all ends: swap 0–3 with the player across; the lower number rules.</div>
       <div style="background:#FBEEE9;border:1px solid #C0362C;border-radius:10px;padding:14px 16px;font:14px/1.5 Calibri,Arial,sans-serif"><strong style="color:#C0362C">Jokers</strong><br>Never passed — hand one back immediately if you receive it.</div>
     </div>
-    <sc-if value="{{ showTranscripts }}" hint-placeholder-val="{{ true }}">
-      <div style="background:#13543E;border-radius:10px;padding:16px 20px;margin-top:16px;display:flex;gap:14px;align-items:flex-start">
-        <div style="flex:none;width:34px;height:34px;border-radius:50%;background:#C69B3F;color:#13543E;display:flex;align-items:center;justify-content:center;font:700 14px Calibri,Arial,sans-serif">▸</div>
-        <div><div style="font:700 11px Calibri,Arial,sans-serif;letter-spacing:2.5px;color:#C69B3F;margin-bottom:6px">INSTRUCTOR · AUDIO TRANSCRIPT</div>
-        <p style="margin:0;font:15px/1.55 Cambria,Georgia,serif;color:#F5EFE2">Now the famous part: the Charleston, the pre-game tile swap. First Charleston — this one's required: pass three tiles to your right, then three across the table, then three to your left. Right, across, left. Second Charleston — optional, and here's the key: it takes everyone. Any single player can call it off. If it runs, it mirrors back: left, across, right. Two special moves. The blind pass: on the last pass of either Charleston, if you love your hand, you may pass along tiles you just received without even looking at them. And the courtesy pass: after all the passing ends, you and the player across from you may swap zero to three tiles — and the lower number rules. You want three, they want one? You each pass one. And the golden rule one more time: jokers never pass.</p></div>
-      </div>
-    </sc-if>
   </sc-if>
 
-  <sc-if value="{{ isM5 }}" hint-placeholder-val="{{ false }}">
-    <div style="font:700 12px Calibri,Arial,sans-serif;letter-spacing:3px;color:#8A7F6A;margin-bottom:8px">MODULE 5</div>
-    <h1 style="margin:0 0 24px;font:700 34px/1.15 Cambria,Georgia,serif;color:#13543E">Playing a round</h1>
-    <div style="display:flex;gap:10px;align-items:stretch;flex-wrap:wrap;margin-bottom:16px">
+  <sc-if value="{{ sM5a }}" hint-placeholder-val="{{ false }}">
+    <div style="font:700 12px Calibri,Arial,sans-serif;letter-spacing:3px;color:#8A7F6A;margin-bottom:12px">MODULE 5</div>
+    <h1 style="margin:0 0 32px;font:700 36px/1.15 Cambria,Georgia,serif;color:#13543E">Playing a round</h1>
+    <div style="display:flex;gap:10px;align-items:stretch;flex-wrap:wrap;margin-bottom:24px">
       <div style="flex:1;min-width:150px;background:#FFFDF6;border:1px solid #D8CDB8;border-radius:10px;padding:14px 16px;text-align:center"><div style="font:700 20px Cambria,Georgia,serif;color:#C69B3F">1</div><div style="font:700 16px Calibri,Arial,sans-serif;color:#13543E">Draw</div><div style="font:13px Calibri,Arial,sans-serif;color:#6E675B">one tile from the wall</div></div>
       <div style="align-self:center;color:#8A7F6A;font-size:18px">→</div>
       <div style="flex:1;min-width:150px;background:#FFFDF6;border:1px solid #D8CDB8;border-radius:10px;padding:14px 16px;text-align:center"><div style="font:700 20px Cambria,Georgia,serif;color:#C69B3F">2</div><div style="font:700 16px Calibri,Arial,sans-serif;color:#13543E">Rack it</div><div style="font:13px Calibri,Arial,sans-serif;color:#6E675B">keep your hand hidden</div></div>
       <div style="align-self:center;color:#8A7F6A;font-size:18px">→</div>
       <div style="flex:1;min-width:150px;background:#FFFDF6;border:1px solid #D8CDB8;border-radius:10px;padding:14px 16px;text-align:center"><div style="font:700 20px Cambria,Georgia,serif;color:#C69B3F">3</div><div style="font:700 16px Calibri,Arial,sans-serif;color:#13543E">Discard</div><div style="font:13px Calibri,Arial,sans-serif;color:#6E675B">face-up, name it aloud</div></div>
     </div>
-    <div style="background:#13543E;border-radius:10px;padding:14px 20px;color:#F5EFE2;font:700 16px Cambria,Georgia,serif;margin-bottom:16px">Always back to 13 <span style="color:#C69B3F">(East plays 14 → 13)</span> · counter-clockwise</div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px">
+    <div style="background:#13543E;border-radius:10px;padding:14px 20px;color:#F5EFE2;font:700 16px Cambria,Georgia,serif;margin-bottom:24px">Always back to 13 <span style="color:#C69B3F">(East plays 14 → 13)</span> · counter-clockwise</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px">
       <div style="background:#FFFDF6;border:1px solid #D8CDB8;border-radius:10px;padding:16px 18px;font:14px/1.7 Calibri,Arial,sans-serif">
         <div style="font:700 16px Calibri,Arial,sans-serif;color:#13543E;margin-bottom:6px">Calling a discard</div>
         Only the <strong>most recent</strong> discard is callable — earlier ones are gone.<br>Call to expose a pung, kong, or quint — or to declare mahjong.<br>A pair may only be completed by a discard if it wins the game.<br>Name the tile correctly; a wrong name voids the claim.<br>Two callers? Mahjong beats an exposure call; otherwise the player next in turn from the discarder gets it.<br>After you call, expose the full set on your rack, then discard.
@@ -364,23 +310,16 @@ button{font-family:Calibri,Arial,sans-serif}
         Don’t draw out of turn; look at only one wall tile per draw.<br>Wrong tile count (not 13/14)? Your hand is <strong>DEAD</strong>: stop playing, keep tiles hidden, and you still pay the winner.<br>A false “Mah Jongg” with tiles exposed also kills the hand.<br><strong>Antidote:</strong> one-second count before every discard.<br>Wall empties with no winner → wall game (covered in scoring).
       </div>
     </div>
-    <sc-if value="{{ showTranscripts }}" hint-placeholder-val="{{ true }}">
-      <div style="background:#13543E;border-radius:10px;padding:16px 20px;margin-top:16px;display:flex;gap:14px;align-items:flex-start">
-        <div style="flex:none;width:34px;height:34px;border-radius:50%;background:#C69B3F;color:#13543E;display:flex;align-items:center;justify-content:center;font:700 14px Calibri,Arial,sans-serif">▸</div>
-        <div><div style="font:700 11px Calibri,Arial,sans-serif;letter-spacing:2.5px;color:#C69B3F;margin-bottom:6px">INSTRUCTOR · AUDIO TRANSCRIPT</div>
-        <p style="margin:0;font:15px/1.55 Cambria,Georgia,serif;color:#F5EFE2">Let's play. On your turn: draw one tile from the wall, rack it, and discard one face-up in the middle — naming it out loud. "Six Dot." "Soap." Then it's the next player's turn, moving counter-clockwise. Simple rhythm, one golden number: after your discard you hold exactly thirteen. Now, calling. Only the most recent discard is ever up for grabs — the moment the next player draws, it's gone. You can call a discard to expose a pung, kong, or quint, or to declare mahjong. A pair? Only if it wins you the game on the spot. If two players want the same tile, mahjong beats an exposure, and otherwise it goes to whoever's turn comes next. And the thing to fear: the dead hand. Wrong tile count — twelve tiles, fifteen tiles — and you're out: you stop playing, keep your tiles hidden, and you still pay the winner. The cure costs one second: count before every discard.</p></div>
-      </div>
-    </sc-if>
   </sc-if>
 
-  <sc-if value="{{ isM6 }}" hint-placeholder-val="{{ false }}">
-    <div style="font:700 12px Calibri,Arial,sans-serif;letter-spacing:3px;color:#8A7F6A;margin-bottom:8px">MODULE 6</div>
-    <h1 style="margin:0 0 24px;font:700 34px/1.15 Cambria,Georgia,serif;color:#13543E">Winning &amp; scoring</h1>
-    <div style="background:#FFFDF6;border:1px solid #D8CDB8;border-radius:10px;padding:16px 20px;margin-bottom:14px;font:14px/1.6 Calibri,Arial,sans-serif">
+  <sc-if value="{{ sM6a }}" hint-placeholder-val="{{ false }}">
+    <div style="font:700 12px Calibri,Arial,sans-serif;letter-spacing:3px;color:#8A7F6A;margin-bottom:12px">MODULE 6</div>
+    <h1 style="margin:0 0 32px;font:700 36px/1.15 Cambria,Georgia,serif;color:#13543E">Winning &amp; scoring</h1>
+    <div style="background:#FFFDF6;border:1px solid #D8CDB8;border-radius:10px;padding:16px 20px;margin-bottom:20px;font:14px/1.6 Calibri,Arial,sans-serif">
       <div style="font:700 16px Calibri,Arial,sans-serif;color:#13543E;margin-bottom:6px">Declare it</div>
       14th tile completes a card hand → say <strong>“Mah Jongg”</strong> and show it. The table verifies against the card. Its printed value (25–75) is the base.
     </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-bottom:14px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-bottom:20px">
       <div style="background:#FFFDF6;border:1px solid #D8CDB8;border-radius:10px;padding:16px 18px;font:14px/1.6 Calibri,Arial,sans-serif">
         <div style="font:700 16px Calibri,Arial,sans-serif;color:#13543E;margin-bottom:8px">Win by discard</div>
         <div style="display:flex;gap:10px;margin-bottom:8px"><span style="background:#C0362C;color:#FFFDF6;border-radius:6px;padding:4px 10px;font-weight:700">Discarder pays 2×</span><span style="background:#F5EFE2;border:1px solid #D8CDB8;border-radius:6px;padding:4px 10px">Other two pay 1×</span></div>
@@ -392,7 +331,7 @@ button{font-family:Calibri,Arial,sans-serif}
         Draw your own winning tile from the wall and all three opponents pay double.
       </div>
     </div>
-    <div style="background:#FFFDF6;border:1px solid #D8CDB8;border-radius:10px;padding:16px 20px;margin-bottom:14px;font:14px/1.7 Calibri,Arial,sans-serif">
+    <div style="background:#FFFDF6;border:1px solid #D8CDB8;border-radius:10px;padding:16px 20px;margin-bottom:20px;font:14px/1.7 Calibri,Arial,sans-serif">
       <div style="font:700 16px Calibri,Arial,sans-serif;color:#13543E;margin-bottom:6px">Bonus &amp; edge cases</div>
       <strong>Jokerless:</strong> winning with zero jokers doubles the value again — bonuses stack. (Doesn’t apply to Singles-and-Pairs hands, which can’t use jokers anyway.)<br><strong>Wall game:</strong> tiles run out with no winner → nobody pays; shuffle and redeal.<br>Values and hands come from the card in play — confirm the year before starting.
     </div>
@@ -400,20 +339,13 @@ button{font-family:Calibri,Arial,sans-serif}
       <div style="font:700 12px Calibri,Arial,sans-serif;letter-spacing:2.5px;color:#C69B3F;margin-bottom:6px">WORKED EXAMPLE</div>
       25-pt hand, won on a discard: discarder pays 50 · others pay 25 each = 100 in.<br>Same hand self-picked &amp; jokerless: 25 × 2 × 2 = <strong style="color:#C69B3F">100 from each player</strong>.
     </div>
-    <sc-if value="{{ showTranscripts }}" hint-placeholder-val="{{ true }}">
-      <div style="background:#13543E;border-radius:10px;padding:16px 20px;margin-top:16px;display:flex;gap:14px;align-items:flex-start">
-        <div style="flex:none;width:34px;height:34px;border-radius:50%;background:#C69B3F;color:#13543E;display:flex;align-items:center;justify-content:center;font:700 14px Calibri,Arial,sans-serif">▸</div>
-        <div><div style="font:700 11px Calibri,Arial,sans-serif;letter-spacing:2.5px;color:#C69B3F;margin-bottom:6px">INSTRUCTOR · AUDIO TRANSCRIPT</div>
-        <p style="margin:0;font:15px/1.55 Cambria,Georgia,serif;color:#F5EFE2">The good part: getting paid. When your fourteenth tile completes a card hand, say "Mah Jongg," show your tiles, and the table checks them against the card. The printed value — twenty-five to seventy-five points — is your base. Then how you won sets the multiplier. Won on somebody's discard? That player pays you double, and the other two pay single — which is why careless discards are expensive. Drew the winning tile yourself off the wall? Self-pick: everybody pays double. And if your winning hand used zero jokers, double it again — the bonuses stack. Quick example: a twenty-five point hand, self-picked, jokerless — twenty-five, doubled, doubled — that's a hundred from every player. One more outcome to know: if the wall runs out with no winner, that's a wall game. Nobody pays. Shuffle up, rotate East, go again.</p></div>
-      </div>
-    </sc-if>
   </sc-if>
 
-  <sc-if value="{{ isM7 }}" hint-placeholder-val="{{ false }}">
-    <div style="font:700 12px Calibri,Arial,sans-serif;letter-spacing:3px;color:#8A7F6A;margin-bottom:8px">MODULE 7</div>
-    <h1 style="margin:0 0 24px;font:700 34px/1.15 Cambria,Georgia,serif;color:#13543E">Playing with strangers</h1>
-    <h2 style="margin:0 0 12px;font:700 22px Cambria,Georgia,serif;color:#13543E">Ask before the first Charleston</h2>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-bottom:16px">
+  <sc-if value="{{ sM7a }}" hint-placeholder-val="{{ false }}">
+    <div style="font:700 12px Calibri,Arial,sans-serif;letter-spacing:3px;color:#8A7F6A;margin-bottom:12px">MODULE 7</div>
+    <h1 style="margin:0 0 32px;font:700 36px/1.15 Cambria,Georgia,serif;color:#13543E">Playing with strangers</h1>
+    <h2 style="margin:0 0 16px;font:700 22px Cambria,Georgia,serif;color:#13543E">Ask before the first Charleston</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-bottom:24px">
       <div style="background:#FFFDF6;border:1px solid #D8CDB8;border-radius:10px;padding:16px 18px">
         <div style="width:28px;height:28px;border-radius:50%;background:#13543E;color:#C69B3F;display:flex;align-items:center;justify-content:center;font:700 14px Cambria,Georgia,serif;margin-bottom:10px">1</div>
         <div style="font:700 16px Calibri,Arial,sans-serif;color:#13543E;margin-bottom:4px">Which card?</div>
@@ -430,7 +362,7 @@ button{font-family:Calibri,Arial,sans-serif}
         <div style="font:14px/1.5 Calibri,Arial,sans-serif;color:#6E675B">Chips, coins, or just score? Confirm what a point is worth before anyone owes anything.</div>
       </div>
     </div>
-    <div style="background:#FFFDF6;border:1px solid #D8CDB8;border-radius:10px;padding:16px 20px;margin-bottom:12px;font:14px/1.7 Calibri,Arial,sans-serif">
+    <div style="background:#FFFDF6;border:1px solid #D8CDB8;border-radius:10px;padding:16px 20px;margin-bottom:14px;font:14px/1.7 Calibri,Arial,sans-serif">
       <div style="font:700 16px Calibri,Arial,sans-serif;color:#13543E;margin-bottom:6px">Table etiquette</div>
       Keep pace — draw, decide, discard; the table has a rhythm.<br>Name every discard clearly; call claims promptly.<br>Racks hide your hand; comment on no one’s tiles but your own.<br>Win and lose the same way: pleasantly.
     </div>
@@ -438,20 +370,13 @@ button{font-family:Calibri,Arial,sans-serif}
       <div style="font:700 12px Calibri,Arial,sans-serif;letter-spacing:2.5px;color:#C69B3F;margin-bottom:6px">THE ONE-SECOND SELF-CHECK</div>
       Before every discard: <em>Do I have 13? Is this the tile I mean to throw?</em> That glance is the whole difference between a smooth player and a dead hand.
     </div>
-    <sc-if value="{{ showTranscripts }}" hint-placeholder-val="{{ true }}">
-      <div style="background:#13543E;border-radius:10px;padding:16px 20px;margin-top:16px;display:flex;gap:14px;align-items:flex-start">
-        <div style="flex:none;width:34px;height:34px;border-radius:50%;background:#C69B3F;color:#13543E;display:flex;align-items:center;justify-content:center;font:700 14px Calibri,Arial,sans-serif">▸</div>
-        <div><div style="font:700 11px Calibri,Arial,sans-serif;letter-spacing:2.5px;color:#C69B3F;margin-bottom:6px">INSTRUCTOR · AUDIO TRANSCRIPT</div>
-        <p style="margin:0;font:15px/1.55 Cambria,Georgia,serif;color:#F5EFE2">Last module: sitting down with strangers and looking like you belong. Three questions before the first Charleston. One: which card are we on? The card changes every year, and playing last year's hands is the classic newcomer mistake. Two: any house rules? Courtesy pass, payment quirks — thirty seconds now saves an argument later. Three: what are the stakes? Chips, coins, or bragging rights — know before anyone owes anything. Then just be good company: keep the rhythm moving, name your discards clearly, never comment on anyone's tiles, and win or lose the same pleasant way. And keep your one-second self-check: thirteen tiles? Right tile? Discard.</p></div>
-      </div>
-    </sc-if>
   </sc-if>
 
-  <sc-if value="{{ isCap }}" hint-placeholder-val="{{ false }}">
-    <div style="font:700 12px Calibri,Arial,sans-serif;letter-spacing:3px;color:#8A7F6A;margin-bottom:8px">CAPSTONE</div>
-    <h1 style="margin:0 0 10px;font:700 34px/1.15 Cambria,Georgia,serif;color:#13543E">One full hand, start to finish</h1>
-    <p style="margin:0 0 20px;font:15px/1.5 Calibri,Arial,sans-serif;color:#6E675B">The learner runs a complete hand — live with three players, or through a scripted walkthrough — and must, unprompted:</p>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-bottom:16px">
+  <sc-if value="{{ sCap }}" hint-placeholder-val="{{ false }}">
+    <div style="font:700 12px Calibri,Arial,sans-serif;letter-spacing:3px;color:#8A7F6A;margin-bottom:12px">CAPSTONE</div>
+    <h1 style="margin:0 0 12px;font:700 36px/1.15 Cambria,Georgia,serif;color:#13543E">One full hand, start to finish</h1>
+    <p style="margin:0 0 32px;font:16px/1.55 Calibri,Arial,sans-serif;color:#6E675B">The learner runs a complete hand — live with three players, or through a scripted walkthrough — and must, unprompted:</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-bottom:24px">
       <sc-for list="{{ capCards }}" as="c" hint-placeholder-count="6">
         <div style="background:#FFFDF6;border:1px solid #D8CDB8;border-radius:10px;padding:14px 16px">
           <div style="font:700 15px Calibri,Arial,sans-serif;color:#13543E;margin-bottom:4px">{{ c.title }}</div>
@@ -460,20 +385,13 @@ button{font-family:Calibri,Arial,sans-serif}
       </sc-for>
     </div>
     <div style="background:#13543E;border-radius:10px;padding:16px 22px;color:#F5EFE2;font:700 16px Cambria,Georgia,serif">Mastery bar: <span style="color:#C69B3F">≤ 2 procedural errors · 0 illegal claims · correct final payout</span></div>
-    <sc-if value="{{ showTranscripts }}" hint-placeholder-val="{{ true }}">
-      <div style="background:#13543E;border-radius:10px;padding:16px 20px;margin-top:16px;display:flex;gap:14px;align-items:flex-start">
-        <div style="flex:none;width:34px;height:34px;border-radius:50%;background:#C69B3F;color:#13543E;display:flex;align-items:center;justify-content:center;font:700 14px Calibri,Arial,sans-serif">▸</div>
-        <div><div style="font:700 11px Calibri,Arial,sans-serif;letter-spacing:2.5px;color:#C69B3F;margin-bottom:6px">INSTRUCTOR · AUDIO TRANSCRIPT</div>
-        <p style="margin:0;font:15px/1.55 Cambria,Georgia,serif;color:#F5EFE2">This is where it all comes together: the capstone. One complete hand, start to finish — live with three other players if you can, or through the guided walkthrough. You'll set up, deal thirteen-fourteen, run the Charleston, play real turns with at least one legal call, handle jokers lawfully, catch a planted trap, and score the win — payments and all. The bar: no more than two procedural slips, zero illegal claims, and the payout computed correctly. Clear that, and you're not learning mahjong anymore. You're playing it.</p></div>
-      </div>
-    </sc-if>
   </sc-if>
 
-  <sc-if value="{{ isDone }}" hint-placeholder-val="{{ false }}">
-    <div style="font:700 12px Calibri,Arial,sans-serif;letter-spacing:3px;color:#8A7F6A;margin-bottom:8px">READY FOR A REAL TABLE</div>
-    <h1 style="margin:0 0 10px;font:700 34px/1.15 Cambria,Georgia,serif;color:#13543E">The confident-player checklist</h1>
-    <p style="margin:0 0 20px;font:15px/1.5 Calibri,Arial,sans-serif;color:#6E675B">Run this list honestly — no notes allowed. Anything shaky, jump back to its module for a two-minute refresh. Check each one off as it becomes solid.</p>
-    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px">
+  <sc-if value="{{ sDone }}" hint-placeholder-val="{{ false }}">
+    <div style="font:700 12px Calibri,Arial,sans-serif;letter-spacing:3px;color:#8A7F6A;margin-bottom:12px">READY FOR A REAL TABLE</div>
+    <h1 style="margin:0 0 12px;font:700 36px/1.15 Cambria,Georgia,serif;color:#13543E">The confident-player checklist</h1>
+    <p style="margin:0 0 32px;font:16px/1.55 Calibri,Arial,sans-serif;color:#6E675B">Run this list honestly — no notes allowed. Anything shaky, jump back to its module for a two-minute refresh. Check each one off as it becomes solid.</p>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px">
       <sc-for list="{{ checkItems }}" as="c" hint-placeholder-count="8">
         <button onClick="{{ c.onClick }}" style="{{ c.style }}">
           <span style="{{ c.boxStyle }}">{{ c.mark }}</span>
@@ -482,84 +400,142 @@ button{font-family:Calibri,Arial,sans-serif}
       </sc-for>
     </div>
     <div style="{{ doneBannerStyle }}">{{ doneBannerText }}</div>
-    <sc-if value="{{ showTranscripts }}" hint-placeholder-val="{{ true }}">
-      <div style="background:#13543E;border-radius:10px;padding:16px 20px;margin-top:16px;display:flex;gap:14px;align-items:flex-start">
-        <div style="flex:none;width:34px;height:34px;border-radius:50%;background:#C69B3F;color:#13543E;display:flex;align-items:center;justify-content:center;font:700 14px Calibri,Arial,sans-serif">▸</div>
-        <div><div style="font:700 11px Calibri,Arial,sans-serif;letter-spacing:2.5px;color:#C69B3F;margin-bottom:6px">INSTRUCTOR · AUDIO TRANSCRIPT</div>
-        <p style="margin:0 0 10px;font:15px/1.55 Cambria,Georgia,serif;color:#F5EFE2">Before you go find a game, run this list honestly. Eight skills, no notes allowed. Every one of them maps to a module you've finished, so anything shaky — jump back, it's a two-minute refresh. All eight solid? Then there's nothing left to learn from me that a real table won't teach you better.</p>
-        <p style="margin:0;font:15px/1.55 Cambria,Georgia,serif;color:#F5EFE2">That's the course. You know all one hundred fifty-two tiles, the setup, the card, the Charleston, real turns, real scoring, and how to sit down anywhere with confidence. Grab your set, find three people, and play a hand tonight. The tiles are waiting. Good luck — and may you always be jokerless when it counts.</p></div>
-      </div>
-    </sc-if>
   </sc-if>
 
   <sc-if value="{{ showQuiz }}" hint-placeholder-val="{{ false }}">
-    <div style="margin-top:48px;border-top:3px solid #13543E;padding-top:26px">
-      <div style="display:flex;align-items:baseline;gap:12px;margin-bottom:4px">
-        <div style="font:700 12px Calibri,Arial,sans-serif;letter-spacing:3px;color:#C0362C">KNOWLEDGE CHECK</div>
-        <div style="font:700 20px Cambria,Georgia,serif;color:#13543E">{{ qTitle }}</div>
-      </div>
-      <p style="margin:0 0 18px;font:14px Calibri,Arial,sans-serif;color:#6E675B">Answer all three correctly to mark this module complete. Pick again if you miss.</p>
-      <div style="display:flex;flex-direction:column;gap:14px">
-        <sc-for list="{{ qQs }}" as="q" hint-placeholder-count="3">
-          <div style="background:#FFFDF6;border:1px solid #D8CDB8;border-radius:10px;padding:16px 18px">
-            <div style="font:700 15px/1.4 Calibri,Arial,sans-serif;color:#24211C;margin-bottom:10px">{{ q.text }}</div>
-            <div style="display:flex;flex-direction:column;gap:8px">
-              <sc-for list="{{ q.opts }}" as="o" hint-placeholder-count="3">
-                <button onClick="{{ o.onClick }}" style="{{ o.style }}">
-                  <span style="{{ o.markStyle }}">{{ o.mark }}</span>
-                  <span style="flex:1;text-align:left">{{ o.label }}</span>
-                </button>
-              </sc-for>
-            </div>
-            <sc-if value="{{ q.done }}" hint-placeholder-val="{{ false }}">
-              <div style="margin-top:10px;background:#EAF1EC;border-radius:8px;padding:10px 14px;font:14px/1.5 Calibri,Arial,sans-serif;color:#13543E">✓ {{ q.why }}</div>
-            </sc-if>
+    <div style="font:700 12px Calibri,Arial,sans-serif;letter-spacing:3px;color:#C0362C;margin-bottom:12px">{{ quizTag }}</div>
+    <h1 style="margin:0 0 12px;font:700 36px/1.15 Cambria,Georgia,serif;color:#13543E">{{ qTitle }}</h1>
+    <p style="margin:0 0 28px;font:15px/1.5 Calibri,Arial,sans-serif;color:#6E675B">Answer all three correctly to mark this module complete. Pick again if you miss.</p>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <sc-for list="{{ qQs }}" as="q" hint-placeholder-count="3">
+        <div style="background:#FFFDF6;border:1px solid #D8CDB8;border-radius:10px;padding:18px 20px">
+          <div style="font:700 15px/1.4 Calibri,Arial,sans-serif;color:#24211C;margin-bottom:12px">{{ q.text }}</div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <sc-for list="{{ q.opts }}" as="o" hint-placeholder-count="3">
+              <button onClick="{{ o.onClick }}" style="{{ o.style }}">
+                <span style="{{ o.markStyle }}">{{ o.mark }}</span>
+                <span style="flex:1;text-align:left">{{ o.label }}</span>
+              </button>
+            </sc-for>
           </div>
-        </sc-for>
-      </div>
-      <div style="margin-top:22px;background:#13543E;border-radius:10px;padding:18px 22px;color:#F5EFE2">
-        <div style="font:700 12px Calibri,Arial,sans-serif;letter-spacing:3px;color:#C69B3F;margin-bottom:8px">PRACTICE SCENARIO</div>
-        <p style="margin:0 0 14px;font:16px/1.55 Cambria,Georgia,serif">{{ scenPrompt }}</p>
-        <button onClick="{{ toggleReveal }}" style="background:#C69B3F;color:#13543E;border:none;border-radius:8px;padding:9px 20px;font:700 14px Calibri,Arial,sans-serif;cursor:pointer">{{ revealLabel }}</button>
-        <sc-if value="{{ scenRevealed }}" hint-placeholder-val="{{ false }}">
-          <p style="margin:14px 0 0;padding:13px 16px;background:rgba(245,239,226,.12);border-radius:8px;font:15px/1.55 Calibri,Arial,sans-serif;color:#F5EFE2">{{ scenAnswer }}</p>
-        </sc-if>
-      </div>
-      <sc-if value="{{ showTranscripts }}" hint-placeholder-val="{{ true }}">
-        <div style="background:#FFFDF6;border:1px dashed #C69B3F;border-radius:10px;padding:14px 18px;margin-top:14px;font:14px/1.55 Cambria,Georgia,serif;color:#6E675B"><span style="font:700 11px Calibri,Arial,sans-serif;letter-spacing:2.5px;color:#C69B3F;font-style:normal">INSTRUCTOR · </span>{{ qNotes }}</div>
+          <sc-if value="{{ q.done }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:10px;background:#EAF1EC;border-radius:8px;padding:10px 14px;font:14px/1.5 Calibri,Arial,sans-serif;color:#13543E">✓ {{ q.why }}</div>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ showScen }}" hint-placeholder-val="{{ false }}">
+    <div style="font:700 12px Calibri,Arial,sans-serif;letter-spacing:3px;color:#C69B3F;margin-bottom:12px">{{ scenTag }}</div>
+    <h1 style="margin:0 0 28px;font:700 36px/1.15 Cambria,Georgia,serif;color:#13543E">Apply it</h1>
+    <div style="background:#13543E;border-radius:10px;padding:26px 30px;color:#F5EFE2">
+      <div style="font:700 12px Calibri,Arial,sans-serif;letter-spacing:3px;color:#C69B3F;margin-bottom:12px">PRACTICE SCENARIO</div>
+      <p style="margin:0 0 20px;font:19px/1.55 Cambria,Georgia,serif">{{ scenPrompt }}</p>
+      <button onClick="{{ toggleReveal }}" style="background:#C69B3F;color:#13543E;border:none;border-radius:8px;padding:10px 22px;font:700 14px Calibri,Arial,sans-serif;cursor:pointer">{{ revealLabel }}</button>
+      <sc-if value="{{ scenRevealed }}" hint-placeholder-val="{{ false }}">
+        <p style="margin:18px 0 0;padding:14px 18px;background:rgba(245,239,226,.12);border-radius:8px;font:15px/1.55 Calibri,Arial,sans-serif;color:#F5EFE2">{{ scenAnswer }}</p>
       </sc-if>
     </div>
   </sc-if>
 
-  <sc-if value="{{ hasNext }}" hint-placeholder-val="{{ true }}">
-    <div style="margin-top:44px;display:flex;justify-content:flex-end">
-      <button onClick="{{ goNext }}" style="background:#13543E;color:#F5EFE2;border:none;border-radius:10px;padding:14px 26px;font:700 16px Calibri,Arial,sans-serif;cursor:pointer;display:flex;gap:10px;align-items:center">{{ nextLabel }} <span style="color:#C69B3F">→</span></button>
-    </div>
-  </sc-if>
-
   </div>
+  </div>
+
+  <div style="flex:none;border-top:1px solid #D8CDB8;background:#F5EFE2">
+    <div class="mj-foot" style="max-width:820px;margin:0 auto;display:flex;align-items:center;gap:14px;padding:14px 44px">
+      <sc-if value="{{ hasBack }}" hint-placeholder-val="{{ false }}">
+        <button onClick="{{ goBack }}" style="background:transparent;color:#13543E;border:1px solid #D8CDB8;border-radius:10px;padding:12px 20px;font:700 14px Calibri,Arial,sans-serif;cursor:pointer">← Back</button>
+      </sc-if>
+      <div class="mj-poslabel" style="flex:1;text-align:center;font:13px Calibri,Arial,sans-serif;color:#8A7F6A">{{ posLabel }}</div>
+      <sc-if value="{{ hasNext }}" hint-placeholder-val="{{ true }}">
+        <button onClick="{{ goNext }}" style="{{ nextBtnStyle }}">{{ nextLabel }} <span style="color:#C69B3F">→</span></button>
+      </sc-if>
+    </div>
   </div>
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;showTranscripts&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Course&quot;},&quot;lockModules&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Course&quot;}}">
 class Component extends DCLogic {
-  state = { view: 'home', answers: {}, revealed: {}, checks: [false,false,false,false,false,false,false,false] };
+  state = { idx: 0, contentsOpen: false, txOpen: false, speaking: false, answers: {}, revealed: {}, checks: [false,false,false,false,false,false,false,false] };
   mainRef = React.createRef();
+  SCREENS = [
+    { id: 'h1', mod: 'home', label: 'Welcome' },
+    { id: 'h2', mod: 'home', label: 'Course map' },
+    { id: 'h3', mod: 'home', label: 'Scope: American only' },
+    { id: 'm1a', mod: 'm1', label: 'The full set' },
+    { id: 'm1b', mod: 'm1', label: 'Dots' },
+    { id: 'm1c', mod: 'm1', label: 'Bams' },
+    { id: 'm1d', mod: 'm1', label: 'Craks' },
+    { id: 'm1e', mod: 'm1', label: 'Winds & Dragons' },
+    { id: 'm1f', mod: 'm1', label: 'Flowers & Jokers' },
+    { id: 'm1q', mod: 'm1', label: 'Knowledge check' },
+    { id: 'm1s', mod: 'm1', label: 'Practice scenario' },
+    { id: 'm2a', mod: 'm2', label: 'The table & setup' },
+    { id: 'm2q', mod: 'm2', label: 'Knowledge check' },
+    { id: 'm2s', mod: 'm2', label: 'Practice scenario' },
+    { id: 'm3a', mod: 'm3', label: 'The card & sets' },
+    { id: 'm3b', mod: 'm3', label: 'Joker rules' },
+    { id: 'm3q', mod: 'm3', label: 'Knowledge check' },
+    { id: 'm3s', mod: 'm3', label: 'Practice scenario' },
+    { id: 'm4a', mod: 'm4', label: 'The Charleston' },
+    { id: 'm4q', mod: 'm4', label: 'Knowledge check' },
+    { id: 'm4s', mod: 'm4', label: 'Practice scenario' },
+    { id: 'm5a', mod: 'm5', label: 'Playing a round' },
+    { id: 'm5q', mod: 'm5', label: 'Knowledge check' },
+    { id: 'm5s', mod: 'm5', label: 'Practice scenario' },
+    { id: 'm6a', mod: 'm6', label: 'Winning & scoring' },
+    { id: 'm6q', mod: 'm6', label: 'Knowledge check' },
+    { id: 'm6s', mod: 'm6', label: 'Practice scenario' },
+    { id: 'm7a', mod: 'm7', label: 'Playing with strangers' },
+    { id: 'm7q', mod: 'm7', label: 'Knowledge check' },
+    { id: 'm7s', mod: 'm7', label: 'Practice scenario' },
+    { id: 'cap', mod: 'cap', label: 'Capstone' },
+    { id: 'done', mod: 'done', label: 'Table-ready checklist' }
+  ];
+  TX = {"h1":"Hey, welcome in. So you want to play American mahjong — with friends, or maybe you're brave enough to sit down with total strangers. Good news: it's absolutely learnable, and by the end of this course you'll play a full hand without a rulebook open on your knee. Everything here follows standard American play — the common rules you'll meet at most tables — and one number to hold onto from the start: you keep thirteen tiles in your hand, and the dealer, East, holds fourteen. Let's get you table-ready.","h2":"Here's the road ahead. Seven modules, each one short: you'll listen to a quick lesson, take a concept check, then apply what you learned to a real game situation. Module one is all about the tiles themselves, because nothing else works until you can name what's in your hand. Then we set the table, learn the goal, run the Charleston, play real turns, score a win, and finish with the habits that make you welcome at any table. At the very end, a capstone: one complete hand, played start to finish.","h3":"One quick guardrail before we start. There's more than one mahjong in the world. Chinese mahjong builds free-form hands out of runs and uses a points-and-doubles system called fu and fan. American mahjong — our game — is different: you match one specific hand printed on a card, there are no runs at all, and it adds jokers, flowers, and a pre-game tile swap called the Charleston. So here's the tell: if you ever hear someone say \"chow,\" \"run,\" or \"fu and fan,\" you're at a Chinese table. Different game. Politely check before you sit down.","m1a":"Let's open the box. American mahjong plays with one hundred fifty-two tiles, and they sort into seven families. Thirty-six Dots, thirty-six Bams, thirty-six Craks — those are your three suits, numbers one through nine, four copies of each. Then sixteen Winds — north, east, west, south, four of each. Twelve Dragons — red, green, and white, four of each. Eight Flowers. And eight Jokers, the wild tiles that make American mahjong American. Thirty-six, thirty-six, thirty-six, sixteen, twelve, eight, and eight — one fifty-two. Anything else in the box is a spare. Over the next few minutes we'll walk each family so every tile reads instantly.","m1b":"First suit: the Dots, sometimes called Circles. Each Dot tile shows its number as a pattern of circles — one circle for the one, two for the two, all the way up to a three-by-three grid for the nine. And there's a shortcut printed right on the tile: a small number in the corner. Trust the corner. One thing to watch: the one Dot is a single big medallion, and brand-new players sometimes mistake it for a flower. If it's one large circle, it's the one Dot. Four copies of every number — thirty-six Dots in all.","m1c":"Second suit: the Bams, short for bamboo. Twos through nines show that many bamboo sticks — count the sticks or read the corner number. But here's the one everybody misses, so lean in: the one Bam is a bird. No sticks at all — a bird sitting on a perch. New players throw it away thinking it's a decoration, or stare right past it when they need it. Burn this in now: bird equals one Bam. Four of each, thirty-six total.","m1d":"Third suit: the Craks, short for characters. Each Crak has two Chinese characters: the top one is the number, and the bottom one — the red character, wan — is the suit marker. Here's the good news: you never need to read Chinese. American sets print the number in the corner, so your read is simply: red character at the bottom means Crak, corner number tells you which one. \"Five Crak.\" Done. Four of each, thirty-six total.","m1e":"Now the honor tiles. Winds first: north, east, west, and south, and every wind has its letter printed in the corner — N, E, W, S — so they read at a glance. Four of each, sixteen winds. Then the Dragons, three colors: the red dragon, the green dragon, and the white dragon. The white one deserves special attention — it's basically a blank tile with a blue frame, and players call it the Soap. It is not a spare! It's a live dragon, and on the card it can even stand in for the number zero. Last thing, and it matters for reading the card: when a hand mixes a suit with dragons, they pair up — Craks with red, Bams with green, Dots with the Soap. C-R, B-G, D-W.","m1f":"Two special families left. Flowers: there are eight, numbered one through eight, and here's the American twist — they're all interchangeable. Any flower fills any flower spot in a hand, no matter its number or picture. And flowers are real working tiles here, not bonuses; plenty of winning hands require them. Then the stars of the show: eight Jokers, wild tiles unique to American mahjong. A joker can stand in for other tiles — but under strict rules we'll cover properly in module three. The headline version: jokers work only inside groups of three or more. Never in a pair, never alone, and never, ever passed in the Charleston.","m2a":"Let's set the table. Step one: everybody rolls the dice, and the highest roll becomes East — the dealer. East gets the extra tile and, after each hand, the deal rotates to the right. Step two: build the wall. All one fifty-two tiles go face down, and each player builds a wall in front of their rack — nineteen stacks long, two tiles high. Four walls, one square, every tile accounted for. Step three: East rolls again, counts that many stacks in from the right of the indicated wall, and the deal begins there — four tiles at a time around the table until everyone has twelve, then one more each, with East taking two. Final count, say it with me: everyone thirteen, East fourteen. And play will move counter-clockwise — to the right.","m3a":"So what are you actually building? Here's the heart of American mahjong: you win by matching your fourteen tiles, exactly, to one of the hands printed on the card — most tables use the National Mah Jongg League card, which is reissued every year. No freestyle. Your building blocks are simple: a pair is two identical tiles, a pung is three, a kong is four, and a quint is five — and since only four copies of any tile exist, a quint is only possible with jokers. One more distinction that shapes your whole game: exposed versus concealed. When you call a discard to finish a pung, kong, or quint, that set gets flipped face-up on your rack — exposed. Hands marked C on the card are concealed: no exposures allowed, and you can only claim a discard for the win itself. Concealed is harder, and it pays more.","m3b":"Joker rules — strict, short, and worth memorizing, because joker mistakes are the most common fouls in the game. Rule one: jokers live only in groups of three or more. A pung, a kong, a quint — perfect. A pair? Never. A single tile? Never. Rule two — and this one wins games — the joker exchange. On your turn, after you draw, if any exposed set on the table shows a joker and you're holding the matching real tile, you can swap your tile for that joker. Even from your own exposures. A free wild tile, just for paying attention. Rule three: a discarded joker is dead — nobody can call it, and its wildness is gone. And rule four: jokers never travel in the Charleston. If someone passes you one by mistake, straight back it goes.","m4a":"Now the famous part: the Charleston, the pre-game tile swap. First Charleston — this one's required: pass three tiles to your right, then three across the table, then three to your left. Right, across, left. Second Charleston — optional, and here's the key: it takes everyone. Any single player can call it off. If it runs, it mirrors back: left, across, right. Two special moves. The blind pass: on the last pass of either Charleston, if you love your hand, you may pass along tiles you just received without even looking at them. And the courtesy pass: after all the passing ends, you and the player across from you may swap zero to three tiles — and the lower number rules. You want three, they want one? You each pass one. And the golden rule one more time: jokers never pass.","m5a":"Let's play. On your turn: draw one tile from the wall, rack it, and discard one face-up in the middle — naming it out loud. \"Six Dot.\" \"Soap.\" Then it's the next player's turn, moving counter-clockwise. Simple rhythm, one golden number: after your discard you hold exactly thirteen. Now, calling. Only the most recent discard is ever up for grabs — the moment the next player draws, it's gone. You can call a discard to expose a pung, kong, or quint, or to declare mahjong. A pair? Only if it wins you the game on the spot. If two players want the same tile, mahjong beats an exposure, and otherwise it goes to whoever's turn comes next. And the thing to fear: the dead hand. Wrong tile count — twelve tiles, fifteen tiles — and you're out: you stop playing, keep your tiles hidden, and you still pay the winner. The cure costs one second: count before every discard.","m6a":"The good part: getting paid. When your fourteenth tile completes a card hand, say \"Mah Jongg,\" show your tiles, and the table checks them against the card. The printed value — twenty-five to seventy-five points — is your base. Then how you won sets the multiplier. Won on somebody's discard? That player pays you double, and the other two pay single — which is why careless discards are expensive. Drew the winning tile yourself off the wall? Self-pick: everybody pays double. And if your winning hand used zero jokers, double it again — the bonuses stack. Quick example: a twenty-five point hand, self-picked, jokerless — twenty-five, doubled, doubled — that's a hundred from every player. One more outcome to know: if the wall runs out with no winner, that's a wall game. Nobody pays. Shuffle up, rotate East, go again.","m7a":"Last module: sitting down with strangers and looking like you belong. Three questions before the first Charleston. One: which card are we on? The card changes every year, and playing last year's hands is the classic newcomer mistake. Two: any house rules? Courtesy pass, payment quirks — thirty seconds now saves an argument later. Three: what are the stakes? Chips, coins, or bragging rights — know before anyone owes anything. Then just be good company: keep the rhythm moving, name your discards clearly, never comment on anyone's tiles, and win or lose the same pleasant way. And keep your one-second self-check: thirteen tiles? Right tile? Discard.","cap":"This is where it all comes together: the capstone. One complete hand, start to finish — live with three other players if you can, or through the guided walkthrough. You'll set up, deal thirteen-fourteen, run the Charleston, play real turns with at least one legal call, handle jokers lawfully, catch a planted trap, and score the win — payments and all. The bar: no more than two procedural slips, zero illegal claims, and the payout computed correctly. Clear that, and you're not learning mahjong anymore. You're playing it.","done":"Before you go find a game, run this list honestly. Eight skills, no notes allowed. Every one of them maps to a module you've finished, so anything shaky — jump back, it's a two-minute refresh. All eight solid? Then there's nothing left to learn from me that a real table won't teach you better.\n\nThat's the course. You know all one hundred fifty-two tiles, the setup, the card, the Charleston, real turns, real scoring, and how to sit down anywhere with confidence. Grab your set, find three people, and play a hand tonight. The tiles are waiting. Good luck — and may you always be jokerless when it counts."};
   componentDidMount() {
     try {
       const s = JSON.parse(localStorage.getItem('mahj-course-v1') || 'null');
-      if (s) this.setState({ answers: s.answers || {}, revealed: s.revealed || {}, checks: s.checks || this.state.checks });
+      if (s) this.setState({
+        answers: s.answers || {}, revealed: s.revealed || {}, checks: s.checks || this.state.checks,
+        idx: (typeof s.idx === 'number' && s.idx >= 0 && s.idx < this.SCREENS.length) ? s.idx : 0
+      });
     } catch (e) {}
   }
   save(patch) {
     this.setState(patch, () => {
-      const { answers, revealed, checks } = this.state;
-      try { localStorage.setItem('mahj-course-v1', JSON.stringify({ answers, revealed, checks })); } catch (e) {}
+      const { answers, revealed, checks, idx } = this.state;
+      try { localStorage.setItem('mahj-course-v1', JSON.stringify({ answers, revealed, checks, idx })); } catch (e) {}
     });
   }
-  nav(id) {
-    this.setState({ view: id }, () => { if (this.mainRef.current) this.mainRef.current.scrollTop = 0; });
+  nav(i) {
+    this.stopSpeech();
+    const idx = Math.max(0, Math.min(this.SCREENS.length - 1, i));
+    this.save({ idx, contentsOpen: false });
+    setTimeout(() => { if (this.mainRef.current) this.mainRef.current.scrollTop = 0; }, 0);
   }
+  stopSpeech() {
+    if (typeof speechSynthesis !== 'undefined') try { speechSynthesis.cancel(); } catch (e) {}
+    if (this.state.speaking) this.setState({ speaking: false });
+  }
+  currentTx() {
+    const cur = this.SCREENS[this.state.idx];
+    if (cur.id.length === 3 && cur.id[2] === 'q') return this.quizData()[cur.mod].notes;
+    return this.TX[cur.id] || '';
+  }
+  toggleAudio() {
+    if (typeof speechSynthesis === 'undefined') return;
+    if (this.state.speaking) { this.stopSpeech(); return; }
+    const t = this.currentTx();
+    if (!t) return;
+    const u = new SpeechSynthesisUtterance(t);
+    u.rate = 1;
+    u.onend = u.onerror = () => { if (this.state.speaking) this.setState({ speaking: false }); };
+    this.setState({ speaking: true });
+    speechSynthesis.speak(u);
+  }
+  componentWillUnmount() { this.stopSpeech(); }
   quizData() {
     return {
       m1: { title: 'Tile identification', notes: "Time for your first check. Pause on each question, answer out loud, then compare. And try the scenario before you reveal it — it's the blank-looking tile that fools everyone at least once.",
@@ -617,46 +593,46 @@ class Component extends DCLogic {
     return QUIZ[m].qs.every((q, i) => this.state.answers[m + ':' + i] === q.a);
   }
   renderVals() {
-    const e = React.createElement;
-    const { view, answers, revealed, checks } = this.state;
+    const { idx, contentsOpen, answers, revealed, checks } = this.state;
+    const S = this.SCREENS;
+    const cur = S[idx];
     const QUIZ = this.quizData();
     const lock = this.props.lockModules ?? false;
     const showTranscripts = this.props.showTranscripts ?? true;
-    const ORDER = ['home', 'm1', 'm2', 'm3', 'm4', 'm5', 'm6', 'm7', 'cap', 'done'];
-    const LABELS = { home: 'Welcome & course map', m1: 'Meet the Tiles', m2: 'Table & setup', m3: 'The card, sets & jokers', m4: 'The Charleston', m5: 'Playing a round', m6: 'Winning & scoring', m7: 'Playing with strangers', cap: 'Capstone', done: 'Table-ready checklist' };
+    const MODORDER = ['home', 'm1', 'm2', 'm3', 'm4', 'm5', 'm6', 'm7', 'cap', 'done'];
+    const MODLABELS = { home: 'Welcome & course map', m1: 'Meet the Tiles', m2: 'Table & setup', m3: 'The card, sets & jokers', m4: 'The Charleston', m5: 'Playing a round', m6: 'Winning & scoring', m7: 'Playing with strangers', cap: 'Capstone', done: 'Table-ready checklist' };
+    const MODTAGS = { home: 'WELCOME', m1: 'MODULE 1', m2: 'MODULE 2', m3: 'MODULE 3', m4: 'MODULE 4', m5: 'MODULE 5', m6: 'MODULE 6', m7: 'MODULE 7', cap: 'CAPSTONE', done: 'CHECKLIST' };
     const NUMS = { home: '◆', m1: '1', m2: '2', m3: '3', m4: '4', m5: '5', m6: '6', m7: '7', cap: '★', done: '✓' };
     const doneMap = {};
     for (let i = 1; i <= 7; i++) doneMap['m' + i] = this.moduleDone('m' + i, QUIZ);
-    const isLocked = (id) => {
+    const isLocked = (mod) => {
       if (!lock) return false;
-      const mi = ORDER.indexOf(id);
-      if (id === 'home' || id === 'm1') return false;
-      if (id === 'cap' || id === 'done') return !doneMap['m7'];
-      return !doneMap[ORDER[mi - 1]];
+      if (mod === 'home' || mod === 'm1') return false;
+      if (mod === 'cap' || mod === 'done') return !doneMap['m7'];
+      return !doneMap[MODORDER[MODORDER.indexOf(mod) - 1]];
     };
-    const navItems = ORDER.map((id) => {
-      const active = view === id, locked = isLocked(id);
+    const firstScreenOf = (mod) => S.findIndex((s) => s.mod === mod);
+    const navItems = MODORDER.map((mod) => {
+      const active = cur.mod === mod, locked = isLocked(mod);
       return {
-        num: NUMS[id], label: LABELS[id],
-        badge: doneMap[id] ? '✓' : '',
-        onClick: () => { if (!locked) this.nav(id); },
-        style: { display: 'flex', gap: 10, alignItems: 'center', width: '100%', border: 'none', borderRadius: 8, padding: '9px 10px', cursor: locked ? 'default' : 'pointer', font: '14px Calibri,Arial,sans-serif', background: active ? 'rgba(245,239,226,.16)' : 'transparent', color: active ? '#F5EFE2' : locked ? 'rgba(245,239,226,.35)' : '#CFE3D6', fontWeight: active ? 700 : 400, textAlign: 'left', opacity: locked ? 0.6 : 1 },
+        num: NUMS[mod], label: MODLABELS[mod],
+        badge: doneMap[mod] ? '✓' : '',
+        onClick: () => { if (!locked) this.nav(firstScreenOf(mod)); },
+        style: { display: 'flex', gap: 9, alignItems: 'center', border: 'none', borderRadius: 8, padding: '9px 14px', cursor: locked ? 'default' : 'pointer', font: '14px Calibri,Arial,sans-serif', background: active ? 'rgba(245,239,226,.18)' : 'rgba(245,239,226,.06)', color: active ? '#F5EFE2' : locked ? 'rgba(245,239,226,.35)' : '#CFE3D6', fontWeight: active ? 700 : 400, textAlign: 'left', opacity: locked ? 0.6 : 1 },
         numStyle: { flex: 'none', width: 22, height: 22, borderRadius: '50%', background: active ? '#C69B3F' : 'rgba(245,239,226,.14)', color: active ? '#13543E' : '#C69B3F', display: 'flex', alignItems: 'center', justifyContent: 'center', font: '700 11px Cambria,Georgia,serif' }
       };
     });
     const doneCount = Object.values(doneMap).filter(Boolean).length;
-    const go = {};
-    ORDER.forEach((id) => { go[id] = () => this.nav(id); });
     const mapCards = [
-      { num: '1', title: 'Meet the Tiles', sub: 'Full tile ID — every suit, honor & special', id: 'm1' },
-      { num: '2', title: 'Table & Setup', sub: 'East, the wall, the 13/14 deal', id: 'm2' },
-      { num: '3', title: 'The Card, Sets & Jokers', sub: 'Match a listed hand; strict joker rules', id: 'm3' },
-      { num: '4', title: 'The Charleston', sub: 'Passes, blind pass, courtesy pass', id: 'm4' },
-      { num: '5', title: 'Playing a Round', sub: 'Turns, calling, dead hands', id: 'm5' },
-      { num: '6', title: 'Winning & Scoring', sub: 'Card values, doubles, wall games', id: 'm6' },
-      { num: '7', title: 'Playing with Strangers', sub: 'Etiquette & the questions to ask', id: 'm7' },
-      { num: '★', title: 'Capstone', sub: 'Play one full hand: ≤ 2 errors, 0 illegal claims, correct payout', id: 'cap' }
-    ].map((c) => Object.assign({}, c, { onClick: () => this.nav(c.id) }));
+      { num: '1', title: 'Meet the Tiles', sub: 'Full tile ID — every suit, honor & special', mod: 'm1' },
+      { num: '2', title: 'Table & Setup', sub: 'East, the wall, the 13/14 deal', mod: 'm2' },
+      { num: '3', title: 'The Card, Sets & Jokers', sub: 'Match a listed hand; strict joker rules', mod: 'm3' },
+      { num: '4', title: 'The Charleston', sub: 'Passes, blind pass, courtesy pass', mod: 'm4' },
+      { num: '5', title: 'Playing a Round', sub: 'Turns, calling, dead hands', mod: 'm5' },
+      { num: '6', title: 'Winning & Scoring', sub: 'Card values, doubles, wall games', mod: 'm6' },
+      { num: '7', title: 'Playing with Strangers', sub: 'Etiquette & the questions to ask', mod: 'm7' },
+      { num: '★', title: 'Capstone', sub: 'Play one full hand: ≤ 2 errors, 0 illegal claims, correct payout', mod: 'cap' }
+    ].map((c) => Object.assign({}, c, { onClick: () => { if (!isLocked(c.mod)) this.nav(firstScreenOf(c.mod)); } }));
     const scopeRows = [
       { k: 'Winning', us: 'Match one hand printed on the card', cn: 'Any 4 sets of 3 + a pair' },
       { k: 'Runs (chows)', us: 'Never used', cn: 'Core building block' },
@@ -681,13 +657,18 @@ class Component extends DCLogic {
       { title: 'Trap check', desc: 'Catch one injected dead-hand or illegal-call situation' },
       { title: 'Score', desc: 'Declare a win and compute the payout, including a double' }
     ];
-    const isQuizView = /^m[1-7]$/.test(view);
+    const isQuizScreen = cur.id.length === 3 && cur.id[2] === 'q';
+    const isScenScreen = cur.id.length === 3 && cur.id[2] === 's';
+    const mod = cur.mod;
     let qQs = [], qTitle = '', qNotes = '', scenPrompt = '', scenAnswer = '';
-    if (isQuizView) {
-      const Q = QUIZ[view];
+    if (isQuizScreen || isScenScreen) {
+      const Q = QUIZ[mod];
       qTitle = Q.title; qNotes = Q.notes; scenPrompt = Q.scen; scenAnswer = Q.ans;
+    }
+    if (isQuizScreen) {
+      const Q = QUIZ[mod];
       qQs = Q.qs.map((q, qi) => {
-        const key = view + ':' + qi;
+        const key = mod + ':' + qi;
         const picked = answers[key];
         const solved = picked === q.a;
         return {
@@ -727,26 +708,50 @@ class Component extends DCLogic {
     }));
     const allChecked = checks.every(Boolean);
     const checkedCount = checks.filter(Boolean).length;
-    const vi = ORDER.indexOf(view);
-    const nextId = ORDER[vi + 1];
-    const NEXTLBL = { m1: 'Start Module 1 · Meet the Tiles', m2: 'Module 2 · Table & setup', m3: 'Module 3 · The card, sets & jokers', m4: 'Module 4 · The Charleston', m5: 'Module 5 · Playing a round', m6: 'Module 6 · Winning & scoring', m7: 'Module 7 · Playing with strangers', cap: 'The Capstone', done: 'Table-ready checklist' };
-    return {
+    const next = S[idx + 1];
+    const nextLocked = next ? (isLocked(next.mod) && next.mod !== cur.mod) : false;
+    const flags = {};
+    const FLAGNAMES = { h1: 'sH1', h2: 'sH2', h3: 'sH3', m1a: 'sM1a', m1b: 'sM1b', m1c: 'sM1c', m1d: 'sM1d', m1e: 'sM1e', m1f: 'sM1f', m2a: 'sM2a', m3a: 'sM3a', m3b: 'sM3b', m4a: 'sM4a', m5a: 'sM5a', m6a: 'sM6a', m7a: 'sM7a', cap: 'sCap', done: 'sDone' };
+    Object.values(FLAGNAMES).forEach((n) => { flags[n] = false; });
+    if (FLAGNAMES[cur.id]) flags[FLAGNAMES[cur.id]] = true;
+    return Object.assign(flags, {
       mainRef: this.mainRef,
-      navItems, mapCards, scopeRows, familyRows, capCards, go,
+      txAvailable: showTranscripts && !!this.currentTx(),
+      txOpen: this.state.txOpen && showTranscripts && !!this.currentTx(),
+      toggleTx: () => this.setState({ txOpen: !this.state.txOpen }),
+      txLabel: this.state.txOpen ? 'Hide transcript' : 'Transcript',
+      audioLabel: this.state.speaking ? '\u25A0 Stop audio' : '\u25B8 Play audio',
+      toggleAudio: () => this.toggleAudio(),
+      txText: this.currentTx(),
+      txScreenLabel: cur.label,
       showTranscripts,
-      isHome: view === 'home', isM1: view === 'm1', isM2: view === 'm2', isM3: view === 'm3', isM4: view === 'm4', isM5: view === 'm5', isM6: view === 'm6', isM7: view === 'm7', isCap: view === 'cap', isDone: view === 'done',
-      showQuiz: isQuizView, qTitle, qNotes, qQs, scenPrompt, scenAnswer,
-      scenRevealed: !!revealed[view],
-      revealLabel: revealed[view] ? 'Hide answer' : 'Reveal',
-      toggleReveal: () => this.save({ revealed: Object.assign({}, this.state.revealed, { [view]: !this.state.revealed[view] }) }),
-      hasNext: !!nextId, nextLabel: nextId ? NEXTLBL[nextId] : '',
-      goNext: () => nextId && this.nav(nextId),
-      progressLabel: doneCount + ' / 7 modules',
-      progressBarStyle: { height: '100%', width: Math.round(doneCount / 7 * 100) + '%', borderRadius: 3, background: '#C69B3F', transition: 'width .3s' },
+      navItems, mapCards, scopeRows, familyRows, capCards,
+      moduleTag: MODTAGS[mod] + (isQuizScreen ? ' · KNOWLEDGE CHECK' : isScenScreen ? ' · SCENARIO' : ''),
+      counter: (idx + 1) + ' / ' + S.length,
+      modulesDoneLabel: doneCount + ' / 7 modules done',
+      progressBarStyle: { height: '100%', width: Math.round((idx + 1) / S.length * 100) + '%', background: '#C69B3F', transition: 'width .3s' },
+      contentsOpen,
+      contentsLabel: contentsOpen ? 'Close ✕' : 'Contents ☰',
+      toggleContents: () => this.setState({ contentsOpen: !this.state.contentsOpen }),
+      showQuiz: isQuizScreen, showScen: isScenScreen,
+      quizTag: 'KNOWLEDGE CHECK · ' + MODTAGS[mod],
+      scenTag: 'PRACTICE SCENARIO · ' + MODTAGS[mod],
+      qTitle, qNotes, qQs, scenPrompt, scenAnswer,
+      scenRevealed: !!revealed[mod],
+      revealLabel: revealed[mod] ? 'Hide answer' : 'Reveal',
+      toggleReveal: () => this.save({ revealed: Object.assign({}, this.state.revealed, { [mod]: !this.state.revealed[mod] }) }),
+      hasBack: idx > 0, goBack: () => this.nav(idx - 1),
+      hasNext: !!next,
+      nextLabel: nextLocked ? 'Pass the quiz to continue' : (next ? 'Next · ' + next.label : ''),
+      nextBtnStyle: nextLocked
+        ? { background: '#D8CDB8', color: '#8A7F6A', border: 'none', borderRadius: 10, padding: '12px 22px', font: '700 14px Calibri,Arial,sans-serif', cursor: 'default' }
+        : { background: '#13543E', color: '#F5EFE2', border: 'none', borderRadius: 10, padding: '12px 22px', font: '700 14px Calibri,Arial,sans-serif', cursor: 'pointer', display: 'flex', gap: 8, alignItems: 'center' },
+      goNext: () => { if (!nextLocked && next) this.nav(idx + 1); },
+      posLabel: MODLABELS[mod] + ' · ' + cur.label,
       checkItems,
       doneBannerText: allChecked ? '★ All eight, without notes — you are table-ready. Go find a game.' : checkedCount + ' of 8 checked — all eight, without notes, means table-ready.',
       doneBannerStyle: { background: allChecked ? '#13543E' : '#FFFDF6', border: allChecked ? 'none' : '1px solid #D8CDB8', color: allChecked ? '#C69B3F' : '#6E675B', borderRadius: 10, padding: '15px 20px', font: '700 16px Cambria,Georgia,serif' }
-    };
+    });
   }
 }
 </script>
