@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/modernist-44a89404-d9e3-49d4-a638-9cdd8536ea78/styles.css">
+<script src="_ds/modernist-44a89404-d9e3-49d4-a638-9cdd8536ea78/_ds_bundle.js"></script>
+<style>
+html,body{margin:0;padding:0;background:var(--color-bg);}
+a{color:var(--color-accent-700);}a:hover{color:var(--color-accent);}
+::selection{background:var(--color-accent-200);}
+@media (prefers-reduced-motion: reduce){*{animation:none !important;transition:none !important;}}
+</style>
+</helmet>
+<div style="display:flex;flex-direction:column;height:100vh;font-family:var(--font-body);color:var(--color-text);background:var(--color-bg)">
+  <header style="border-bottom:2px solid var(--color-divider);flex:none">
+    <div style="display:flex;align-items:center;gap:14px;padding:10px 24px;flex-wrap:wrap">
+      <div style="font:700 13px var(--font-heading);letter-spacing:0.08em;text-transform:uppercase">Get Your Hours Back</div>
+      <sc-if value="{{ moveLabel }}" hint-placeholder-val="{{ false }}"><span class="tag tag-neutral">{{ moveLabel }}</span></sc-if>
+      <div style="flex:1"></div>
+      <sc-if value="{{ testUnlocked }}" hint-placeholder-val="{{ false }}">
+        <button class="btn btn-ghost" style="padding:6px 12px;font-size:13px" onClick="{{ goTest }}">The Test</button>
+      </sc-if>
+      <button class="btn btn-ghost" style="padding:6px 12px;font-size:13px" aria-pressed="{{ transcriptOpen }}" onClick="{{ toggleTranscript }}">{{ transcriptLabel }}</button>
+      <sc-if value="{{ audioSupported }}" hint-placeholder-val="{{ true }}">
+        <button class="btn btn-secondary" style="padding:6px 12px;font-size:13px" onClick="{{ toggleAudio }}">{{ audioLabel }}</button>
+      </sc-if>
+      <div style="font:600 13px var(--font-heading);letter-spacing:0.06em;color:var(--color-neutral-600)">{{ counter }}</div>
+    </div>
+    <div style="height:4px;background:var(--color-neutral-200)" role="progressbar" aria-label="Course progress"><div style="height:4px;background:var(--color-accent);width:{{ progressPct }}"></div></div>
+  </header>
+  <sc-if value="{{ transcriptOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="flex:none;border-bottom:2px solid var(--color-divider);background:var(--color-neutral-100);max-height:32vh;overflow-y:auto">
+      <div style="max-width:1120px;margin:0 auto;padding:16px 32px">
+        <div style="font:600 11px var(--font-heading);letter-spacing:0.12em;text-transform:uppercase;color:var(--color-accent);margin-bottom:8px">Audio transcript — {{ screenLabel }}</div>
+        <p style="margin:0;font-size:15px;line-height:1.6;user-select:text">{{ transcriptText }}</p>
+      </div>
+    </div>
+  </sc-if>
+  <main style="flex:1;overflow-y:auto">
+
+  <sc-if value="{{ s1 }}" hint-placeholder-val="{{ true }}">
+    <div style="background:var(--color-text);color:var(--color-bg);min-height:100%;box-sizing:border-box">
+      <div style="max-width:1120px;margin:0 auto;padding:72px 32px 80px;box-sizing:border-box">
+        <div style="font:600 13px var(--font-heading);letter-spacing:0.14em;text-transform:uppercase;color:var(--color-accent-300)">Microlearning &middot; 8 min</div>
+        <h1 style="font:700 clamp(44px,6vw,76px)/1.02 var(--font-heading);margin:20px 0 12px;letter-spacing:-0.02em">Get Your Hours Back</h1>
+        <p style="font-size:20px;margin:0 0 48px;color:var(--color-neutral-300)">Using AI to offload the work that never needed you</p>
+        <div style="border-left:4px solid var(--color-accent);padding-left:24px;margin:0 0 56px">
+          <p style="font:600 clamp(22px,2.6vw,30px)/1.3 var(--font-heading);margin:0">You didn&rsquo;t lose the day to hard work.<br>You lost it to other people&rsquo;s work.</p>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:820px">
+          <div style="border-top:2px solid var(--color-neutral-600);padding-top:12px;font-size:15px"><strong style="font-family:var(--font-heading)">3</strong> hands-on activities</div>
+          <div style="border-top:2px solid var(--color-neutral-600);padding-top:12px;font-size:15px"><strong style="font-family:var(--font-heading)">1</strong> one-page checklist to keep</div>
+          <div style="border-top:2px solid var(--color-neutral-600);padding-top:12px;font-size:15px"><strong style="font-family:var(--font-heading)">No</strong> prior AI experience needed</div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ s2 }}" hint-placeholder-val="{{ false }}">
+    <div style="max-width:1120px;margin:0 auto;padding:56px 32px 80px;box-sizing:border-box">
+      <h2 style="font:700 clamp(30px,4vw,44px)/1.1 var(--font-heading);margin:0 0 40px;letter-spacing:-0.01em">It&rsquo;s not the workload. It&rsquo;s the switching.</h2>
+      <div style="display:grid;grid-template-columns:minmax(280px,380px) 1fr;gap:40px;align-items:start">
+        <div class="card" style="padding:32px;border:2px solid var(--color-text)">
+          <div style="font:700 96px/1 var(--font-heading);letter-spacing:-0.03em" aria-hidden="true">{{ stat23 }}</div>
+          <span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">23</span>
+          <div style="font:600 13px var(--font-heading);letter-spacing:0.14em;text-transform:uppercase;color:var(--color-accent);margin:4px 0 16px">Minutes</div>
+          <p style="margin:0 0 12px;font-size:16px;line-height:1.5">The average time it takes to get back to focused work after an interruption.</p>
+          <p style="margin:0;font-size:13px;color:var(--color-neutral-600)">(Mark et al., UC Irvine)</p>
+        </div>
+        <div>
+          <div style="border-top:2px solid var(--color-divider);padding:20px 0;display:grid;grid-template-columns:56px 1fr;gap:16px">
+            <div style="font:700 32px var(--font-heading)">1</div>
+            <div><div style="font:600 19px var(--font-heading);margin-bottom:6px">The ask is small.</div><p style="margin:0;color:var(--color-neutral-700);font-size:15px">&ldquo;Quick question&rdquo; &middot; &ldquo;Can you pull that report?&rdquo; &middot; &ldquo;Just 10 minutes.&rdquo;</p></div>
+          </div>
+          <div style="border-top:2px solid var(--color-divider);padding:20px 0;display:grid;grid-template-columns:56px 1fr;gap:16px">
+            <div style="font:700 32px var(--font-heading)">2</div>
+            <div><div style="font:600 19px var(--font-heading);margin-bottom:6px">The switch is not.</div><p style="margin:0;color:var(--color-neutral-700);font-size:15px">10 minutes of work + 23 minutes of getting back = 33 minutes gone.</p></div>
+          </div>
+          <div style="border-top:2px solid var(--color-divider);border-bottom:2px solid var(--color-divider);padding:20px 0;display:grid;grid-template-columns:56px 1fr;gap:16px">
+            <div style="font:700 32px var(--font-heading);color:var(--color-accent)">3</div>
+            <div><div style="font:600 19px var(--font-heading);margin-bottom:6px">The day is gone.</div><p style="margin:0;color:var(--color-neutral-700);font-size:15px">Four of those and your whole afternoon disappeared into nothing hard.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ s3 }}" hint-placeholder-val="{{ false }}">
+    <div style="max-width:1120px;margin:0 auto;padding:56px 32px 80px;box-sizing:border-box">
+      <h2 style="font:700 clamp(30px,4vw,44px)/1.1 var(--font-heading);margin:0 0 12px">First, some straight talk.</h2>
+      <p style="font-size:17px;color:var(--color-neutral-700);margin:0 0 40px;max-width:640px">You&rsquo;ve heard big AI promises. Some of them were nonsense. So let&rsquo;s be clear about what this is.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:stretch">
+        <div class="card" style="padding:28px">
+          <div style="font:600 13px var(--font-heading);letter-spacing:0.12em;text-transform:uppercase;color:var(--color-accent);border-bottom:2px solid var(--color-divider);padding-bottom:12px;margin-bottom:20px">This course will not</div>
+          <div style="display:grid;gap:18px">
+            <div style="display:grid;grid-template-columns:24px 1fr;gap:12px"><span style="color:var(--color-accent);font-weight:700" aria-hidden="true">&#10005;</span><span style="font-size:15px;line-height:1.5">Tell you AI can replace your judgment. It can&rsquo;t.</span></div>
+            <div style="display:grid;grid-template-columns:24px 1fr;gap:12px"><span style="color:var(--color-accent);font-weight:700" aria-hidden="true">&#10005;</span><span style="font-size:15px;line-height:1.5">Ask you to ship anything you haven&rsquo;t checked.</span></div>
+            <div style="display:grid;grid-template-columns:24px 1fr;gap:12px"><span style="color:var(--color-accent);font-weight:700" aria-hidden="true">&#10005;</span><span style="font-size:15px;line-height:1.5">Hand you one more tool to babysit.</span></div>
+          </div>
+        </div>
+        <div class="card" style="padding:28px;border:2px solid var(--color-text)">
+          <div style="font:600 13px var(--font-heading);letter-spacing:0.12em;text-transform:uppercase;border-bottom:2px solid var(--color-text);padding-bottom:12px;margin-bottom:20px">This course will</div>
+          <div style="display:grid;gap:18px">
+            <div style="display:grid;grid-template-columns:24px 1fr;gap:12px"><span style="font-weight:700" aria-hidden="true">&#10003;</span><span style="font-size:15px;line-height:1.5">Give you a test for what&rsquo;s safe to hand off.</span></div>
+            <div style="display:grid;grid-template-columns:24px 1fr;gap:12px"><span style="font-weight:700" aria-hidden="true">&#10003;</span><span style="font-size:15px;line-height:1.5">Give you a prompt pattern that works the first try.</span></div>
+            <div style="display:grid;grid-template-columns:24px 1fr;gap:12px"><span style="font-weight:700" aria-hidden="true">&#10003;</span><span style="font-size:15px;line-height:1.5">Show you how to make it repeat without you.</span></div>
+          </div>
+        </div>
+      </div>
+      <div style="background:var(--color-text);color:var(--color-bg);padding:22px 28px;margin-top:24px">
+        <p style="margin:0;font:600 17px/1.5 var(--font-heading)">Everything here assumes you will check the output. That&rsquo;s not a weakness of the method. That&rsquo;s the method.</p>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ s4 }}" hint-placeholder-val="{{ false }}">
+    <div style="max-width:1120px;margin:0 auto;padding:56px 32px 80px;box-sizing:border-box">
+      <h2 style="font:700 clamp(30px,4vw,44px)/1.1 var(--font-heading);margin:0 0 32px">What you&rsquo;ll be able to do</h2>
+      <div style="background:var(--color-accent);color:#fff;padding:28px 32px;margin-bottom:32px">
+        <div style="font:600 12px var(--font-heading);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:10px;opacity:0.85">Terminal objective</div>
+        <p style="margin:0;font:600 clamp(18px,2.2vw,24px)/1.4 var(--font-heading)">Use AI tools to free up more hours of your day for focused work &mdash; by offloading tasks and automating work that doesn&rsquo;t need your tacit knowledge or expertise.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+        <sc-for list="{{ moves }}" as="mv" hint-placeholder-count="3">
+          <div class="card" style="padding:24px;cursor:{{ mv.cursor }};border:{{ mv.border }}" onClick="{{ mv.jump }}" role="{{ mv.role }}" tabIndex="{{ mv.tab }}">
+            <div style="font:700 40px var(--font-heading);color:var(--color-accent)">{{ mv.n }}</div>
+            <div style="font:600 20px var(--font-heading);margin:8px 0 10px">{{ mv.title }}</div>
+            <p style="margin:0;font-size:14px;line-height:1.55;color:var(--color-neutral-700)">{{ mv.desc }}</p>
+            <sc-if value="{{ mv.unlocked }}" hint-placeholder-val="{{ false }}"><div style="margin-top:14px;font:600 12px var(--font-heading);letter-spacing:0.08em;text-transform:uppercase;color:var(--color-accent-700)">Jump to this move &rarr;</div></sc-if>
+          </div>
+        </sc-for>
+      </div>
+      <p style="margin:32px 0 0;font:600 18px var(--font-heading)">Three moves. That&rsquo;s the whole course.</p>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ s5 }}" hint-placeholder-val="{{ false }}">
+    <div style="max-width:1120px;margin:0 auto;padding:56px 32px 80px;box-sizing:border-box">
+      <div style="font:600 13px var(--font-heading);letter-spacing:0.14em;text-transform:uppercase;color:var(--color-accent);margin-bottom:12px">Move 1 &middot; Sort</div>
+      <h2 style="font:700 clamp(30px,4vw,44px)/1.1 var(--font-heading);margin:0 0 40px">Everything you know sits in one of two piles.</h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:stretch">
+        <div class="card" style="padding:28px;border-top:6px solid var(--color-accent)">
+          <div style="font:700 22px var(--font-heading);margin-bottom:6px">TACIT</div>
+          <p style="margin:0 0 20px;font-size:14px;color:var(--color-neutral-700)">Lives in your head. Earned. Hard to write down.</p>
+          <ul style="margin:0;padding:0;list-style:none;display:grid;gap:12px">
+            <li style="border-top:1px solid var(--color-divider);padding-top:12px;font-size:15px">Why the 2019 migration really failed</li>
+            <li style="border-top:1px solid var(--color-divider);padding-top:12px;font-size:15px">Which vendor actually answers on a Saturday</li>
+            <li style="border-top:1px solid var(--color-divider);padding-top:12px;font-size:15px">How hard you can push a change window</li>
+          </ul>
+        </div>
+        <div class="card" style="padding:28px;border-top:6px solid var(--color-text)">
+          <div style="font:700 22px var(--font-heading);margin-bottom:6px">EXPLICIT</div>
+          <p style="margin:0 0 20px;font-size:14px;color:var(--color-neutral-700)">Already written down somewhere. Findable. Repeatable.</p>
+          <ul style="margin:0;padding:0;list-style:none;display:grid;gap:12px">
+            <li style="border-top:1px solid var(--color-divider);padding-top:12px;font-size:15px">The runbook steps</li>
+            <li style="border-top:1px solid var(--color-divider);padding-top:12px;font-size:15px">The ticket history and the thread</li>
+            <li style="border-top:1px solid var(--color-divider);padding-top:12px;font-size:15px">The naming standard and the config</li>
+          </ul>
+        </div>
+      </div>
+      <div style="background:var(--color-text);color:var(--color-bg);padding:22px 28px;margin:24px 0 40px">
+        <p style="margin:0;font:600 17px/1.5 var(--font-heading)">AI is very good at the right-hand pile. It has none of the left-hand pile. That difference is the whole game.</p>
+      </div>
+      <div class="field" style="max-width:640px">
+        <label for="tacit-input" style="font:600 13px var(--font-heading);letter-spacing:0.06em">Name one thing you know that isn&rsquo;t written down anywhere (optional &mdash; it comes back at the end)</label>
+        <input id="tacit-input" class="input" type="text" value="{{ tacit }}" onChange="{{ setTacit }}" placeholder="e.g. why we never patch on Thursdays">
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ s6 }}" hint-placeholder-val="{{ false }}">
+    <div style="max-width:1120px;margin:0 auto;padding:56px 32px 80px;box-sizing:border-box">
+      <div style="font:600 13px var(--font-heading);letter-spacing:0.14em;text-transform:uppercase;color:var(--color-accent);margin-bottom:12px">Move 1 &middot; Sort</div>
+      <h2 style="font:700 clamp(30px,4vw,44px)/1.1 var(--font-heading);margin:0 0 40px">The Offload Test: three questions</h2>
+      <div style="display:grid;grid-template-columns:1fr minmax(280px,340px);gap:40px;align-items:start">
+        <div>
+          <div style="border-top:2px solid var(--color-divider);padding:22px 0;display:grid;grid-template-columns:56px 1fr;gap:16px">
+            <div style="font:700 32px var(--font-heading)">1</div>
+            <div><div style="font:600 19px/1.35 var(--font-heading);margin-bottom:6px">Is the knowledge already written down somewhere I can point to?</div><p style="margin:0;color:var(--color-neutral-700);font-size:14px">Thread, ticket, runbook, repo, doc.</p></div>
+          </div>
+          <div style="border-top:2px solid var(--color-divider);padding:22px 0;display:grid;grid-template-columns:56px 1fr;gap:16px">
+            <div style="font:700 32px var(--font-heading)">2</div>
+            <div><div style="font:600 19px/1.35 var(--font-heading);margin-bottom:6px">Would two good engineers produce roughly the same answer?</div><p style="margin:0;color:var(--color-neutral-700);font-size:14px">If it depends on who does it, it&rsquo;s judgment.</p></div>
+          </div>
+          <div style="border-top:2px solid var(--color-divider);border-bottom:2px solid var(--color-divider);padding:22px 0;display:grid;grid-template-columns:56px 1fr;gap:16px">
+            <div style="font:700 32px var(--font-heading);color:var(--color-accent)">3</div>
+            <div><div style="font:600 19px/1.35 var(--font-heading);margin-bottom:6px">Can I check the result in under two minutes?</div><p style="margin:0;color:var(--color-accent-700);font-size:14px;font-weight:600">This one matters most.</p></div>
+          </div>
+        </div>
+        <div class="card" style="padding:24px;border:2px solid var(--color-text)">
+          <div style="font:600 12px var(--font-heading);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:16px">Score it</div>
+          <div style="display:grid;gap:14px">
+            <div style="border-top:1px solid var(--color-divider);padding-top:12px"><div style="font:700 16px var(--font-heading)">3 yeses</div><div style="font-size:14px;color:var(--color-neutral-700)">Offload it.</div></div>
+            <div style="border-top:1px solid var(--color-divider);padding-top:12px"><div style="font:700 16px var(--font-heading)">2 yeses</div><div style="font-size:14px;color:var(--color-neutral-700)">AI drafts, you finish.</div></div>
+            <div style="border-top:1px solid var(--color-divider);padding-top:12px"><div style="font:700 16px var(--font-heading);color:var(--color-accent)">0&ndash;1 yeses</div><div style="font-size:14px;color:var(--color-neutral-700)">Keep it. It&rsquo;s yours.</div></div>
+          </div>
+        </div>
+      </div>
+      <div style="background:var(--color-text);color:var(--color-bg);padding:22px 28px;margin-top:32px">
+        <p style="margin:0;font:600 17px/1.5 var(--font-heading)">If you can&rsquo;t verify it fast, you haven&rsquo;t saved time &mdash; you&rsquo;ve just moved it.</p>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ s7 }}" hint-placeholder-val="{{ false }}">
+    <div style="max-width:1120px;margin:0 auto;padding:56px 32px 80px;box-sizing:border-box">
+      <div style="font:600 13px var(--font-heading);letter-spacing:0.14em;text-transform:uppercase;color:var(--color-accent);margin-bottom:12px">Move 1 &middot; Sort</div>
+      <h2 style="font:700 clamp(30px,4vw,44px)/1.1 var(--font-heading);margin:0 0 8px">Run your own week through it.</h2>
+      <p style="font-size:14px;color:var(--color-neutral-600);margin:0 0 32px">Hover any item to see how it scores on the three questions.</p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:stretch">
+        <sc-for list="{{ s7cols }}" as="col" hint-placeholder-count="3">
+          <div class="card" style="padding:24px;border-top:{{ col.topBorder }}">
+            <div style="font:700 16px var(--font-heading);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:16px;color:{{ col.titleColor }}">{{ col.name }}</div>
+            <ul style="margin:0;padding:0;list-style:none;display:grid;gap:12px">
+              <sc-for list="{{ col.items }}" as="item" hint-placeholder-count="4">
+                <li style="border-top:1px solid var(--color-divider);padding-top:12px;font-size:14px;line-height:1.45"><span title="{{ item.tip }}" style="border-bottom:1px dotted var(--color-neutral-500);cursor:help">{{ item.t }}</span></li>
+              </sc-for>
+            </ul>
+          </div>
+        </sc-for>
+      </div>
+      <div style="background:var(--color-text);color:var(--color-bg);padding:22px 28px;margin-top:24px">
+        <p style="margin:0;font:600 17px/1.5 var(--font-heading)">Notice where your interrupts live. Almost all of them are in the first column.</p>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ s8 }}" hint-placeholder-val="{{ false }}">
+    <div style="max-width:900px;margin:0 auto;padding:56px 32px 80px;box-sizing:border-box">
+      <div style="font:600 13px var(--font-heading);letter-spacing:0.14em;text-transform:uppercase;color:var(--color-accent);margin-bottom:12px">Activity 1 &middot; Knowledge check</div>
+      <h2 style="font:700 clamp(28px,3.6vw,40px)/1.15 var(--font-heading);margin:0 0 8px">It&rsquo;s 4:40 on Friday. Four things land at once.</h2>
+      <p style="font-size:18px;margin:0 0 32px">Which one is safest to hand to AI right now?</p>
+      <div style="display:grid;gap:14px">
+        <sc-for list="{{ a1opts }}" as="opt" hint-placeholder-count="4">
+          <div>
+            <button onClick="{{ opt.pick }}" style="{{ opt.style }}" aria-pressed="{{ opt.selected }}">
+              <span style="font:700 18px var(--font-heading);width:32px;flex:none">{{ opt.key }}</span>
+              <span style="font-size:16px;line-height:1.5;text-align:left">{{ opt.text }}</span>
+            </button>
+            <sc-if value="{{ opt.showFb }}" hint-placeholder-val="{{ false }}">
+              <div style="border:2px solid var(--color-divider);border-top:0;padding:14px 18px;font-size:14px;line-height:1.55;background:var(--color-neutral-100)">{{ opt.fb }}</div>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+      <sc-if value="{{ a1answered }}" hint-placeholder-val="{{ false }}">
+        <div style="background:var(--color-text);color:var(--color-bg);padding:22px 28px;margin-top:24px">
+          <div style="font:600 12px var(--font-heading);letter-spacing:0.14em;text-transform:uppercase;color:var(--color-accent-300);margin-bottom:8px">Correct: B</div>
+          <p style="margin:0;font-size:15px;line-height:1.55">The knowledge is all in the thread. Two people would summarize it about the same way. You can check it in a minute by skimming. <strong>Three yeses.</strong></p>
+        </div>
+      </sc-if>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ s9 }}" hint-placeholder-val="{{ false }}">
+    <div style="background:var(--color-text);color:var(--color-bg);min-height:100%;box-sizing:border-box">
+      <div style="max-width:1120px;margin:0 auto;padding:56px 32px 80px;box-sizing:border-box">
+        <div style="font:600 13px var(--font-heading);letter-spacing:0.14em;text-transform:uppercase;color:var(--color-accent-300);margin-bottom:12px">Move 2 &middot; Hand off</div>
+        <h2 style="font:700 clamp(30px,4vw,44px)/1.1 var(--font-heading);margin:0 0 40px">Why good tasks come back as bad work</h2>
+        <div style="display:grid;grid-template-columns:1fr 40px 1fr;gap:20px;align-items:center;margin-bottom:32px">
+          <div style="border:2px solid var(--color-neutral-600);padding:24px">
+            <div style="font:600 12px var(--font-heading);letter-spacing:0.14em;text-transform:uppercase;color:var(--color-neutral-400);margin-bottom:14px">You typed</div>
+            <div style="font-family:ui-monospace,Menlo,monospace;font-size:16px;background:rgba(255,255,255,0.06);padding:14px 16px;margin-bottom:14px">&ldquo;Summarize this thread.&rdquo;</div>
+            <p style="margin:0;font-size:14px;line-height:1.55;color:var(--color-neutral-300)">You got back something generic. You decided AI wasn&rsquo;t ready.</p>
+          </div>
+          <div style="font:700 28px var(--font-heading);text-align:center" aria-hidden="true">&rarr;</div>
+          <div style="border:2px solid var(--color-accent);padding:24px">
+            <div style="font:600 12px var(--font-heading);letter-spacing:0.14em;text-transform:uppercase;color:var(--color-accent-300);margin-bottom:14px">What actually happened</div>
+            <p style="margin:0 0 10px;font:600 18px/1.4 var(--font-heading)">You gave it a task.<br>You never gave it the job.</p>
+            <p style="margin:0;font-size:14px;color:var(--color-neutral-300)">No audience. No limits. No shape.</p>
+          </div>
+        </div>
+        <div style="background:var(--color-accent);color:#fff;padding:22px 28px">
+          <p style="margin:0;font:600 17px/1.5 var(--font-heading)">Hand that same one-line instruction to a brand-new hire and you&rsquo;d get the same disappointing result &mdash; and you wouldn&rsquo;t blame the new hire.</p>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ s10 }}" hint-placeholder-val="{{ false }}">
+    <div style="max-width:1120px;margin:0 auto;padding:56px 32px 80px;box-sizing:border-box">
+      <div style="font:600 13px var(--font-heading);letter-spacing:0.14em;text-transform:uppercase;color:var(--color-accent);margin-bottom:12px">Move 2 &middot; Hand off</div>
+      <h2 style="font:700 clamp(30px,4vw,44px)/1.1 var(--font-heading);margin:0 0 40px">A good handoff has four parts.</h2>
+      <div style="display:grid;grid-template-columns:1fr minmax(260px,320px);gap:40px;align-items:start">
+        <div>
+          <div style="border-top:2px solid var(--color-divider);padding:20px 0;display:grid;grid-template-columns:56px 1fr;gap:16px">
+            <div style="font:700 30px var(--font-heading)">1</div>
+            <div><div style="font:700 16px var(--font-heading);letter-spacing:0.08em;margin-bottom:4px">CONTEXT</div><p style="margin:0;font-size:15px;color:var(--color-neutral-700)">Who is this for, and what do they already know?</p></div>
+          </div>
+          <div style="border-top:2px solid var(--color-divider);padding:20px 0;display:grid;grid-template-columns:56px 1fr;gap:16px">
+            <div style="font:700 30px var(--font-heading)">2</div>
+            <div><div style="font:700 16px var(--font-heading);letter-spacing:0.08em;margin-bottom:4px">TASK</div><p style="margin:0;font-size:15px;color:var(--color-neutral-700)">The one thing you want done &mdash; stated as a verb.</p></div>
+          </div>
+          <div style="border-top:2px solid var(--color-accent);padding:20px 0;display:grid;grid-template-columns:56px 1fr;gap:16px">
+            <div style="font:700 30px var(--font-heading);color:var(--color-accent)">3</div>
+            <div>
+              <div style="font:700 16px var(--font-heading);letter-spacing:0.08em;margin-bottom:4px">CONSTRAINTS</div>
+              <p style="margin:0 0 8px;font-size:15px;color:var(--color-neutral-700)">What to leave out, how long, and what it must never guess at.</p>
+              <button class="btn btn-ghost" style="padding:4px 0;font-size:13px;border:0;text-decoration:underline" onClick="{{ toggleConstraints }}">Why constraints matter most</button>
+              <sc-if value="{{ constraintsOpen }}" hint-placeholder-val="{{ false }}">
+                <div style="border:2px solid var(--color-divider);padding:14px 16px;margin-top:8px;font-size:14px;line-height:1.55;background:var(--color-neutral-100)">Constraints are what stop the model from inventing. Without &ldquo;don&rsquo;t guess&rdquo;, a model fills gaps with plausible-sounding detail. Without a length limit, it pads. Without &ldquo;leave out X&rdquo;, scope creeps. Constraints are the part people skip &mdash; and the part that keeps the output honest and checkable in under two minutes.</div>
+              </sc-if>
+            </div>
+          </div>
+          <div style="border-top:2px solid var(--color-divider);border-bottom:2px solid var(--color-divider);padding:20px 0;display:grid;grid-template-columns:56px 1fr;gap:16px">
+            <div style="font:700 30px var(--font-heading)">4</div>
+            <div><div style="font:700 16px var(--font-heading);letter-spacing:0.08em;margin-bottom:4px">FORMAT</div><p style="margin:0;font-size:15px;color:var(--color-neutral-700)">The exact shape you want it back in.</p></div>
+          </div>
+        </div>
+        <div class="card" style="padding:28px;border:2px solid var(--color-text)">
+          <div style="font:700 72px/1 var(--font-heading);letter-spacing:-0.02em">30</div>
+          <div style="font:600 13px var(--font-heading);letter-spacing:0.14em;text-transform:uppercase;color:var(--color-accent);margin:4px 0 14px">Seconds</div>
+          <p style="margin:0;font-size:15px;line-height:1.5">to write all four.<br><strong>Saves you three rounds of rework.</strong></p>
+        </div>
+      </div>
+      <div style="background:var(--color-text);color:var(--color-bg);padding:22px 28px;margin-top:32px">
+        <p style="margin:0;font:600 17px/1.5 var(--font-heading)">Context &middot; Task &middot; Constraints &middot; Format &mdash; in that order, every time.</p>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ s11 }}" hint-placeholder-val="{{ false }}">
+    <div style="max-width:1120px;margin:0 auto;padding:56px 32px 80px;box-sizing:border-box">
+      <div style="font:600 13px var(--font-heading);letter-spacing:0.14em;text-transform:uppercase;color:var(--color-accent);margin-bottom:12px">Move 2 &middot; Hand off</div>
+      <h2 style="font:700 clamp(30px,4vw,44px)/1.1 var(--font-heading);margin:0 0 40px">Same task. Two handoffs.</h2>
+      <div style="display:grid;grid-template-columns:1fr 1.3fr;gap:24px;align-items:start">
+        <div class="card" style="padding:24px">
+          <div style="font:600 12px var(--font-heading);letter-spacing:0.14em;text-transform:uppercase;color:var(--color-neutral-600);margin-bottom:14px">Weak</div>
+          <div style="font-family:ui-monospace,Menlo,monospace;font-size:15px;background:var(--color-neutral-100);border:1px solid var(--color-divider);padding:14px 16px;margin-bottom:20px">Summarize this incident thread.</div>
+          <div style="font:600 12px var(--font-heading);letter-spacing:0.14em;text-transform:uppercase;color:var(--color-neutral-600);margin-bottom:8px">What comes back</div>
+          <p style="margin:0;font-size:14px;line-height:1.55;color:var(--color-neutral-700)">A wall of text that treats every detail as equally important. You rewrite the whole thing. Net time saved: zero.</p>
+        </div>
+        <div class="card" style="padding:24px;border:2px solid var(--color-text)">
+          <div style="font:600 12px var(--font-heading);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:14px">Strong</div>
+          <div style="font-family:ui-monospace,Menlo,monospace;font-size:14px;line-height:1.6;background:var(--color-neutral-100);border:1px solid var(--color-divider);padding:16px;display:grid;gap:10px">
+            <div><strong style="font-family:var(--font-heading);color:var(--color-accent-700)">CONTEXT&nbsp;</strong> Going to our VP of Infrastructure before Monday&rsquo;s review. She wasn&rsquo;t on the call.</div>
+            <div><strong style="font-family:var(--font-heading);color:var(--color-accent-700)">TASK&nbsp;</strong> Summarize this thread into an incident recap.</div>
+            <div><strong style="font-family:var(--font-heading);color:var(--color-accent-700)">CONSTRAINTS&nbsp;</strong> Under 200 words. No blame, no names. If a cause isn&rsquo;t stated in the thread, say &ldquo;not determined&rdquo; &mdash; don&rsquo;t guess.</div>
+            <div><strong style="font-family:var(--font-heading);color:var(--color-accent-700)">FORMAT&nbsp;</strong> Impact &middot; Timeline (3&ndash;5 bullets) &middot; Root cause &middot; Open items</div>
+          </div>
+          <div style="display:flex;gap:12px;margin-top:16px">
+            <button class="btn btn-secondary" style="padding:8px 14px;font-size:13px" onClick="{{ copyStrongPrompt }}">{{ copyPromptLabel }}</button>
+            <button class="btn btn-ghost" style="padding:8px 14px;font-size:13px" onClick="{{ toggleCameBack }}">{{ cameBackLabel }}</button>
+          </div>
+          <sc-if value="{{ cameBackOpen }}" hint-placeholder-val="{{ false }}">
+            <pre style="margin:16px 0 0;font-family:ui-monospace,Menlo,monospace;font-size:13px;line-height:1.6;white-space:pre-wrap;background:var(--color-neutral-100);border:1px solid var(--color-divider);padding:16px;user-select:text">{{ s11output }}</pre>
+          </sc-if>
+        </div>
+      </div>
+      <div style="background:var(--color-text);color:var(--color-bg);padding:22px 28px;margin-top:24px">
+        <p style="margin:0;font:600 17px/1.5 var(--font-heading)">The &ldquo;don&rsquo;t guess &mdash; say not determined&rdquo; line is the one people skip. It&rsquo;s the one that keeps the output honest.</p>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ s12 }}" hint-placeholder-val="{{ false }}">
+    <div style="max-width:1240px;margin:0 auto;padding:56px 32px 80px;box-sizing:border-box">
+      <div style="font:600 13px var(--font-heading);letter-spacing:0.14em;text-transform:uppercase;color:var(--color-accent);margin-bottom:12px">Activity 2 &middot; Build a handoff</div>
+      <h2 style="font:700 clamp(28px,3.6vw,40px)/1.15 var(--font-heading);margin:0 0 16px">Your turn. Build the handoff.</h2>
+      <div style="border:2px solid var(--color-text);padding:16px 20px;margin-bottom:32px;max-width:820px">
+        <span style="font:600 12px var(--font-heading);letter-spacing:0.12em;text-transform:uppercase;color:var(--color-accent);margin-right:10px">Scenario</span>
+        <span style="font-size:15px">Turn a 6-page runbook into a checklist your Tier 1 team can follow at 2 a.m. Pick one option per part. There&rsquo;s no penalty &mdash; try a weak option on purpose if you want to see the difference.</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1.15fr 1fr;gap:32px;align-items:start">
+        <div style="display:grid;gap:24px">
+          <sc-for list="{{ a2rows }}" as="row" hint-placeholder-count="4">
+            <div>
+              <div style="font:700 14px var(--font-heading);letter-spacing:0.1em;margin-bottom:10px"><span style="color:var(--color-accent)">{{ row.n }}</span>&nbsp; {{ row.label }}</div>
+              <div style="display:grid;gap:8px">
+                <sc-for list="{{ row.opts }}" as="opt" hint-placeholder-count="3">
+                  <button onClick="{{ opt.pick }}" style="{{ opt.style }}" aria-pressed="{{ opt.selected }}">{{ opt.t }}</button>
+                </sc-for>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="position:sticky;top:24px">
+          <div class="card" style="padding:24px;border:2px solid var(--color-text)">
+            <div style="font:600 12px var(--font-heading);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:14px">Your prompt, assembling live</div>
+            <div style="font-family:ui-monospace,Menlo,monospace;font-size:13px;line-height:1.7;background:var(--color-neutral-100);border:1px solid var(--color-divider);padding:16px;display:grid;gap:8px;user-select:text">
+              <sc-for list="{{ a2preview }}" as="line" hint-placeholder-count="4">
+                <div style="color:{{ line.color }}"><strong style="font-family:var(--font-heading)">{{ line.label }}:</strong> {{ line.text }}</div>
+              </sc-for>
+            </div>
+            <button class="btn btn-primary" style="margin-top:16px" disabled="{{ a2runDisabled }}" onClick="{{ runA2 }}">Run it</button>
+          </div>
+          <sc-if value="{{ a2hasResult }}" hint-placeholder-val="{{ false }}">
+            <div class="card" style="padding:24px;margin-top:16px">
+              <div style="font:600 12px var(--font-heading);letter-spacing:0.14em;text-transform:uppercase;color:var(--color-accent);margin-bottom:12px">What came back</div>
+              <pre style="margin:0 0 16px;font-family:ui-monospace,Menlo,monospace;font-size:12.5px;line-height:1.6;white-space:pre-wrap;background:var(--color-neutral-100);border:1px solid var(--color-divider);padding:14px;max-height:320px;overflow-y:auto;user-select:text">{{ a2output }}</pre>
+              <div style="border-top:2px solid var(--color-divider);padding-top:14px;font-size:14px;line-height:1.55">{{ a2feedback }}</div>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ s13 }}" hint-placeholder-val="{{ false }}">
+    <div style="max-width:1120px;margin:0 auto;padding:56px 32px 80px;box-sizing:border-box">
+      <div style="font:600 13px var(--font-heading);letter-spacing:0.14em;text-transform:uppercase;color:var(--color-accent);margin-bottom:12px">Move 3 &middot; Automate</div>
+      <h2 style="font:700 clamp(30px,4vw,44px)/1.1 var(--font-heading);margin:0 0 40px">Do it once. Then never again.</h2>
+      <div style="display:grid;grid-template-columns:1fr 36px 1fr 36px 1fr;gap:16px;align-items:stretch">
+        <div class="card" style="padding:24px"><div style="font:700 36px var(--font-heading);color:var(--color-accent)">1</div><div style="font:600 19px var(--font-heading);margin:6px 0 8px">Do it once</div><p style="margin:0;font-size:14px;line-height:1.55;color:var(--color-neutral-700)">Write the four-part handoff. Check the output. Fix what&rsquo;s off.</p></div>
+        <div style="font:700 26px var(--font-heading);align-self:center;text-align:center" aria-hidden="true">&rarr;</div>
+        <div class="card" style="padding:24px"><div style="font:700 36px var(--font-heading);color:var(--color-accent)">2</div><div style="font:600 19px var(--font-heading);margin:6px 0 8px">Save the handoff</div><p style="margin:0;font-size:14px;line-height:1.55;color:var(--color-neutral-700)">Store the instructions where the tool will reuse them.</p></div>
+        <div style="font:700 26px var(--font-heading);align-self:center;text-align:center" aria-hidden="true">&rarr;</div>
+        <div class="card" style="padding:24px"><div style="font:700 36px var(--font-heading);color:var(--color-accent)">3</div><div style="font:600 19px var(--font-heading);margin:6px 0 8px">Point it at new input</div><p style="margin:0;font-size:14px;line-height:1.55;color:var(--color-neutral-700)">New thread, new repo, new ticket. Same instructions. No retyping.</p></div>
+      </div>
+      <div style="background:var(--color-accent);color:#fff;padding:26px 32px;margin-top:32px">
+        <p style="margin:0;font:600 clamp(18px,2.2vw,23px)/1.45 var(--font-heading)">If you catch yourself writing the same prompt a second time &mdash; stop. You&rsquo;ve just found an automation.</p>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ s14 }}" hint-placeholder-val="{{ false }}">
+    <div style="max-width:1120px;margin:0 auto;padding:56px 32px 80px;box-sizing:border-box">
+      <div style="font:600 13px var(--font-heading);letter-spacing:0.14em;text-transform:uppercase;color:var(--color-accent);margin-bottom:12px">Move 3 &middot; Automate</div>
+      <h2 style="font:700 clamp(30px,4vw,44px)/1.1 var(--font-heading);margin:0 0 40px">Two places to put it.</h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:stretch">
+        <div class="card" style="padding:28px;display:flex;flex-direction:column;gap:16px">
+          <div><div style="font:700 22px var(--font-heading)">CLAUDE</div><div style="font-size:13px;color:var(--color-neutral-600)">for language work that repeats</div></div>
+          <p style="margin:0;font-size:14.5px;line-height:1.6">Put your handoff into a Project&rsquo;s instructions once. Every new conversation in that project already knows the audience, the rules, and the format. Paste in the thread &mdash; get the recap.</p>
+          <div style="border:2px solid var(--color-divider)" role="img" aria-label="Diagram: where the handoff lives in a Claude Project — the project instructions panel">
+            <div style="display:flex;border-bottom:2px solid var(--color-divider)">
+              <div style="width:34%;border-right:2px solid var(--color-divider);padding:10px 12px;background:var(--color-neutral-100)">
+                <div style="font:600 10px var(--font-heading);letter-spacing:0.1em;text-transform:uppercase;color:var(--color-neutral-600);margin-bottom:8px">Project</div>
+                <div style="font:600 12px var(--font-heading)">Incident recaps</div>
+                <div style="font-size:11px;color:var(--color-neutral-600);margin-top:8px">Chats<br>Files<br><span style="color:var(--color-accent);font-weight:700">Instructions &larr;</span></div>
+              </div>
+              <div style="flex:1;padding:10px 12px">
+                <div style="font:600 10px var(--font-heading);letter-spacing:0.1em;text-transform:uppercase;color:var(--color-neutral-600);margin-bottom:8px">Project instructions</div>
+                <div style="font-family:ui-monospace,Menlo,monospace;font-size:10.5px;line-height:1.55;color:var(--color-neutral-700)">Context: recaps go to the VP of Infra&hellip;<br>Task: summarize the pasted thread&hellip;<br>Constraints: under 200 words, don&rsquo;t guess&hellip;<br>Format: Impact &middot; Timeline &middot; Root cause&hellip;</div>
+              </div>
+            </div>
+            <div style="padding:8px 12px;font-size:11.5px;background:var(--color-accent);color:#fff;font-weight:600">Your four-part handoff goes here &mdash; once.</div>
+          </div>
+          <div style="margin-top:auto;border-top:2px solid var(--color-divider);padding-top:12px;font-size:13px;color:var(--color-neutral-700)">Incident recaps &middot; ticket replies &middot; change write-ups &middot; runbooks &rarr; checklists</div>
+        </div>
+        <div class="card" style="padding:28px;display:flex;flex-direction:column;gap:16px">
+          <div><div style="font:700 22px var(--font-heading)">CURSOR</div><div style="font-size:13px;color:var(--color-neutral-600)">for file and code work that repeats</div></div>
+          <p style="margin:0;font-size:14.5px;line-height:1.6">Put your standards into a rules file so they apply to every request automatically. Then ask for the change across the whole repo instead of opening thirty files one at a time.</p>
+          <div style="border:2px solid var(--color-divider)" role="img" aria-label="Diagram: where standards live in Cursor — a rules file in the repository">
+            <div style="display:flex;border-bottom:2px solid var(--color-divider)">
+              <div style="width:34%;border-right:2px solid var(--color-divider);padding:10px 12px;background:var(--color-neutral-100)">
+                <div style="font:600 10px var(--font-heading);letter-spacing:0.1em;text-transform:uppercase;color:var(--color-neutral-600);margin-bottom:8px">Repo</div>
+                <div style="font-family:ui-monospace,Menlo,monospace;font-size:10.5px;line-height:1.7;color:var(--color-neutral-700)">src/<br>scripts/<br><span style="color:var(--color-accent);font-weight:700">.cursor/rules &larr;</span></div>
+              </div>
+              <div style="flex:1;padding:10px 12px">
+                <div style="font:600 10px var(--font-heading);letter-spacing:0.1em;text-transform:uppercase;color:var(--color-neutral-600);margin-bottom:8px">team-standards</div>
+                <div style="font-family:ui-monospace,Menlo,monospace;font-size:10.5px;line-height:1.55;color:var(--color-neutral-700)">Follow the naming standard in docs/naming.md.<br>Never invent commands not in the runbook.<br>All scripts get error handling + logging&hellip;</div>
+              </div>
+            </div>
+            <div style="padding:8px 12px;font-size:11.5px;background:var(--color-accent);color:#fff;font-weight:600">Standards apply to every request &mdash; automatically.</div>
+          </div>
+          <div style="margin-top:auto;border-top:2px solid var(--color-divider);padding-top:12px;font-size:13px;color:var(--color-neutral-700)">Bulk renames &middot; adding logging to a pattern &middot; tests for existing code &middot; first-pass script updates</div>
+        </div>
+      </div>
+      <div style="background:var(--color-text);color:var(--color-bg);padding:22px 28px;margin-top:24px">
+        <p style="margin:0;font:600 17px/1.5 var(--font-heading)">Same four-part handoff either way. You&rsquo;re storing it instead of retyping it. Still check the output.</p>
+      </div>
+      <p style="margin:16px 0 0;font-size:12px;color:var(--color-neutral-600)">Interface details last verified August 2026.</p>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ s15 }}" hint-placeholder-val="{{ false }}">
+    <div style="max-width:900px;margin:0 auto;padding:56px 32px 80px;box-sizing:border-box">
+      <div style="font:600 13px var(--font-heading);letter-spacing:0.14em;text-transform:uppercase;color:var(--color-accent);margin-bottom:12px">Activity 3 &middot; Scenario</div>
+      <h2 style="font:700 clamp(28px,3.6vw,40px)/1.15 var(--font-heading);margin:0 0 20px">It&rsquo;s Tuesday. The interrupt arrives.</h2>
+      <div style="border:2px solid var(--color-text);padding:20px 24px;margin-bottom:32px;font-size:16px;line-height:1.6">
+        You blocked 90 minutes to finish the migration plan &mdash; the one thing this week only you can do. Forty minutes in, your team lead messages: <span style="font-family:ui-monospace,Menlo,monospace;font-size:14.5px;background:var(--color-neutral-100);padding:2px 6px">&ldquo;Can you pull last quarter&rsquo;s ticket volume by category for the steering committee? They meet at 3.&rdquo;</span>
+      </div>
+      <div style="display:grid;gap:14px">
+        <sc-for list="{{ a3opts }}" as="opt" hint-placeholder-count="4">
+          <div>
+            <button onClick="{{ opt.pick }}" style="{{ opt.style }}" aria-pressed="{{ opt.selected }}">
+              <span style="font:700 18px var(--font-heading);width:32px;flex:none">{{ opt.key }}</span>
+              <span style="font-size:16px;line-height:1.5;text-align:left">{{ opt.text }}</span>
+            </button>
+            <sc-if value="{{ opt.showFb }}" hint-placeholder-val="{{ false }}">
+              <div style="border:2px solid var(--color-divider);border-top:0;padding:14px 18px;font-size:14px;line-height:1.55;background:var(--color-neutral-100)">{{ opt.fb }}</div>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+      <sc-if value="{{ a3answered }}" hint-placeholder-val="{{ false }}">
+        <div style="background:var(--color-text);color:var(--color-bg);padding:22px 28px;margin-top:24px">
+          <div style="font:600 12px var(--font-heading);letter-spacing:0.14em;text-transform:uppercase;color:var(--color-accent-300);margin-bottom:8px">Best: C</div>
+          <p style="margin:0;font-size:15px;line-height:1.55">Three yeses on the Offload Test. <strong>You kept 87 of your 90 minutes</strong> &mdash; and the next time this lands, it costs you three minutes again. The other three are all things reasonable people do, and each one costs you something different.</p>
+        </div>
+      </sc-if>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ s16 }}" hint-placeholder-val="{{ false }}">
+    <div style="max-width:1120px;margin:0 auto;padding:56px 32px 80px;box-sizing:border-box">
+      <h2 style="font:700 clamp(30px,4vw,44px)/1.1 var(--font-heading);margin:0 0 12px">One warning: freed-up time doesn&rsquo;t stay free.</h2>
+      <p style="font-size:17px;color:var(--color-neutral-700);margin:0 0 40px;max-width:640px">It gets absorbed quietly unless something is holding it. So do these three things.</p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:stretch">
+        <div class="card" style="padding:24px"><div style="font:700 36px var(--font-heading)">1</div><div style="font:600 18px var(--font-heading);margin:8px 0 10px">Book it before you free it.</div><p style="margin:0;font-size:14px;line-height:1.55;color:var(--color-neutral-700)">Put the focus block on your calendar first. An empty hour with nothing holding it will be filled by someone else.</p></div>
+        <div class="card" style="padding:24px"><div style="font:700 36px var(--font-heading)">2</div><div style="font:600 18px var(--font-heading);margin:8px 0 10px">Keep a list of repeats.</div><p style="margin:0;font-size:14px;line-height:1.55;color:var(--color-neutral-700)">Any request that shows up twice is your next automation. Write it down the second time, not the fifth.</p></div>
+        <div class="card" style="padding:24px"><div style="font:700 36px var(--font-heading);color:var(--color-accent)">3</div><div style="font:600 18px var(--font-heading);margin:8px 0 10px">Check fast, or don&rsquo;t offload.</div><p style="margin:0;font-size:14px;line-height:1.55;color:var(--color-neutral-700)">If verifying the output takes as long as doing the task, that task belongs in the Keep column. Be honest about this one.</p></div>
+      </div>
+      <div style="background:var(--color-text);color:var(--color-bg);padding:26px 32px;margin-top:32px">
+        <p style="margin:0;font:600 clamp(17px,2vw,21px)/1.5 var(--font-heading)">This was never about trusting AI. It&rsquo;s about knowing exactly what you&rsquo;re trusting it with.</p>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ s17 }}" hint-placeholder-val="{{ false }}">
+    <div style="max-width:1120px;margin:0 auto;padding:56px 32px 80px;box-sizing:border-box">
+      <h2 style="font:700 clamp(30px,4vw,44px)/1.1 var(--font-heading);margin:0 0 40px">Your one move this week</h2>
+      <div style="display:grid;grid-template-columns:1fr minmax(300px,380px);gap:40px;align-items:start">
+        <div>
+          <div style="border-top:2px solid var(--color-divider);padding:18px 0;display:grid;grid-template-columns:48px 1fr;gap:14px"><div style="font:700 26px var(--font-heading);color:var(--color-accent)">1</div><p style="margin:0;font-size:16px;line-height:1.5;align-self:center">Think of a request that landed on you more than once last month.</p></div>
+          <div style="border-top:2px solid var(--color-divider);padding:18px 0;display:grid;grid-template-columns:48px 1fr;gap:14px"><div style="font:700 26px var(--font-heading);color:var(--color-accent)">2</div><p style="margin:0;font-size:16px;line-height:1.5;align-self:center">Run it through the three questions. Does it pass?</p></div>
+          <div style="border-top:2px solid var(--color-divider);padding:18px 0;display:grid;grid-template-columns:48px 1fr;gap:14px"><div style="font:700 26px var(--font-heading);color:var(--color-accent)">3</div><p style="margin:0;font-size:16px;line-height:1.5;align-self:center">Write the four-part handoff: context, task, constraints, format.</p></div>
+          <div style="border-top:2px solid var(--color-divider);border-bottom:2px solid var(--color-divider);padding:18px 0;display:grid;grid-template-columns:48px 1fr;gap:14px"><div style="font:700 26px var(--font-heading);color:var(--color-accent)">4</div><p style="margin:0;font-size:16px;line-height:1.5;align-self:center">Save it where you&rsquo;ll find it again &mdash; a Claude Project or a Cursor rules file.</p></div>
+          <sc-if value="{{ hasTacit }}" hint-placeholder-val="{{ false }}">
+            <div style="border:2px solid var(--color-accent);padding:16px 20px;margin-top:24px">
+              <div style="font:600 11px var(--font-heading);letter-spacing:0.12em;text-transform:uppercase;color:var(--color-accent);margin-bottom:6px">You wrote this earlier</div>
+              <p style="margin:0;font-size:15px;line-height:1.5">&ldquo;{{ tacit }}&rdquo; &mdash; that one lives only in your head. It stays in the Keep column. Everything around it is fair game.</p>
+            </div>
+          </sc-if>
+          <sc-if value="{{ hasSavedPrompt }}" hint-placeholder-val="{{ false }}">
+            <div style="border:2px solid var(--color-divider);padding:16px 20px;margin-top:16px">
+              <div style="font:600 11px var(--font-heading);letter-spacing:0.12em;text-transform:uppercase;color:var(--color-accent);margin-bottom:10px">You already wrote one &mdash; your handoff from Activity 2</div>
+              <pre style="margin:0 0 12px;font-family:ui-monospace,Menlo,monospace;font-size:12.5px;line-height:1.6;white-space:pre-wrap;background:var(--color-neutral-100);padding:12px;user-select:text">{{ savedPrompt }}</pre>
+              <button class="btn btn-secondary" style="padding:6px 12px;font-size:13px" onClick="{{ copySavedPrompt }}">{{ copySavedLabel }}</button>
+            </div>
+          </sc-if>
+        </div>
+        <div class="card" style="padding:28px;border:2px solid var(--color-text)">
+          <div style="font:600 12px var(--font-heading);letter-spacing:0.14em;text-transform:uppercase;color:var(--color-accent);margin-bottom:14px">Take this with you</div>
+          <div style="font:700 24px/1.2 var(--font-heading);margin-bottom:10px">The Offload Decision Checklist</div>
+          <p style="margin:0 0 20px;font-size:14px;line-height:1.55;color:var(--color-neutral-700)">One page. The three questions, the four-part handoff, and the automation trigger.</p>
+          <a href="Offload Checklist.dc.html" target="_blank" class="btn btn-primary" style="text-decoration:none;display:inline-flex" onClick="{{ trackChecklist }}">Open the checklist</a>
+        </div>
+      </div>
+      <p style="margin:40px 0 0;font:600 20px var(--font-heading)">Do that four or five times and you have your afternoons back.</p>
+    </div>
+  </sc-if>
+
+  </main>
+  <footer style="flex:none;border-top:2px solid var(--color-divider);display:flex;align-items:center;gap:16px;padding:14px 24px;background:var(--color-bg)">
+    <sc-if value="{{ canBack }}" hint-placeholder-val="{{ false }}">
+      <button class="btn btn-ghost" onClick="{{ back }}">&larr; Back</button>
+    </sc-if>
+    <div style="flex:1;font-size:13px;color:var(--color-neutral-600)">{{ gateHint }}</div>
+    <sc-if value="{{ showNext }}" hint-placeholder-val="{{ true }}">
+      <button class="btn btn-primary" disabled="{{ nextDisabled }}" onClick="{{ next }}">{{ nextLabel }}</button>
+    </sc-if>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;lrsEndpoint&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;xAPI / LRS&quot;},&quot;lrsAuth&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;xAPI / LRS&quot;},&quot;learnerName&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Learner&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;xAPI / LRS&quot;},&quot;learnerEmail&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;xAPI / LRS&quot;}}">
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    const ls = (k, d) => { try { return localStorage.getItem(k) ?? d; } catch (e) { return d; } };
+    let a2order;
+    try { a2order = JSON.parse(ls('gyhb-a2order', 'null')); } catch (e) { a2order = null; }
+    if (!a2order) {
+      a2order = [0, 1, 2, 3].map(() => [0, 1, 2].sort(() => Math.random() - 0.5));
+      try { localStorage.setItem('gyhb-a2order', JSON.stringify(a2order)); } catch (e) {}
+    }
+    let a2sel;
+    try { a2sel = JSON.parse(ls('gyhb-a2sel', '[null,null,null,null]')); } catch (e) { a2sel = [null, null, null, null]; }
+    this.a2order = a2order;
+    this.state = {
+      screen: Math.min(16, Math.max(0, +ls('gyhb-screen', 0) || 0)),
+      maxScreen: Math.min(16, Math.max(0, +ls('gyhb-max', 0) || 0)),
+      transcript: false, playing: false,
+      a1: ls('gyhb-a1', '') || null,
+      a3: ls('gyhb-a3', '') || null,
+      a2sel, a2res: null,
+      tacit: ls('gyhb-tacit', ''),
+      savedPrompt: ls('gyhb-prompt', ''),
+      stat23: 23, constraintsOpen: false, cameBackOpen: false,
+      copiedStrong: false, copiedSaved: false
+    };
+    this.c23done = false;
+  }
+
+  // ---------- content ----------
+  get SCREENS() {
+    return ['Title', 'The interrupt tax', 'Straight talk', 'Objectives', 'Tacit vs. explicit', 'The Offload Test', 'Three buckets', 'Activity 1 — Knowledge check', 'The handoff gap', 'The four-part handoff', 'Weak vs. strong', 'Activity 2 — Build a handoff', 'From one-off to automation', 'Where it lives', 'Activity 3 — Scenario', 'Protect the hours', 'Your one move'];
+  }
+  get NARR() {
+    return [
+      "Think about yesterday. How much of it went to work only you could do? If you're on an IT team, the answer is probably: not much. The day filled up with requests, status updates, tickets, and quick questions. None of it was hard. All of it took time. This course is about getting some of that time back. Not by working faster. By handing off the work that never needed your brain in the first place.",
+      "Here's what makes this hard. The requests are small. Pull a report. Update a doc. Explain a config to someone in finance. Each one takes ten minutes. But research from UC Irvine found it takes about twenty-three minutes to get back to focused work after an interruption. So a ten minute favor costs you half an hour. Do four of those and your afternoon is gone. You didn't lose the day to hard work. You lost it to switching.",
+      "You have heard big promises about AI. Some of them were nonsense. So let's be clear about what this is. This course will not tell you AI can replace your judgment. It can't. It will not ask you to ship output you haven't checked. And it will not add one more tool for you to babysit. What it will do is give you a test for deciding what's safe to hand off, a prompt pattern that works on the first try, and a way to make it repeat without you.",
+      "By the end of the next few minutes, you should be able to use AI to free up real hours in your day. You'll do it in three moves. One: sort your work to find what's safe to hand off. Two: write a handoff that gets usable results the first time. Three: turn that handoff into something that runs again without you. That's the whole course. Let's start with sorting.",
+      "Everything you know falls into two piles. The first pile is tacit knowledge. It lives in your head. You earned it. Things like why the twenty-nineteen migration really failed, or which vendor actually answers on a Saturday, or how hard you can push a change window before someone escalates. You can't hand that off, because you can't fully write it down. The second pile is explicit knowledge. It's already written somewhere. The runbook. The ticket history. The naming standard. AI is very good with the second pile. It has none of the first. That difference is the whole game.",
+      "So here's the test. Three questions. First: is the knowledge already written down somewhere I can point to? Second: would two good engineers produce roughly the same answer? Third: can I check the result in under two minutes? Three yeses means offload it. Two yeses means let AI draft it and you finish it. Fewer than two, keep it. That last question matters most. If you can't check the work quickly, you haven't saved any time. You've just moved it.",
+      "Run your own week through that test and things sort fast. Offload: first drafts of ticket replies, turning a runbook into a checklist, summarizing a sixty-message incident thread, generating test data, renaming things across a pile of files. Assist: change request write-ups, the first pass at a postmortem timeline, refactoring a script you're going to review anyway. Keep: the rollback call. Telling the business no. Anything where the real work is people, risk, or blame. Notice something? The offload column is where most of your interrupts live.",
+      "Let's try one. It's four forty on a Friday and four things land on you at once. Which of these is safest to hand to AI right now? Take a second and pick one. After you answer: the answer is B. The knowledge is all in the thread. Two good engineers would summarize it about the same way. And you can check it in a minute by skimming. Three yeses. The other three all fail the test in a different place — read the feedback if you want to see where.",
+      "Okay. You've picked something to hand off. Here's where most people quit. They type \"summarize this thread,\" get back something generic, and decide AI isn't ready. But look at what happened. You gave it a task. You never gave it the job. You didn't say who reads this, what they care about, what to leave out, or what shape it should come back in. Hand that same instruction to a brand-new hire and you'd get the same disappointing result. And you wouldn't blame the new hire.",
+      "A good handoff has four parts. Context: who is this for, and what do they already know. Task: the one thing you want done, stated as a verb. Constraints: what to leave out, how long it should be, and what it should never guess at. Format: the exact shape you want it back in. Context, task, constraints, format. Writing all four takes about thirty seconds. It saves you three rounds of rework.",
+      "Here's the difference in real life. The weak version is: summarize this incident thread. What comes back is a wall of text that treats every detail as equally important, and you rewrite the whole thing. The strong version tells Claude who's reading it and that she wasn't on the call. It sets limits: under two hundred words, no blame, no names, and if a cause isn't in the thread, say \"not determined\" instead of guessing. Then it names the exact format: impact, timeline, root cause, open items. That \"don't guess\" line is the one people skip. It's the one that keeps the output honest.",
+      "Your turn. Here's the situation: you need to turn a six-page runbook into a checklist your Tier 1 team can follow at two in the morning. Pick one option for each of the four parts. Watch the prompt build itself on the right as you go. Then run it and see what comes back. There's no penalty for getting it wrong — try a weak option on purpose if you want to see the difference.",
+      "Now the part that actually gives you hours back. Doing this once saves you ten minutes. The rule is simple: if you find yourself writing the same prompt a second time, stop. You've found an automation. Save the handoff, then point it at new input each time. You wrote the instructions once. You never write them again.",
+      "Two places to put it. For language work that repeats, use a Claude Project. Put your handoff into the project's instructions once. After that, every new conversation in that project already knows the audience, the rules, and the format. You paste in the thread, you get the recap. That covers incident recaps, ticket replies, change write-ups, turning runbooks into checklists. For file and code work that repeats, use Cursor. Put your standards into a rules file so they apply to every request automatically. Then ask for the change across the whole repo instead of opening thirty files. Same four-part handoff either way. You're just storing it instead of retyping it. And you still check the output.",
+      "Last one, and this is the real test. It's Tuesday. You blocked ninety minutes to finish the migration plan — the one thing this week that only you can do. Forty minutes in, your team lead messages you. Read the four options and pick the one you'd actually do. After you answer: C is the move. The data is in the ticket system. Two people would pull the same numbers. You can sanity-check it fast. Three yeses. You kept eighty-seven of your ninety minutes — and next time this lands, it costs you three minutes again. Read the other three, though. They're all things reasonable people do, and each one costs you something different.",
+      "One warning. Time you free up does not stay free. It gets absorbed quietly unless something is holding it. So do three things. Book the focus time on your calendar before you free it up, not after. Keep a running list of requests that come back more than once — each one is your next automation. And stay honest about checking. If verifying the output takes as long as doing the task, that task belongs in the keep column. This was never about trusting AI. It's about knowing exactly what you're trusting it with.",
+      "Here's your one move this week. Think of a request that landed on you more than once last month. Run it through the three questions. If it passes, write the four-part handoff — context, task, constraints, format. Then save it where you'll find it again. That's one recurring interrupt turned into something that handles itself. Do that four or five times and you have your afternoons back. Grab the checklist below. It fits on one page, and it's the whole course."
+    ];
+  }
+  get A1() {
+    return [
+      { key: 'A', text: 'Approving an emergency change to the payment gateway.', fb: "Not this one. Approving an emergency change to a payment system is a risk call. That's tacit knowledge, and it's yours. It fails question two — two engineers might well disagree." },
+      { key: 'B', text: "Turning the 62-message outage thread into a summary for Monday's review.", fb: 'Right. The knowledge is all in the thread. Two good engineers would summarize it about the same way. And you can check it in a minute by skimming. Three yeses.' },
+      { key: 'C', text: "Telling the marketing director her request won't make this sprint.", fb: 'Not this one. This is a relationship, not a task. AI can help you draft the wording later, but the call and the tone are yours.' },
+      { key: 'D', text: 'Choosing which of two vendors to renew.', fb: 'Not this one. A renewal decision depends on things nobody wrote down, like how each vendor actually behaved last year. Fails question one.' }
+    ];
+  }
+  get A3() {
+    return [
+      { key: 'A', text: "Stop and pull the report yourself. It's only 15 minutes.", fb: "It was never 15 minutes. It's 15 minutes plus the 23 it takes to get back into the migration plan. And you'll be asked again next quarter, and it'll still be manual. This is the habit that eats your week." },
+      { key: 'B', text: "Tell them you're heads-down and you'll get to it tomorrow.", fb: "Fair. Sometimes it's the right call. But you protected today by creating a problem for tomorrow, and the request will still be manual when it comes back. You delayed the cost. You didn't remove it." },
+      { key: 'C', text: 'Run it through your saved handoff, spend 3 minutes checking it, send it, get back to the plan.', fb: 'This is the move. The data is in the ticket system, two people would pull the same numbers, and you can sanity-check it fast. Three yeses on the Offload Test. You kept 87 of your 90 minutes — and the next time this lands, it costs you three minutes again.' },
+      { key: 'D', text: 'Forward it to someone junior on the team.', fb: "You got your time back by spending someone else's. Sometimes that's right for their growth. Often it just moves the interrupt one desk over — and nobody automates it." }
+    ];
+  }
+  get A2ROWS() {
+    return [
+      { label: 'CONTEXT', opts: [
+        { t: '\u201cIt\u2019s for a runbook.\u201d', s: false },
+        { t: '\u201cFor Tier 1 on-call staff who have never run this procedure and will read it half-asleep at 2 a.m.\u201d', s: true },
+        { t: '\u201cFor my team.\u201d', s: false }] },
+      { label: 'TASK', opts: [
+        { t: '\u201cMake this better.\u201d', s: false },
+        { t: '\u201cConvert this runbook into a numbered checklist of single actions.\u201d', s: true },
+        { t: '\u201cLook at this runbook.\u201d', s: false }] },
+      { label: 'CONSTRAINTS', opts: [
+        { t: '\u201cKeep it short.\u201d', s: false },
+        { t: '\u201cOne action per line. Any step needing judgment gets flagged STOP: escalate. Don\u2019t invent commands not in the source.\u201d', s: true },
+        { t: '\u201cBe thorough.\u201d', s: false }] },
+      { label: 'FORMAT', opts: [
+        { t: '\u201cA document.\u201d', s: false },
+        { t: '\u201cNumbered checklist with a \u201cBefore you start\u201d section and an \u201cIf this fails\u201d section.\u201d', s: true },
+        { t: '\u201cBullet points.\u201d', s: false }] }
+    ];
+  }
+  get S11OUT() {
+    return 'IMPACT\nCheckout was unavailable for 42 minutes (14:07\u201314:49 UTC). Roughly 1,800 transactions failed and were retried or abandoned. No data loss.\n\nTIMELINE\n\u2022 14:07 \u2014 Alerts fire on checkout error rate; on-call engaged\n\u2022 14:15 \u2014 Traced to database connection pool exhaustion\n\u2022 14:26 \u2014 Connection limit raised; partial recovery\n\u2022 14:41 \u2014 13:50 deploy rolled back\n\u2022 14:49 \u2014 Error rate back to baseline; monitoring continued\n\nROOT CAUSE\nThe 13:50 deploy introduced a query that held connections longer than expected, exhausting the pool under afternoon load. Whether a config change contributed: not determined \u2014 not stated in the thread.\n\nOPEN ITEMS\n\u2022 Add pool saturation alerting ahead of error-rate alerts\n\u2022 Load-test the reverted query before re-deploy\n\u2022 Confirm connection limit change is in config management';
+  }
+  get A2OUT() {
+    return {
+      strong: 'BEFORE YOU START\n\u25a1 Confirm you are on the jump host (per source runbook, step 0)\n\u25a1 Have the incident ticket number ready\n\u25a1 If any step below says STOP, page Tier 2 \u2014 do not proceed\n\nRESTART PROCEDURE\n1. Check service status: systemctl status app-worker\n2. Copy the last 50 log lines into the ticket\n3. Stop the worker service\n4. STOP: escalate \u2014 if queue depth is above 10,000, page Tier 2 before continuing\n5. Restart the worker service\n6. Confirm status shows active (running)\n7. Watch the queue drain for 5 minutes\n8. Note the completion time in the ticket\n\nIF THIS FAILS\n\u25a1 Do not retry more than once\n\u25a1 Page Tier 2 with the log lines from step 2\n\u25a1 Leave the service stopped \u2014 do not improvise',
+      mixed: 'RUNBOOK CHECKLIST (draft)\n\n1. Check the service status\n2. Review recent logs for errors\n3. Stop the affected service\n4. Restart the service and confirm it is healthy\n5. Monitor for a few minutes\n6. Update the ticket\n\nNote: several steps in the source involve judgment calls (queue depth, escalation thresholds). This draft does not flag them, and step 4 compresses three separate actions into one line.',
+      weak: 'This runbook describes the restart procedure for the application worker service. It covers checking service status, reviewing logs, stopping and restarting the service, and monitoring afterwards. There are several important considerations around queue depth and escalation that operators should keep in mind. Overall, following these steps carefully should help ensure a smooth restart process. Key themes include preparation, careful execution, and verification. It is recommended that staff familiarize themselves with the entire document before proceeding, and consult senior team members if anything is unclear.'
+    };
+  }
+  get STRONG_PROMPT() {
+    return 'Context: Going to our VP of Infrastructure before Monday\u2019s review. She wasn\u2019t on the call.\nTask: Summarize this thread into an incident recap.\nConstraints: Under 200 words. No blame, no names. If a cause isn\u2019t stated in the thread, say \u201cnot determined\u201d \u2014 don\u2019t guess.\nFormat: Impact \u00b7 Timeline (3\u20135 bullets) \u00b7 Root cause \u00b7 Open items';
+  }
+
+  // ---------- xAPI ----------
+  xapi(verb, path, name, result) {
+    const BASE = 'https://learning.example.com/xapi/courses/get-your-hours-back';
+    const email = this.props.learnerEmail || 'anonymous@example.com';
+    const stmt = {
+      actor: { objectType: 'Agent', name: this.props.learnerName || 'Learner', mbox: 'mailto:' + email },
+      verb: { id: 'http://adlnet.gov/expapi/verbs/' + verb, display: { 'en-US': verb } },
+      object: { objectType: 'Activity', id: path ? BASE + '/' + path : BASE, definition: { name: { 'en-US': name }, type: path && path.indexOf('activity') === 0 ? 'http://adlnet.gov/expapi/activities/cmi.interaction' : 'http://adlnet.gov/expapi/activities/' + (path ? 'module' : 'course') } },
+      context: path ? { contextActivities: { parent: [{ id: BASE }] } } : undefined,
+      timestamp: new Date().toISOString()
+    };
+    if (result) stmt.result = result;
+    window.xapiStatements = window.xapiStatements || [];
+    window.xapiStatements.push(stmt);
+    console.info('[xAPI]', verb, name, stmt);
+    const ep = (this.props.lrsEndpoint || '').replace(/\/+$/, '');
+    if (ep) {
+      const headers = { 'Content-Type': 'application/json', 'X-Experience-API-Version': '1.0.3' };
+      if (this.props.lrsAuth) headers.Authorization = this.props.lrsAuth;
+      fetch(ep + '/statements', { method: 'POST', headers, body: JSON.stringify(stmt) })
+        .catch(err => console.warn('[xAPI] LRS send failed:', err.message));
+    }
+  }
+
+  componentDidMount() {
+    if ('speechSynthesis' in window) speechSynthesis.getVoices(); // warm the voice list
+    this.xapi('initialized', null, 'Get Your Hours Back');
+    this.xapi('experienced', 'screen/' + (this.state.screen + 1), this.SCREENS[this.state.screen]);
+    if (this.state.screen === 1) this.count23();
+  }
+  componentWillUnmount() { this.stopAudio(); clearInterval(this.c23t); }
+
+  // ---------- audio ----------
+  // Recorded narration: drop files into audio/screen-01.mp3 … screen-17.mp3 and they
+  // play automatically; screens without a file fall back to on-device speech.
+  audioFileFor(i) { return 'audio/screen-' + String(i + 1).padStart(2, '0') + '.mp3'; }
+  stopAudio() {
+    clearTimeout(this.ttsTimer);
+    clearInterval(this.ttsKeepAlive);
+    if (this.audioEl) { this.audioEl.pause(); this.audioEl = null; }
+    // resume() first: a cancel() on a paused engine leaves Chrome stuck silent
+    if ('speechSynthesis' in window) { speechSynthesis.resume(); speechSynthesis.cancel(); }
+    this.ttsPaused = false;
+    if (this.state.playing) this.setState({ playing: false });
+  }
+  pickVoice() {
+    const vs = speechSynthesis.getVoices().filter(v => v.lang && v.lang.indexOf('en') === 0);
+    const pref = ['natural', 'neural', 'google us english', 'samantha', 'aria', 'zira'];
+    for (const p of pref) { const m = vs.find(v => v.name.toLowerCase().indexOf(p) !== -1); if (m) return m; }
+    return vs.find(v => v.default) || vs[0] || null;
+  }
+  speakTts() {
+    speechSynthesis.resume(); // un-stick a paused engine before cancelling
+    speechSynthesis.cancel();
+    const screen = this.state.screen;
+    clearTimeout(this.ttsTimer);
+    clearInterval(this.ttsKeepAlive);
+    const start = (attempt) => {
+      if (this.state.screen !== screen || !this.state.playing) return;
+      const u = new SpeechSynthesisUtterance(this.NARR[screen]);
+      this.utter = u; // hold a ref: Chrome GCs unreferenced utterances mid-speech
+      const v = this.pickVoice();
+      if (v) u.voice = v;
+      u.rate = 1.02;
+      u.onend = () => { clearInterval(this.ttsKeepAlive); this.ttsPaused = false; this.setState({ playing: false }); };
+      u.onerror = (e) => { if (e.error !== 'canceled' && e.error !== 'interrupted') { clearInterval(this.ttsKeepAlive); this.ttsPaused = false; this.setState({ playing: false }); } };
+      speechSynthesis.speak(u);
+      // Chrome sometimes swallows the first speak() after cancel(); verify, retry once
+      setTimeout(() => {
+        if (attempt < 2 && this.state.playing && this.state.screen === screen && !this.ttsPaused &&
+            !speechSynthesis.speaking && !speechSynthesis.pending) {
+          speechSynthesis.cancel(); start(attempt + 1);
+        }
+      }, 450);
+      // Chrome halts remote voices after ~15s unless nudged
+      this.ttsKeepAlive = setInterval(() => {
+        if (!speechSynthesis.speaking) { clearInterval(this.ttsKeepAlive); return; }
+        if (!this.ttsPaused) { speechSynthesis.pause(); speechSynthesis.resume(); }
+      }, 12000);
+    };
+    // Chrome drops an utterance queued immediately after cancel(); defer one beat.
+    this.ttsTimer = setTimeout(() => start(0), 150);
+    this.setState({ playing: true });
+  }
+  toggleAudio = () => {
+    // Playing → pause (resumable)
+    if (this.state.playing) {
+      if (this.audioEl) { this.audioEl.pause(); this.setState({ playing: false }); return; }
+      if ('speechSynthesis' in window && speechSynthesis.speaking) {
+        speechSynthesis.pause(); this.ttsPaused = true; this.setState({ playing: false }); return;
+      }
+      this.stopAudio(); return;
+    }
+    // Paused → resume
+    if (this.audioEl && this.audioEl.currentScreen === this.state.screen && !this.audioEl.ended) {
+      this.audioEl.play(); this.setState({ playing: true }); return;
+    }
+    if (this.ttsPaused && 'speechSynthesis' in window) {
+      speechSynthesis.resume(); this.ttsPaused = false; this.setState({ playing: true }); return;
+    }
+    // Fresh start: try the recorded file for this screen, fall back to speech
+    this.stopAudio();
+    const el = new Audio(this.audioFileFor(this.state.screen));
+    el.currentScreen = this.state.screen;
+    let fellBack = false;
+    const fallback = () => {
+      if (fellBack) return;
+      fellBack = true;
+      this.audioEl = null;
+      if ('speechSynthesis' in window) this.speakTts();
+    };
+    el.onended = () => { this.audioEl = null; this.setState({ playing: false }); };
+    el.onerror = fallback;
+    el.play().then(() => {
+      this.audioEl = el;
+      this.setState({ playing: true });
+    }).catch(fallback);
+  };
+
+  // ---------- nav ----------
+  persist(k, v) { try { localStorage.setItem(k, String(v)); } catch (e) {} }
+  count23() {
+    if (this.c23done) return;
+    this.c23done = true;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    let v = 0;
+    this.setState({ stat23: 0 });
+    this.c23t = setInterval(() => {
+      v += 1;
+      if (v >= 23) { v = 23; clearInterval(this.c23t); }
+      this.setState({ stat23: v });
+    }, 45);
+  }
+  goTo(i) {
+    if (i < 0 || i > 16 || i === this.state.screen) return;
+    this.stopAudio();
+    const max = Math.max(this.state.maxScreen, i);
+    this.setState({ screen: i, maxScreen: max, copiedStrong: false, copiedSaved: false });
+    this.persist('gyhb-screen', i); this.persist('gyhb-max', max);
+    this.xapi('experienced', 'screen/' + (i + 1), this.SCREENS[i]);
+    if (i === 1) this.count23();
+    if (i === 16) {
+      let done = false;
+      try { done = localStorage.getItem('gyhb-completed') === '1'; } catch (e) {}
+      if (!done) {
+        this.xapi('completed', null, 'Get Your Hours Back', { completion: true });
+        this.persist('gyhb-completed', '1');
+      }
+    }
+    const m = document.querySelector('main'); if (m) m.scrollTop = 0;
+  }
+
+  // ---------- render ----------
+  renderVals() {
+    const st = this.state;
+    const vals = {};
+    for (let i = 0; i < 17; i++) vals['s' + (i + 1)] = st.screen === i;
+    const gated = (st.screen === 7 && !st.a1) || (st.screen === 14 && !st.a3);
+    const moveLabel = st.screen >= 4 && st.screen <= 7 ? 'MOVE 1 · SORT' : st.screen >= 8 && st.screen <= 11 ? 'MOVE 2 · HAND OFF' : st.screen >= 12 && st.screen <= 14 ? 'MOVE 3 · AUTOMATE' : null;
+
+    const optStyle = (sel) => 'display:flex;gap:14px;align-items:flex-start;width:100%;box-sizing:border-box;padding:16px 18px;background:#fff;border:2px solid ' + (sel ? 'var(--color-accent)' : 'var(--color-divider)') + ';border-radius:0;cursor:pointer;font-family:var(--font-body);color:var(--color-text);text-align:left';
+
+    const mkOpts = (data, sel, onPick) => data.map(o => ({
+      ...o,
+      selected: sel === o.key,
+      showFb: sel === o.key,
+      style: optStyle(sel === o.key),
+      pick: () => onPick(o.key)
+    }));
+    vals.a1opts = mkOpts(this.A1, st.a1, (k) => {
+      this.setState({ a1: k }); this.persist('gyhb-a1', k);
+      this.xapi('answered', 'activity/1', 'Activity 1 — Knowledge check', { success: k === 'B', response: k });
+    });
+    vals.a1answered = !!st.a1;
+    vals.a3opts = mkOpts(this.A3, st.a3, (k) => {
+      this.setState({ a3: k }); this.persist('gyhb-a3', k);
+      this.xapi('answered', 'activity/3', 'Activity 3 — Scenario decision', { success: k === 'C', response: k });
+    });
+    vals.a3answered = !!st.a3;
+
+    // Activity 2
+    const rows = this.A2ROWS;
+    vals.a2rows = rows.map((row, ri) => ({
+      n: ri + 1, label: row.label,
+      opts: this.a2order[ri].map(oi => {
+        const o = row.opts[oi];
+        const sel = st.a2sel[ri] === oi;
+        return {
+          t: o.t, selected: sel,
+          style: 'width:100%;box-sizing:border-box;padding:12px 16px;background:#fff;border:2px solid ' + (sel ? 'var(--color-accent)' : 'var(--color-divider)') + ';border-radius:0;cursor:pointer;font-family:var(--font-body);font-size:14px;line-height:1.5;color:var(--color-text);text-align:left',
+          pick: () => {
+            const a2sel = st.a2sel.slice(); a2sel[ri] = oi;
+            this.setState({ a2sel });
+            try { localStorage.setItem('gyhb-a2sel', JSON.stringify(a2sel)); } catch (e) {}
+          }
+        };
+      })
+    }));
+    const strip = (s) => s.replace(/^\u201c/, '').replace(/\u201d$/, '');
+    vals.a2preview = rows.map((row, ri) => {
+      const oi = st.a2sel[ri];
+      return {
+        label: row.label.charAt(0) + row.label.slice(1).toLowerCase(),
+        text: oi == null ? '\u2026' : strip(rows[ri].opts[oi].t),
+        color: oi == null ? 'var(--color-neutral-500)' : 'var(--color-text)'
+      };
+    });
+    vals.a2runDisabled = st.a2sel.some(v => v == null);
+    vals.runA2 = () => {
+      const strongRows = rows.map((row, ri) => row.opts[st.a2sel[ri]].s);
+      const n = strongRows.filter(Boolean).length;
+      const weakNames = rows.filter((r, ri) => !strongRows[ri]).map(r => r.label.charAt(0) + r.label.slice(1).toLowerCase());
+      const OUT = this.A2OUT;
+      let output, feedback;
+      if (n === 4) { output = OUT.strong; feedback = 'That\u2019s a handoff you could give a person. Notice the checklist you got back has no invented commands in it \u2014 that\u2019s the \u201cdon\u2019t invent commands not in the source\u201d constraint doing its job. This is the one that\u2019s safe to use at 2 a.m.'; }
+      else if (n >= 2) { output = OUT.mixed; feedback = 'Usable, but look at what\u2019s missing. Your ' + weakNames.join(' and ') + ' choice' + (weakNames.length > 1 ? 's are' : ' is') + ' doing no work here. Try that row again and watch the output change.'; }
+      else { output = OUT.weak; feedback = 'This is the version that made you think AI wasn\u2019t ready. Nothing here tells it who\u2019s reading, what to leave out, or what shape to return. Try again \u2014 start with Context.'; }
+      const prompt = rows.map((row, ri) => (row.label.charAt(0) + row.label.slice(1).toLowerCase()) + ': ' + strip(row.opts[st.a2sel[ri]].t)).join('\n');
+      this.setState({ a2res: { output, feedback }, savedPrompt: prompt });
+      try { localStorage.setItem('gyhb-prompt', prompt); } catch (e) {}
+      this.xapi('answered', 'activity/2', 'Activity 2 — Build a handoff', { success: n === 4, response: prompt, score: { raw: n, min: 0, max: 4 } });
+    };
+    vals.a2hasResult = !!st.a2res;
+    vals.a2output = st.a2res ? st.a2res.output : '';
+    vals.a2feedback = st.a2res ? st.a2res.feedback : '';
+
+    // screen 7 columns
+    vals.s7cols = [
+      { name: 'Offload', topBorder: '6px solid var(--color-text)', titleColor: 'var(--color-text)', items: [
+        { t: 'First drafts of ticket replies', tip: 'Written down in the ticket, same answer either way, skim to check — 3 yeses.' },
+        { t: 'Turning a runbook into a checklist', tip: 'The runbook is the source; verification is a read-through — 3 yeses.' },
+        { t: 'Summarizing a 60-message incident thread', tip: 'Everything is in the thread and a skim verifies it — 3 yeses.' },
+        { t: 'Generating test data', tip: 'The schema defines it; a glance confirms it — 3 yeses.' },
+        { t: 'Renaming or reformatting across many files', tip: 'Mechanical, deterministic, diff-checkable — 3 yeses.' }] },
+      { name: 'Assist', topBorder: '6px solid var(--color-neutral-400)', titleColor: 'var(--color-neutral-700)', items: [
+        { t: 'Change request write-ups', tip: 'The facts are written down, but the risk framing is judgment — 2 yeses: AI drafts, you finish.' },
+        { t: 'First pass at a postmortem timeline', tip: 'The thread holds the events; the interpretation is yours — 2 yeses.' },
+        { t: 'Refactoring a script you\u2019ll review anyway', tip: 'Verifiable, but style calls differ between engineers — 2 yeses.' },
+        { t: 'Comparing two vendor documents', tip: 'The documents are explicit; what matters to you is not — 2 yeses.' }] },
+      { name: 'Keep', topBorder: '6px solid var(--color-accent)', titleColor: 'var(--color-accent)', items: [
+        { t: 'The rollback call', tip: 'Fails question two: two good engineers can disagree, and the risk is yours.' },
+        { t: 'Telling the business no', tip: 'The real work is the relationship — nothing written down covers it.' },
+        { t: 'Anything where the real work is people, risk, or blame', tip: 'Fails all three questions. Keep it.' }] }
+    ];
+
+    // screen 4 move cards
+    const moveDefs = [
+      { n: 1, title: 'Sort', desc: 'Sort your recurring work into offload, assist, or keep — using a three-question test.', start: 4 },
+      { n: 2, title: 'Hand off', desc: 'Write a handoff that gives AI enough context to return usable work the first time.', start: 8 },
+      { n: 3, title: 'Automate', desc: 'Turn a repeated handoff into something saved that runs without you rebuilding it.', start: 12 }
+    ];
+    vals.moves = moveDefs.map(m => {
+      const unlocked = st.maxScreen >= m.start;
+      return { ...m, unlocked, cursor: unlocked ? 'pointer' : 'default', border: unlocked ? '2px solid var(--color-text)' : '1px solid var(--color-divider)', role: unlocked ? 'button' : null, tab: unlocked ? 0 : -1, jump: unlocked ? () => this.goTo(m.start) : null };
+    });
+
+    // header / footer
+    vals.counter = String(st.screen + 1).padStart(2, '0') + ' / 17';
+    vals.progressPct = Math.round(((st.screen + 1) / 17) * 100) + '%';
+    vals.moveLabel = moveLabel;
+    vals.screenLabel = 'Screen ' + String(st.screen + 1).padStart(2, '0') + ' · ' + this.SCREENS[st.screen];
+    vals.testUnlocked = st.maxScreen >= 5 && st.screen !== 5;
+    vals.goTest = () => this.goTo(5);
+    vals.transcriptOpen = st.transcript;
+    vals.transcriptLabel = st.transcript ? 'Hide transcript' : 'Show transcript';
+    vals.toggleTranscript = () => this.setState({ transcript: !st.transcript });
+    vals.transcriptText = this.NARR[st.screen];
+    vals.audioSupported = true;
+    vals.toggleAudio = this.toggleAudio;
+    vals.audioLabel = st.playing ? '\u275a\u275a Pause audio' : '\u25b6 Play audio';
+    vals.canBack = st.screen > 0;
+    vals.back = () => this.goTo(st.screen - 1);
+    vals.showNext = st.screen < 16;
+    vals.nextDisabled = gated;
+    vals.gateHint = gated ? 'Pick an answer to continue.' : '';
+    vals.nextLabel = st.screen === 0 ? 'Start' : 'Continue \u2192';
+    vals.next = () => this.goTo(st.screen + 1);
+
+    // misc
+    vals.stat23 = st.stat23;
+    vals.tacit = st.tacit;
+    vals.setTacit = (e) => {
+      const v = e.target.value;
+      this.setState({ tacit: v });
+      try { localStorage.setItem('gyhb-tacit', v); } catch (err) {}
+    };
+    vals.hasTacit = !!st.tacit.trim();
+    vals.constraintsOpen = st.constraintsOpen;
+    vals.toggleConstraints = () => this.setState({ constraintsOpen: !st.constraintsOpen });
+    vals.cameBackOpen = st.cameBackOpen;
+    vals.cameBackLabel = st.cameBackOpen ? 'Hide what came back' : 'See what came back';
+    vals.toggleCameBack = () => this.setState({ cameBackOpen: !st.cameBackOpen });
+    vals.s11output = this.S11OUT;
+    vals.copyPromptLabel = st.copiedStrong ? 'Copied \u2713' : 'Copy this prompt';
+    vals.copyStrongPrompt = () => {
+      navigator.clipboard && navigator.clipboard.writeText(this.STRONG_PROMPT);
+      this.setState({ copiedStrong: true });
+      this.xapi('interacted', 'resource/strong-prompt', 'Copied the strong prompt');
+      setTimeout(() => this.setState({ copiedStrong: false }), 1600);
+    };
+    vals.hasSavedPrompt = !!st.savedPrompt;
+    vals.savedPrompt = st.savedPrompt;
+    vals.copySavedLabel = st.copiedSaved ? 'Copied \u2713' : 'Copy your handoff';
+    vals.copySavedPrompt = () => {
+      navigator.clipboard && navigator.clipboard.writeText(st.savedPrompt);
+      this.setState({ copiedSaved: true });
+      this.xapi('interacted', 'resource/learner-prompt', 'Copied their Activity 2 handoff');
+      setTimeout(() => this.setState({ copiedSaved: false }), 1600);
+    };
+    vals.trackChecklist = () => this.xapi('interacted', 'resource/checklist', 'Opened the Offload Decision Checklist');
+    return vals;
+  }
+}
+</script>
+</body>
+</html>
