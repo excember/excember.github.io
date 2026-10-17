@@ -1,0 +1,623 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Genie Readiness Studio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a working tool. Navy header band with view toggle, tab rail, one panel at a time; summary before detail.
+   Palette and type follow Databricks' public brand colors (Lava, Navy, Oat) and DM Sans / DM Mono. No logo.
+   Deliberately single-theme: the Oat light look in every viewer theme. */
+:root{
+  --bg:#F9F7F4; --surface:#FFFFFF; --sunk:#EEEDE9; --ink:#0B2026; --muted:#4F5F66; --line:#DCD9D2;
+  --band:#1B3139; --band-ink:#FFFFFF; --band-muted:#B9C4C8;
+  --lava:#FF3621; --accent:#D2301C; --accent-ink:#FFFFFF; --accent-soft:#FFE6E1; --bar:#1B3139;
+  --ok:#2A7A45; --ok-soft:#E1F1E6; --warn:#946000; --warn-soft:#FAEED6; --bad:#9E1730; --bad-soft:#F8E1E5;
+  --rev:#5B4BA8; --rev-soft:#E9E6F6; --none:#76838A; --none-soft:#ECEBE7;
+  --display:"DM Sans", "Helvetica Neue", Arial, sans-serif;
+  --body:"DM Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono:"DM Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+:root{color-scheme:light}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:14px;line-height:1.5}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--band)}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--band);color:var(--band-ink);border-bottom:3px solid var(--lava)}
+header.top .wrap{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;justify-content:space-between;padding-block:12px}
+.brand{display:flex;flex-direction:column;gap:2px;min-width:0}
+.brand h1{font-family:var(--display);font-size:20px;font-weight:700;margin:0;letter-spacing:-.01em}
+.brand small{color:var(--band-muted);font-size:12px}
+.seg{display:inline-flex;border:1px solid rgba(255,255,255,.18);border-radius:8px;padding:3px;background:rgba(255,255,255,.06);gap:2px}
+.seg button{border:0;background:transparent;color:var(--band-muted);font:500 13px var(--body);padding:6px 12px;border-radius:6px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--lava);color:#FFFFFF;font-weight:600}
+.notice{background:var(--warn-soft);color:var(--ink);font-size:12.5px}
+.notice .wrap{padding-block:8px}
+.notice b{color:var(--warn)}
+nav.tabs{border-bottom:1px solid var(--line);background:var(--bg)}
+nav.tabs .wrap{display:flex;gap:4px;overflow-x:auto;padding-block:0}
+nav.tabs button{border:0;background:none;font:500 13.5px var(--body);color:var(--muted);padding:12px 12px;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap}
+nav.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--lava);font-weight:600}
+main .wrap{padding-block:24px 64px;display:flex;flex-direction:column;gap:24px}
+h2{font-family:var(--display);font-size:24px;font-weight:700;margin:0;letter-spacing:-.02em;text-wrap:balance}
+h3{font-family:var(--display);font-size:16px;font-weight:600;margin:0}
+h4{font-size:13px;font-weight:600;margin:0}
+p{margin:0;max-width:72ch}
+.lede{color:var(--muted);max-width:80ch}
+.eyebrow{font:500 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.mono{font-family:var(--mono)}
+.num{font-variant-numeric:tabular-nums}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:16px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:12px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.kpi .v{font-family:var(--display);font-size:26px;font-weight:700;font-variant-numeric:tabular-nums}
+.kpi .l{color:var(--muted);font-size:12.5px}
+.row{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center}
+.stack{display:flex;flex-direction:column;gap:10px;min-width:0}
+.scroll{overflow-x:auto;min-width:0}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:500 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--sunk);white-space:nowrap}
+td.c,th.c{text-align:center}
+.pill{display:inline-flex;align-items:center;gap:6px;font:500 12px var(--body);padding:2px 9px;border-radius:999px;white-space:nowrap}
+.pill::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.st-ok{background:var(--ok-soft);color:var(--ok)} .st-warn{background:var(--warn-soft);color:var(--warn)}
+.st-bad{background:var(--bad-soft);color:var(--bad)} .st-rev{background:var(--rev-soft);color:var(--rev)} .st-none{background:var(--none-soft);color:var(--none)}
+.tag{display:inline-block;font:500 11.5px var(--mono);padding:1px 7px;border-radius:5px;background:var(--sunk);border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.tag.acc{background:var(--accent-soft);border-color:transparent;color:var(--accent)}
+.tag.crit{background:var(--bad-soft);border-color:transparent;color:var(--bad)}
+.heat td.cell{text-align:center;min-width:96px}
+.heat .cellbox{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 4px;border-radius:7px}
+.heat .cellbox small{font:500 11px var(--mono);color:var(--ink);opacity:.8}
+button.btn{font:500 13px var(--body);border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:7px 12px;border-radius:7px;cursor:pointer}
+button.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+button.btn.ghost{background:transparent}
+button.btn:disabled{opacity:.5;cursor:default}
+button:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+select,textarea{font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:7px;padding:7px 10px}
+textarea{width:100%;min-height:70px}
+pre.json{font:12px/1.55 var(--mono);background:var(--sunk);border:1px solid var(--line);border-radius:8px;padding:12px;overflow:auto;max-height:420px;margin:0;white-space:pre}
+.quote{border-left:3px solid var(--line);padding:2px 0 2px 10px;color:var(--ink);font-style:italic}
+.quote.crit{border-left-color:var(--bad)}
+.absent{color:var(--muted);font-size:12.5px}
+details{border:1px solid var(--line);border-radius:8px;background:var(--surface)}
+details>summary{cursor:pointer;padding:10px 12px;list-style:none;display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center}
+details>summary::-webkit-details-marker{display:none}
+details>summary::before{content:"▸";color:var(--muted);font-size:12px}
+details[open]>summary::before{content:"▾"}
+details .inner{padding:0 12px 12px;display:flex;flex-direction:column;gap:10px}
+.levels{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:8px}
+.lvl{border:1px solid var(--line);border-radius:8px;padding:10px;display:flex;flex-direction:column;gap:4px;background:var(--surface)}
+.lvl .n{font:500 11px var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.lvl.target{border-color:var(--lava);background:var(--accent-soft)}
+.dots{display:inline-flex;gap:4px}
+.dot{width:12px;height:12px;border-radius:50%;border:2px solid var(--none)}
+.dot.m{background:var(--ok);border-color:var(--ok)} .dot.x{background:var(--bad-soft);border-color:var(--bad)} .dot.f{background:var(--bad);border-color:var(--bad)}
+.bar{height:8px;border-radius:4px;background:var(--sunk);position:relative;overflow:hidden;min-width:80px;flex:1}
+.bar i{position:absolute;inset:0 auto 0 0;background:var(--bar);border-radius:4px}
+.critline{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(80px,1fr) 34px;gap:10px;align-items:center;font-size:13px}
+.diff{border:1px solid var(--line);border-radius:8px;padding:12px;display:flex;flex-direction:column;gap:8px;background:var(--surface)}
+.diff .add{background:var(--ok-soft);border-radius:5px;padding:6px 8px}
+.diff .del{background:var(--bad-soft);border-radius:5px;padding:6px 8px;text-decoration:line-through;opacity:.85}
+.release{background:var(--sunk);border:1px dashed var(--line);border-radius:8px;padding:12px;font-size:13px}
+.flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,160px),1fr));gap:10px;counter-reset:f;padding:0;margin:0;list-style:none}
+.flow li{border:1px solid var(--line);border-radius:8px;padding:10px;background:var(--surface);counter-increment:f;display:flex;flex-direction:column;gap:4px;font-size:13px}
+.flow li::before{content:counter(f);font:600 12px var(--mono);color:var(--accent)}
+.chart{width:100%;height:auto;display:block}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12.5px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.sw{width:12px;height:12px;border-radius:3px;display:inline-block}
+.note{font-size:12.5px;color:var(--muted)}
+.ok-text{color:var(--ok)} .bad-text{color:var(--bad)} .warn-text{color:var(--warn)}
+.toast{font-size:13px;background:var(--accent-soft);color:var(--ink);border-radius:7px;padding:8px 10px}
+.rp{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--surface)}
+.rp header{background:var(--accent-soft);padding:12px 14px;display:flex;flex-direction:column;gap:4px}
+.rp .body{padding:12px 14px;display:flex;flex-direction:column;gap:10px}
+.chat{display:flex;flex-direction:column;gap:6px;font-size:13px}
+.chat .b{align-self:flex-start;background:var(--sunk);border-radius:10px 10px 10px 2px;padding:7px 10px;max-width:90%}
+.chat .s{align-self:flex-end;background:var(--accent-soft);border-radius:10px 10px 2px 10px;padding:7px 10px;max-width:90%}
+@media (prefers-reduced-motion:no-preference){.panel,.kpi{transition:border-color .15s}}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">
+      <h1>Genie Readiness Studio</h1>
+      <small>Unofficial concept · Skill framework, scorecards and readiness validation for Genie sellers · Value Selling motion</small>
+    </div>
+    <div class="seg" role="group" aria-label="Choose view">
+      <button id="v-lead" aria-pressed="true">Enablement lead</button>
+      <button id="v-seller" aria-pressed="false">Seller</button>
+    </div>
+  </div>
+</header>
+<div class="notice"><div class="wrap"><b>Portfolio concept.</b> Unofficial and not affiliated with or endorsed by Databricks; colors and type reference its public brand palette. All sellers, accounts, calls, CRM records, release notes and results are fictional. Product positioning is illustrative only. Built by Moira McIntyre.</div></div>
+<nav class="tabs" id="tabs" aria-label="Sections"><div class="wrap" role="tablist" id="tablist"></div></nav>
+<main><div class="wrap" id="app"></div></main>
+
+<script>
+(function(){
+"use strict";
+/* ---------- seeded random ---------- */
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const rng=mulberry32(20261017);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const LEVELS={1:"Aware",2:"Explain",3:"Position & demo",4:"Defend"};
+const ROLE_NAME={AE:"Account Executive",SA:"Solutions Architect"};
+
+/* ---------- skill framework (product layer: Genie) ---------- */
+const SKILLS=[
+ {id:"GEN-01",name:"Uncover the self-service analytics business issue",stage:"Business Issue & Problems",version:"1.2",
+  targets:{AE:3,SA:2},owner:"Product marketing, AI/BI (fictional)",review:"2026-12-15",
+  levels:{1:"Recognizes a data-request backlog or slow time-to-answer as a possible Genie opportunity.",
+   2:"Explains, in business terms, how ad-hoc data requests create an analyst bottleneck.",
+   3:"Leads discovery from the business issue to specific problems and names who feels the pain.",
+   4:"Reframes a tool request (“we need another dashboard”) into the underlying business issue and tests it with the power sponsor."},
+  evidence:["Live call scorecard (Discovery, Value review)","AI role-play: “The backlogged close”","CRM: Business Issue field completed"],
+  sources:["Genie value narrative v3 (fictional)","Value Selling discovery guide (fictional)"],
+  log:[["2026-08-11","1.2","Added Level 4 reframing behavior after win/loss review"],["2026-06-20","1.0","Created at product-layer launch"]]},
+ {id:"GEN-02",name:"Differentiate Genie on governed, verifiable answers",stage:"Solution (differentiated)",version:"1.4",
+  targets:{AE:2,SA:4},owner:"Product marketing, AI/BI (fictional)",review:"2026-11-30",
+  levels:{1:"Knows Genie answers natural-language questions over data the customer has curated.",
+   2:"Explains that the data team curates a Genie space and that answers respect existing Unity Catalog permissions.",
+   3:"Demos a Genie space on the buyer’s use case and shows the generated SQL so users can verify answers.",
+   4:"Handles technical scrutiny on accuracy, permissions and curation without overstating capability."},
+  evidence:["Live call scorecard (Demo, Technical deep dive)","AI role-play: “The skeptical data steward”","Hands-on lab: build a Genie space"],
+  sources:["Genie positioning brief v2.3 (fictional)","Genie technical FAQ (fictional)"],
+  log:[["2026-09-02","1.4","Clarified permissions language after accuracy review"],["2026-07-14","1.3","Added verification behavior at Level 3"]]},
+ {id:"GEN-03",name:"Quantify the value of self-service answers",stage:"Value",version:"1.1",
+  targets:{AE:3,SA:2},owner:"Value engineering (fictional)",review:"2027-01-10",
+  levels:{1:"Knows the common value drivers: analyst capacity, decision speed, fewer report requests.",
+   2:"Explains how to turn analyst hours and time-to-answer into a value estimate.",
+   3:"Builds the value estimate with the buyer from the buyer’s own baseline numbers.",
+   4:"Defends the estimate under finance scrutiny and links it to the power sponsor’s goal."},
+  evidence:["Live call scorecard (Discovery, Value review, PoV scoping)","AI role-play: “The CFO wants the math”","CRM: value estimate attached"],
+  sources:["Genie value calculator (fictional)"],
+  log:[["2026-07-30","1.1","Moved value co-ownership into Level 3"]]},
+ {id:"GEN-04",name:"Handle the “our BI tool already has an AI assistant” objection",stage:"Solution (competitive)",version:"1.3",
+  targets:{AE:3,SA:4},owner:"Competitive intelligence (fictional)",review:"2026-11-15",
+  levels:{1:"Recognizes the objection and knows where the approved positioning lives.",
+   2:"Explains the approved difference: Genie answers on governed data in the lakehouse, across domains.",
+   3:"Probes what the incumbent assistant is used for and positions coexistence or displacement based on the gap the buyer names.",
+   4:"Defends under technical comparison using only accurate, approved claims, and says where the incumbent fits."},
+  evidence:["Live call scorecard (any call where the buyer raises an existing BI assistant)","AI role-play: “We just rolled out our BI assistant”","Competitive brief check"],
+  sources:["Competitive brief: BI assistants (fictional)","Approved claims list v5 (fictional)"],
+  log:[["2026-09-19","1.3","Approved claims list updated; critical-flag rule added"],["2026-06-20","1.0","Created"]]},
+ {id:"GEN-05",name:"Scope a Genie proof of value with the power sponsor",stage:"Power & Plan",version:"1.0",
+  targets:{AE:3,SA:3},owner:"Field engineering enablement (fictional)",review:"2026-12-01",
+  levels:{1:"Knows the standard proof-of-value structure for Genie.",
+   2:"Explains measurable success criteria for a Genie space pilot.",
+   3:"Agrees criteria, dataset, space owner and pilot users, and gets the power sponsor to review the results.",
+   4:"Ties the decision date to criteria that validate the value estimate, and handles scope creep."},
+  evidence:["Live call scorecard (PoV scoping)","AI role-play: “The pilot that never ends”","CRM: mutual plan with sponsor named"],
+  sources:["Proof-of-value playbook (fictional)"],
+  log:[["2026-06-20","1.0","Created"]]}
+];
+const CORE=["Value Selling: Business Issue","Value Selling: Problems","Value Selling: Solution","Value Selling: Value","Value Selling: Power","Value Selling: Plan","Technical foundations: lakehouse architecture","Technical foundations: data governance"];
+
+/* ---------- scorecards: criteria with gates, level tags, anchors, quotes ---------- */
+const GATES={"GEN-01":"Applies on Discovery and Value review calls","GEN-02":"Applies on Demo and Technical deep dive calls","GEN-03":"Applies on Discovery, Value review and PoV scoping calls","GEN-04":"Applies only when the buyer raises an existing BI assistant","GEN-05":"Applies on PoV scoping calls"};
+const SC={
+"GEN-01":[
+ {id:"C1",name:"Asks how business users get answers today",lvl:2,a:["No question about how answers are obtained today","Generic tools question only","Asks how business users get answers and who fulfils the requests","Also gets volume or turnaround (requests per week, days to answer)"],
+  q:[null,"What tools are you using for reporting today?","When someone in finance needs a number that isn’t on a dashboard, how do they get it, and who on the data team picks that up?","Roughly how many of those ad-hoc requests land each week, and how many days does a typical one take?"]},
+ {id:"C2",name:"Connects the problem to a business issue",lvl:3,a:["Stays at tool or feature level","Names a benefit not tied to anything the buyer said","Links the bottleneck to a business issue the buyer stated","Buyer confirms the business issue and its owner in their own words"],
+  q:[null,"Genie would make your users a lot more productive.","You said the quarterly close slips because finance waits on analysts. That’s the issue we’d go after.","So the close is late because answers take days, and that sits with your CFO. Did I get that right?"]},
+ {id:"C3",name:"Identifies who feels the pain",lvl:3,a:["No people named","Names a department only","Names a role and how the delay affects them","Names the role and impact, and asks to meet them"],
+  q:[null,"Sounds like the business side feels this.","So the regional ops managers wait two or three days and make the call without data.","The regional ops managers carry this. Could we get 20 minutes with two of them next week?"]}],
+"GEN-02":[
+ {id:"C1",name:"Explains how a Genie space is curated",lvl:2,a:["Describes Genie as a general chatbot","Says it uses their data, with no curation detail","Explains the data team curates tables, instructions and example queries","Ties curation to the buyer’s own data owners and process"],
+  q:[null,"It just uses your data, so the answers are relevant.","Your data team sets up a Genie space: which tables, instructions and example queries it can use.","Your finance data owners would curate the space, the same people who certify those tables today."]},
+ {id:"C2",name:"Shows that answers can be verified",lvl:3,a:["Verification not discussed","Asserts answers are accurate","Shows or describes the generated SQL behind an answer","Walks the buyer through verifying one of their own questions"],
+  q:[null,"The answers are accurate, so your users can trust them.","Every answer shows the SQL it generated, so an analyst can check it.","Type in one of your real questions. Now open the generated query. That’s exactly what ran."]},
+ {id:"C3",name:"Technical accuracy on governance",lvl:4,crit:true,a:["Inaccurate claim about permissions or accuracy (critical flag)","Vague (“it’s secure”)","States accurately that answers respect existing Unity Catalog permissions","Accurate, and names what Genie will not do without curation"],
+  q:["Genie can see everything, so you don’t need to set up permissions.","Don’t worry, it’s very secure.","Answers respect the permissions you already have in Unity Catalog, so people only see data they’re allowed to see.","It respects your Unity Catalog permissions, and it won’t answer well on tables nobody has curated, so we’d start narrow."]}],
+"GEN-03":[
+ {id:"C1",name:"Gets a baseline number from the buyer",lvl:2,a:["No baseline sought","Asks generally about cost","Gets one baseline number (hours, requests, days)","Gets the baseline and the buyer’s target"],
+  q:[null,"Is this costing you a lot today?","How many analyst hours a week go to these one-off requests?","Twelve analysts, about a third of their week. Where would you want that to be in a year?"]},
+ {id:"C2",name:"Builds the value estimate with the buyer",lvl:3,a:["States a generic ROI figure","Uses a vendor benchmark only","Calculates value from the buyer’s own numbers","Buyer co-owns the math and agrees to test it in the proof of value"],
+  q:[null,"Customers typically see big productivity gains.","Using your numbers: twelve analysts, a third of their time. That’s about four people’s worth of capacity.","Let’s put that four-person estimate into the pilot plan, and you check it against your own numbers."]},
+ {id:"C3",name:"Ties value to the business issue",lvl:3,a:["Value not tied to anything","Value stated in IT terms only","Links value to the stated business issue","Links value to the power sponsor’s goal"],
+  q:[null,"It frees up IT capacity.","That capacity is what gets the close back on schedule, which you said is the priority.","That ties straight to your CFO’s goal of a five-day close."]}],
+"GEN-04":[
+ {id:"C1",name:"Acknowledges and probes the objection",lvl:2,a:["Ignores it or argues immediately","Acknowledges without probing","Asks what the assistant is used for and what is missing","Uncovers a specific gap in the buyer’s own words"],
+  q:[null,"Understood, a lot of customers have that.","What do people use that assistant for today, and where does it fall short?","Buyer: “It only sees the sales dashboards.” Rep: “So questions that cross into supply chain still go to analysts?”"]},
+ {id:"C2",name:"Positions a differentiated fit",lvl:3,a:["Disparages the incumbent","Claims “we’re better” with no specifics","Positions Genie where governed, cross-domain data lives in the lakehouse","Positions coexistence or displacement based on the gap the buyer named"],
+  q:["Honestly, that assistant just isn’t very good.","Ours is just better at this.","Where your governed data already lives in the lakehouse, Genie answers on that data directly, across domains.","Keep the assistant for the sales dashboards; Genie covers the cross-domain questions you said still go to analysts."]},
+ {id:"C3",name:"Accuracy of competitive claims",lvl:4,crit:true,a:["Unapproved or inaccurate claim about the incumbent (critical flag)","Vague comparison","One accurate, approved differentiator","Accurate differentiator, and says where the incumbent fits"],
+  q:["Their assistant can’t handle more than one table at a time.","We’re more accurate than they are.","Genie works directly on governed data in your lakehouse, with the permissions you already have.","That’s the real difference. For single-dashboard questions, your current assistant is a reasonable fit."]}],
+"GEN-05":[
+ {id:"C1",name:"Defines measurable success criteria",lvl:2,a:["No success criteria","Success described as “they like it”","Agrees measurable criteria (questions answered correctly, time to answer)","Criteria tied to the value estimate"],
+  q:[null,"We’ll see how your team likes it.","Success is 40 of your top 50 questions answered correctly, each in under a minute.","And if we hit that, it confirms the four-person capacity estimate we built together."]},
+ {id:"C2",name:"Scopes the space and pilot users",lvl:3,a:["No scope","Vague scope","Names dataset, space owner and pilot user group","Adds a curation plan with dates"],
+  q:[null,"We’ll start with some finance data.","One space on the close tables, owned by Maya’s team, with eight pilot users from FP&A.","Maya’s team curates by the 14th, the pilot runs two weeks, readout on the 30th."]},
+ {id:"C3",name:"Secures the power sponsor’s commitment",lvl:3,a:["No sponsor involvement","Champion only","Sponsor named and agrees to review results","Sponsor commits to a decision date tied to the criteria"],
+  q:[null,"Our champion will share the results internally.","Your CFO agreed to review the readout.","Your CFO committed to a go/no-go on the 30th based on those criteria."]}]
+};
+
+/* ---------- people (fictional) ---------- */
+const REPS=[
+ {id:"priya",name:"Priya Raman",role:"AE",seg:"Enterprise · Financial services",mgr:"Dana Ortiz",sa:"grace",L:[2.6,2.3,2.4,2.6,2.4]},
+ {id:"marcus",name:"Marcus Webb",role:"AE",seg:"Enterprise · Media & logistics",mgr:"Dana Ortiz",sa:"omar",L:[2.5,2.2,1.4,1.2,2.2]},
+ {id:"elena",name:"Elena Sokolova",role:"AE",seg:"Enterprise · Health & energy",mgr:"Dana Ortiz",sa:"lucia",L:[2.2,2.0,2.4,1.9,1.5]},
+ {id:"daniel",name:"Daniel Okafor",role:"AE",seg:"Commercial · Industrials",mgr:"Rob Chen",sa:"ben",L:[1.6,2.1,1.9,1.0,2.0]},
+ {id:"hannah",name:"Hannah Lindqvist",role:"AE",seg:"Commercial · Public sector & telco",mgr:"Rob Chen",sa:"grace",L:[2.4,1.8,2.3,1.3,2.5]},
+ {id:"tomas",name:"Tomás Rivera",role:"AE",seg:"Commercial · Consumer & finance",mgr:"Rob Chen",sa:"omar",L:[2.1,2.2,2.0,2.1,1.9]},
+ {id:"grace",name:"Grace Chen",role:"SA",seg:"Enterprise",mgr:"Sam Whitaker",L:[1.9,2.8,1.8,2.5,2.4]},
+ {id:"omar",name:"Omar Haddad",role:"SA",seg:"Enterprise & Commercial",mgr:"Sam Whitaker",L:[2.1,2.6,2.2,1.6,2.2]},
+ {id:"lucia",name:"Lucia Ferraro",role:"SA",seg:"Enterprise",mgr:"Sam Whitaker",L:[1.8,1.6,2.1,2.0,2.3]},
+ {id:"ben",name:"Ben Adeyemi",role:"SA",seg:"Commercial",mgr:"Sam Whitaker",L:[2.2,2.5,1.7,1.9,1.7]}
+];
+const repById=id=>REPS.find(r=>r.id===id);
+const skillIdx=id=>SKILLS.findIndex(s=>s.id===id);
+
+/* ---------- CRM opportunities (fictional, Q3 FY27 = Aug-Oct 2026) ---------- */
+const STAGES=["Discovery","Validate","Proof of value","Negotiate","Closed won"];
+const OPPS=[
+ ["OPP-3101","Kestrel Insurance","priya",true,4,false,410],["OPP-3102","Tallis Bank","priya",true,2,false,520],["OPP-3103","Orchard Foods","priya",false,4,false,180],["OPP-3104","Pinecrest University","priya",false,1,false,95],
+ ["OPP-3111","Northwind Freight","marcus",true,1,false,260],["OPP-3112","Corvid Media","marcus",true,1,true,140],["OPP-3113","Saltmarsh Utilities","marcus",false,2,false,210],["OPP-3114","Brightwater Retail","marcus",true,2,false,330],
+ ["OPP-3121","Halcyon Health","elena",true,2,false,390],["OPP-3122","Meridian Energy","elena",false,3,false,450],["OPP-3123","Ashgrove Pharma","elena",true,1,false,300],["OPP-3124","Quillon Software","elena",false,2,false,120],
+ ["OPP-3131","Ironvale Manufacturing","daniel",true,1,true,170],["OPP-3132","Larkspur Logistics","daniel",true,1,false,150],["OPP-3133","Fenwick Hotels","daniel",false,2,false,90],["OPP-3134","Redcliff Mining","daniel",true,1,false,230],
+ ["OPP-3141","Bluefin Seafood","hannah",true,2,false,110],["OPP-3142","Westmoor Council","hannah",false,4,false,85],["OPP-3143","Thistle Telecom","hannah",true,1,true,240],["OPP-3144","Cobalt Payments","hannah",false,2,false,160],
+ ["OPP-3151","Sierra Outdoor","tomas",true,2,false,130],["OPP-3152","Granite Credit Union","tomas",true,1,false,105],["OPP-3153","Harbor Airlines","tomas",false,3,false,380],["OPP-3154","Vireo Biotech","tomas",true,2,false,200]
+].map(o=>({id:o[0],acct:o[1],ae:o[2],sa:repById(o[2]).sa,comp:o[3],stage:o[4],lost:o[5],arr:o[6]}));
+
+/* ---------- generate call and role-play observations ---------- */
+const APPL={"Discovery":["GEN-01","GEN-03"],"Value review":["GEN-03","GEN-01"],"Demo":["GEN-02"],"Technical deep dive":["GEN-02"],"PoV scoping":["GEN-05","GEN-03"]};
+const PLAN={AE:["Discovery","Value review","Discovery","Demo","PoV scoping","Discovery","Value review","PoV scoping","Demo","Value review"],
+            SA:["Demo","Technical deep dive","Discovery","Demo","PoV scoping","Technical deep dive","Demo","PoV scoping","Value review","Demo"]};
+const RP={AE:["GEN-04","GEN-05","GEN-02"],SA:["GEN-04","GEN-01","GEN-05"]};
+const RP_TITLES={"GEN-01":"The backlogged close","GEN-02":"The skeptical data steward","GEN-03":"The CFO wants the math","GEN-04":"We just rolled out our BI assistant","GEN-05":"The pilot that never ends"};
+const OFFSET={"GEN-04":{C3:-0.35},"GEN-02":{C3:-0.15}};
+const OBS=[];
+const day0=Date.UTC(2026,7,4);
+const fmtD=t=>{const d=new Date(t);return d.toISOString().slice(0,10)};
+const mmss=()=>{const s=Math.floor(rng()*2700)+120;return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0")};
+let cid=1;
+function scoreSkill(rep,sk,boost){
+  const base=rep.L[skillIdx(sk)];
+  return SC[sk].map(c=>{const off=(OFFSET[sk]&&OFFSET[sk][c.id])||0;
+    let v=Math.round(base+off+boost+(rng()-0.5)*1.5);v=Math.max(0,Math.min(3,v));
+    return {cid:c.id,score:v,ts:mmss()};});
+}
+REPS.forEach(rep=>{
+  const opps=OPPS.filter(o=>rep.role==="AE"?o.ae===rep.id:o.sa===rep.id);
+  PLAN[rep.role].forEach((type,i)=>{
+    const opp=opps[i%opps.length];
+    const skills=APPL[type].slice();
+    const compRaised=opp.comp&&rng()<0.8;
+    if(compRaised)skills.push("GEN-04");
+    const t=day0+(i*7+Math.floor(rng()*4))*864e5;
+    OBS.push({id:"CALL-"+String(cid++).padStart(4,"0"),kind:"Call",type,rep:rep.id,opp:opp.id,acct:opp.acct,date:fmtD(t),comp:compRaised,
+      dur:Math.floor(28+rng()*30),scores:Object.fromEntries(skills.map(s=>[s,scoreSkill(rep,s,0)]))});
+  });
+  RP[rep.role].forEach((sk,i)=>{
+    const t=Date.UTC(2026,8,8)+(i*9+Math.floor(rng()*3))*864e5;
+    OBS.push({id:"RP-"+String(cid++).padStart(4,"0"),kind:"AI role-play",type:"Role-play: "+RP_TITLES[sk],rep:rep.id,opp:null,acct:"Simulated buyer",date:fmtD(t),comp:sk==="GEN-04",
+      dur:Math.floor(8+rng()*7),scores:{[sk]:scoreSkill(rep,sk,0.1)}});
+  });
+});
+OBS.sort((a,b)=>a.date<b.date?-1:1);
+
+/* ---------- mastery evaluation (step 8) ---------- */
+const STATE={revalidate:{},proposals:null,disputes:{}};
+function obsMeets(o,sk,target){
+  const sc=o.scores[sk];const defs=SC[sk];
+  let crit=false,ok=true;
+  sc.forEach((s,i)=>{if(defs[i].crit&&s.score===0)crit=true; if(defs[i].lvl<=target&&s.score<2)ok=false;});
+  return {meets:ok&&!crit,crit};
+}
+function mastery(rep,sk){
+  const target=SKILLS[skillIdx(sk)].targets[rep.role];
+  const obs=OBS.filter(o=>o.rep===rep.id&&o.scores[sk]);
+  const last=obs.slice(-5);
+  const res=last.map(o=>({o,...obsMeets(o,sk,target)}));
+  const met=res.filter(r=>r.meets).length;
+  let status;
+  if(STATE.revalidate[sk])status="rev";
+  else if(last.length<3)status="none";
+  else if(met>=3)status="ok";
+  else if(met>=1)status="warn";
+  else status="bad";
+  const allScores=obs.flatMap(o=>o.scores[sk].map(s=>s.score));
+  const avg=allScores.length?allScores.reduce((a,b)=>a+b,0)/allScores.length:0;
+  const critAvg=SC[sk].map((c,i)=>{const v=obs.map(o=>o.scores[sk][i].score);return v.length?v.reduce((a,b)=>a+b,0)/v.length:0});
+  return {target,obs,last:res,met,n:last.length,status,avg,critAvg,crits:res.filter(r=>r.crit).length};
+}
+const ST_LABEL={ok:"Validated",warn:"Developing",bad:"Gap",none:"Not enough evidence",rev:"Needs re-validation"};
+const pill=s=>`<span class="pill st-${s}">${ST_LABEL[s]}</span>`;
+
+/* ---------- reinforcement content ---------- */
+const REINF={
+ "GEN-01":{rp:"The backlogged close",persona:"Controller at a fictional mid-size manufacturer",open:"We keep asking for more dashboards and still wait days for answers.",lesson:"From tool request to business issue (6 min)",clip:"Priya Raman · Kestrel Insurance discovery · 12:40",coach:"Ask your rep to name the business issue and its owner from their last two discovery calls."},
+ "GEN-02":{rp:"The skeptical data steward",persona:"Head of data governance at a fictional insurer",open:"If business users can ask anything, how do I know they only see what they’re allowed to?",lesson:"Curation, permissions and verifying answers (7 min)",clip:"Grace Chen · Tallis Bank technical deep dive · 21:05",coach:"Have your rep demo one question end to end and open the generated SQL."},
+ "GEN-03":{rp:"The CFO wants the math",persona:"CFO at a fictional logistics company",open:"Everyone promises productivity. Show me how you got your number.",lesson:"Building a value estimate from the buyer’s baseline (8 min)",clip:"Elena Sokolova · Meridian Energy value review · 09:15",coach:"Review one value estimate together: whose numbers are in it?"},
+ "GEN-04":{rp:"We just rolled out our BI assistant",persona:"VP Analytics at a fictional retailer",open:"We just turned on our BI vendor’s AI assistant for 400 people. Why would we add Genie?",lesson:"Probe first, then position coexistence or displacement (6 min)",clip:"Priya Raman · Kestrel Insurance demo · 14:32",coach:"Listen to one competitive call together. Did the rep probe before positioning? Was every claim on the approved list?"},
+ "GEN-05":{rp:"The pilot that never ends",persona:"Director of FP&A at a fictional bank",open:"Let’s just turn it on for a few people and see how it goes.",lesson:"Success criteria, scope and a sponsor decision date (7 min)",clip:"Hannah Lindqvist · Westmoor Council PoV scoping · 18:50",coach:"Check the mutual plan: is the sponsor named with a decision date?"}
+};
+
+/* ---------- calibration (step 6) and predictive check (step 7), fictional ---------- */
+const CAL=[
+ ["GEN-01","C1",88,97,95],["GEN-01","C2",79,94,90],["GEN-01","C3",83,96,92],
+ ["GEN-02","C1",86,98,94],["GEN-02","C2",84,95,91],["GEN-02","C3",92,100,96],
+ ["GEN-03","C1",90,99,96],["GEN-03","C2",77,92,88],["GEN-03","C3",75,91,84],
+ ["GEN-04","C1",81,95,90],["GEN-04","C2",68,88,87,71],["GEN-04","C3",94,100,97],
+ ["GEN-05","C1",89,98,95],["GEN-05","C2",85,96,92],["GEN-05","C3",80,94,89]
+];
+const PRED=[
+ ["GEN-01","C2",41,26],["GEN-01","C3",37,34],["GEN-02","C2",52,33],["GEN-03","C2",49,30],
+ ["GEN-04","C1",46,24],["GEN-04","C2",48,21],["GEN-04","C3",44,28],["GEN-05","C3",58,35]
+];
+
+/* ---------- view state ---------- */
+let VIEW="lead", TAB="overview", SELLER="marcus", SC_SKILL="GEN-04", CALL_REP="all", FW_SKILL="GEN-02";
+const LEAD_TABS=[["overview","Team overview"],["framework","Skill framework"],["scorecards","Scorecards"],["evidence","Call & CRM evidence"],["calibration","Calibration & validity"],["impact","Impact"]];
+const app=document.getElementById("app"), tablist=document.getElementById("tablist");
+
+function setView(v){VIEW=v;document.getElementById("v-lead").setAttribute("aria-pressed",v==="lead");document.getElementById("v-seller").setAttribute("aria-pressed",v==="seller");
+  document.getElementById("tabs").hidden=v!=="lead";render();window.scrollTo(0,0);}
+document.getElementById("v-lead").onclick=()=>setView("lead");
+document.getElementById("v-seller").onclick=()=>setView("seller");
+function renderTabs(){tablist.innerHTML=LEAD_TABS.map(([k,l])=>`<button role="tab" data-tab="${k}" aria-selected="${TAB===k}">${l}</button>`).join("");
+  tablist.querySelectorAll("button").forEach(b=>b.onclick=()=>{TAB=b.dataset.tab;render();});}
+
+/* ---------- Team overview ---------- */
+function vOverview(){
+  const cells=REPS.map(r=>SKILLS.map(s=>mastery(r,s.id)));
+  const flat=cells.flat();
+  const validated=flat.filter(m=>m.status==="ok").length;
+  const crit=OBS.reduce((n,o)=>n+Object.entries(o.scores).reduce((k,[sk,sc])=>k+sc.filter((s,i)=>SC[sk][i].crit&&s.score===0).length,0),0);
+  const bySkill=SKILLS.map((s,j)=>({s,ok:cells.filter(c=>c[j].status==="ok").length,gap:cells.filter(c=>c[j].status==="bad"||c[j].status==="warn").length}));
+  const worst=bySkill.slice().sort((a,b)=>a.ok-b.ok||b.gap-a.gap)[0];
+  const nScores=OBS.reduce((n,o)=>n+Object.values(o.scores).reduce((k,a)=>k+a.length,0),0);
+  return `
+  <div class="stack"><span class="eyebrow">Q3 FY27 · Aug–Oct 2026 · Genie product layer</span><h2>Team readiness on Genie</h2>
+  <p class="lede">Each cell shows a seller’s status on one skill at their role’s target level, from their last five scored observations (live calls and AI role-plays). A skill is validated when at least three of the last five meet the target with no critical flag.</p></div>
+  <div class="kpis">
+    <div class="kpi"><span class="v num">${validated}/${flat.length}</span><span class="l">Seller-skill pairs validated</span></div>
+    <div class="kpi"><span class="v num">${OBS.length}</span><span class="l">Observations scored (${nScores} criterion scores, each with evidence)</span></div>
+    <div class="kpi"><span class="v num bad-text">${crit}</span><span class="l">Critical accuracy flags this quarter</span></div>
+    <div class="kpi"><span class="v" style="font-size:20px">${worst.s.id}</span><span class="l">Largest gap: ${esc(worst.s.name)} (${worst.ok} of ${REPS.length} validated)</span></div>
+  </div>
+  <section class="panel"><div class="row" style="justify-content:space-between"><h3>Readiness heatmap</h3><span class="legend">${["ok","warn","bad","none","rev"].map(s=>pill(s)).join("")}</span></div>
+  <div class="scroll"><table class="heat"><thead><tr><th>Seller</th><th>Role</th>${SKILLS.map(s=>`<th class="c" title="${esc(s.name)}">${s.id}<br><span style="text-transform:none;letter-spacing:0">${esc(s.stage)}</span></th>`).join("")}</tr></thead>
+  <tbody>${REPS.map((r,i)=>`<tr><td><button class="btn ghost" data-open="${r.id}" style="padding:2px 0;border:0">${esc(r.name)}</button></td><td><span class="tag">${r.role}</span></td>${cells[i].map((m,j)=>`<td class="cell"><div class="cellbox st-${m.status}"><span style="font:600 12px var(--body)">${ST_LABEL[m.status]}</span><small>target L${m.target} · ${m.met}/${m.n} met</small></div></td>`).join("")}</tr>`).join("")}</tbody></table></div>
+  <p class="note">Select a seller’s name to open their results in the Seller view.</p></section>
+  <section class="panel" style="border-color:var(--accent)"><span class="eyebrow">Recommended action</span><h3>Assign the ${esc(REINF[worst.s.id].rp)} role-play to sellers below target on ${worst.s.id}</h3>
+  <p>${bySkill[skillIdx(worst.s.id)].gap} sellers are Developing or Gap on this skill. Competitive Genie opportunities are also where Validate-to-proof-of-value conversion lags (see Impact). Reinforcement: AI role-play, a short lesson, a top-performer clip, and one manager coaching conversation.</p>
+  <div class="row"><button class="btn primary" data-tab-go="impact">See projected impact</button><button class="btn" data-tab-go="scorecards">Open the ${worst.s.id} scorecard</button></div></section>`;
+}
+
+/* ---------- Skill framework (schema, AI updates, health) ---------- */
+function skillJSON(s){return JSON.stringify({id:s.id,name:s.name,tier:"product",product:"Genie",value_selling_stage:s.stage,version:s.version,status:STATE.revalidate[s.id]?"active (scorecard review pending)":"active",
+  roles:Object.fromEntries(Object.entries(s.targets).map(([k,v])=>[k,{target_level:v,label:LEVELS[v]}])),
+  levels:Object.fromEntries(Object.entries(s.levels).map(([k,v])=>[k+"_"+LEVELS[k].toLowerCase().replace(/ & /g,"_").replace(/ /g,"_"),v])),
+  evidence_sources:s.evidence,source_of_truth:s.sources,scorecard:{id:"SC-"+s.id,criteria:SC[s.id].map(c=>c.id),linked_version:s.version},
+  owner:s.owner,next_review:s.review,changelog:s.log.map(([d,v,n])=>({date:d,version:v,note:n}))},null,2);}
+const PROPOSAL=[
+ {kind:"UPDATE",skill:"GEN-02",from:"1.4",to:"1.5",field:"Level 3 behavior",del:"Demos a Genie space on the buyer’s use case and shows the generated SQL so users can verify answers.",
+  add:"Demos a Genie space on the buyer’s use case, shows the generated SQL, and shows the space’s accuracy report so data owners can track answer quality over time.",cite:"FR-2611 §2: “space owners receive a scheduled accuracy report…”"},
+ {kind:"UPDATE",skill:"GEN-05",from:"1.0",to:"1.1",field:"Level 3 behavior",del:"Agrees criteria, dataset, space owner and pilot users, and gets the power sponsor to review the results.",
+  add:"Agrees criteria (including a target score on the space’s accuracy report), dataset, space owner and pilot users, and gets the power sponsor to review the results.",cite:"FR-2611 §3: “accuracy reports can be shared with stakeholders…”"},
+ {kind:"MERGE",skill:"GEN-02",field:"Candidate new skill",del:"",add:"Candidate “Explain Genie accuracy reports” was merged into GEN-02 (similarity 0.86) instead of being added, keeping the launch within the 3–7 skill cap.",cite:"FR-2611 §2"}
+];
+function vFramework(){
+  const s=SKILLS[skillIdx(FW_SKILL)];
+  return `
+  <div class="stack"><span class="eyebrow">Part 1 of the design · two tiers · AI-maintained</span><h2>Skill framework</h2>
+  <p class="lede">The core tier (Value Selling and technical foundations) changes yearly. The product layer holds five Genie skills that change with each release. Every skill uses the same schema, which is what lets an AI propose safe, reviewable updates.</p></div>
+  <div class="grid2">
+   <section class="panel"><h3>Core tier (changes annually)</h3><div class="row">${CORE.map(c=>`<span class="tag">${esc(c)}</span>`).join("")}</div>
+    <p class="note">Every product-layer skill maps to one Value Selling stage, so readiness on Genie rolls up into the core sales motion.</p></section>
+   <section class="panel"><h3>Proficiency levels</h3><div class="stack">${Object.entries(LEVELS).map(([k,v])=>`<div class="row"><span class="tag acc">L${k}</span><b>${v}</b></div>`).join("")}</div>
+    <p class="note">Target levels differ by role. A Solutions Architect must defend Genie technically; an Account Executive must position it and lead the value conversation.</p></section>
+  </div>
+  <section class="panel"><h3>Product layer: Genie skills and role targets</h3>
+  <div class="scroll"><table><thead><tr><th>ID</th><th>Skill</th><th>Value Selling stage</th><th class="c">AE target</th><th class="c">SA target</th><th>Version</th><th>Next review</th></tr></thead><tbody>
+  ${SKILLS.map(k=>`<tr><td class="mono">${k.id}</td><td><button class="btn ghost" data-fw="${k.id}" style="border:0;padding:0;text-align:left">${esc(k.name)}</button></td><td>${esc(k.stage)}</td><td class="c"><span class="tag acc">L${k.targets.AE} ${LEVELS[k.targets.AE]}</span></td><td class="c"><span class="tag acc">L${k.targets.SA} ${LEVELS[k.targets.SA]}</span></td><td class="mono">v${k.version}${STATE.revalidate[k.id]?` <span class="pill st-rev">updated</span>`:""}</td><td class="mono">${k.review}</td></tr>`).join("")}
+  </tbody></table></div></section>
+  <section class="panel"><div class="row" style="justify-content:space-between"><h3>${s.id} · ${esc(s.name)}</h3>
+   <label class="row note" for="fw-pick">Skill <select id="fw-pick">${SKILLS.map(k=>`<option value="${k.id}" ${k.id===FW_SKILL?"selected":""}>${k.id}</option>`).join("")}</select></label></div>
+   <div class="levels">${[1,2,3,4].map(l=>`<div class="lvl ${l===s.targets.AE||l===s.targets.SA?"target":""}"><span class="n">L${l} · ${LEVELS[l]}${l===s.targets.AE?" · AE target":""}${l===s.targets.SA?" · SA target":""}</span><span>${esc(s.levels[l])}</span></div>`).join("")}</div>
+   <div class="grid2"><div class="stack"><h4>Evidence sources</h4><ul style="margin:0;padding-left:18px">${s.evidence.map(e=>`<li>${esc(e)}</li>`).join("")}</ul>
+     <h4>Source of truth</h4><ul style="margin:0;padding-left:18px">${s.sources.map(e=>`<li>${esc(e)}</li>`).join("")}</ul>
+     <p class="note">Owner: ${esc(s.owner)}</p></div>
+    <div class="stack"><h4>Machine-readable schema (what the AI reads and proposes changes to)</h4><pre class="json" id="json">${esc(skillJSON(s))}</pre></div></div>
+  </section>
+  <section class="panel"><span class="eyebrow">AI update pipeline · trigger → extract → match → diff → human review → publish</span>
+   <h3>New release: proposed framework changes</h3>
+   <div class="release"><b>Fictional release note FR-2611 (Genie, October 2026).</b> §2 Genie space owners receive a scheduled accuracy report that scores the space against a set of benchmark questions. §3 Accuracy reports can be shared with stakeholders. §4 Minor UI changes to the space settings page.</div>
+   ${STATE.proposals===null?`<div class="row"><button class="btn primary" id="run-ai">Run AI extraction</button><span class="note">Simulated. In production this runs automatically when a release note is published.</span></div>`:
+   `<div class="stack">${PROPOSAL.map((p,i)=>{const st=STATE.proposals[i];return `<div class="diff"><div class="row" style="justify-content:space-between"><div class="row"><span class="tag ${p.kind==="MERGE"?"":"acc"}">${p.kind}</span><b class="mono">${p.skill}${p.to?` v${p.from} → v${p.to}`:""}</b><span class="note">${esc(p.field)}</span></div>
+     ${st?`<span class="pill ${st==="approved"?"st-ok":"st-none"}">${st==="approved"?"Approved":"Rejected"}</span>`:`<div class="row"><button class="btn primary" data-approve="${i}">Approve</button><button class="btn" data-reject="${i}">Reject</button></div>`}</div>
+     ${p.del?`<div class="del">${esc(p.del)}</div>`:""}<div class="add">${esc(p.add)}</div><span class="note mono">Source: ${esc(p.cite)} · §4 ignored: no customer-facing behavior change</span></div>`}).join("")}
+     <p class="note">Approving an update publishes a new skill version, flags the linked scorecard for review, and moves every seller on that skill to “Needs re-validation” until new evidence comes in. Reviewers: product marketing approves accuracy; enablement approves behavioral wording. Review SLA: 48 hours.</p></div>`}
+  </section>
+  <section class="panel"><h3>Framework health monitor</h3>
+   <div class="scroll"><table><thead><tr><th>Check</th><th>Finding</th><th>Action</th></tr></thead><tbody>
+    <tr><td><span class="pill st-warn">Stale</span></td><td>GEN-04 source “Approved claims list v5” changed on 2026-10-09, after skill v1.3 was published.</td><td>Re-run extraction on the new claims list.</td></tr>
+    <tr><td><span class="pill st-none">Orphaned</span></td><td>None. Every active skill has content, a scorecard and at least one evidence source.</td><td>No action.</td></tr>
+    <tr><td><span class="pill st-ok">Coverage</span></td><td>FR-2611 mapped to GEN-02 and GEN-05.</td><td>Review proposals above.</td></tr>
+    <tr><td><span class="pill st-bad">Drift</span></td><td>“Metric definitions” raised by buyers in 11 Genie calls this month; no skill covers it.</td><td>Ask product marketing whether this needs a skill or a talk-track update.</td></tr>
+   </tbody></table></div></section>`;
+}
+
+/* ---------- Scorecards ---------- */
+function vScorecards(){
+  const s=SKILLS[skillIdx(SC_SKILL)];
+  return `
+  <div class="stack"><span class="eyebrow">Part 2 of the design · analytic rubric applied to call evidence</span><h2>Scorecards</h2>
+  <p class="lede">One scorecard per skill. Criteria describe observable behavior only. Each level has an anchor, each criterion has a gate that says when it applies, and accuracy criteria carry a critical flag.</p></div>
+  <section class="panel"><div class="row" style="justify-content:space-between"><h3>SC-${s.id} · ${esc(s.name)}</h3>
+   <label class="row note" for="sc-pick">Skill <select id="sc-pick">${SKILLS.map(k=>`<option value="${k.id}" ${k.id===SC_SKILL?"selected":""}>${k.id} · ${esc(k.stage)}</option>`).join("")}</select></label></div>
+   <div class="row"><span class="tag">Linked to skill ${s.id} v${s.version}</span><span class="tag">Gate: ${esc(GATES[s.id])}</span><span class="tag acc">AE target L${s.targets.AE}</span><span class="tag acc">SA target L${s.targets.SA}</span>${STATE.revalidate[s.id]?`<span class="pill st-rev">Flagged for review: skill updated</span>`:""}</div>
+   <div class="scroll"><table><thead><tr><th>Criterion</th><th>Required from</th><th>0 · Not present</th><th>1 · Partial</th><th>2 · Meets</th><th>3 · Exemplary</th></tr></thead><tbody>
+   ${SC[s.id].map(c=>`<tr><td><b class="mono">${c.id}</b> ${esc(c.name)}${c.crit?`<br><span class="tag crit">critical flag at 0</span>`:""}</td><td><span class="tag acc">L${c.lvl} ${LEVELS[c.lvl]}</span></td>${c.a.map(x=>`<td>${esc(x)}</td>`).join("")}</tr>`).join("")}
+   </tbody></table></div>
+   <p class="note">A criterion counts toward a seller’s target only if its “required from” level is at or below that role’s target. Critical flags fail the observation at any level.</p></section>
+  <div class="grid2">
+   <section class="panel"><h3>Evidence rule</h3><p>The AI must quote the transcript segment and timestamp behind every score of 1 or more. No quote, no score. A 0 records that the criterion applied and the behavior was absent, except on critical criteria, where the inaccurate claim itself is quoted.</p></section>
+   <section class="panel"><h3>Mastery rule (step 8)</h3><p>Validated when at least 3 of the last 5 applicable observations meet the target level with no critical flag. Live calls and AI role-plays both count. When the linked skill gets a new version, status resets to “Needs re-validation”.</p></section>
+   <section class="panel"><h3>Trust and disputes (step 9)</h3><p>Sellers see every score with its quote and can dispute it. Disputes go to the first-line manager, then to a calibration reviewer. Scores are used for coaching first and tied to performance management only after calibration holds for two quarters.</p></section>
+  </div>`;
+}
+
+/* ---------- Evidence (calls + CRM) ---------- */
+function scoreChip(v){const c=v>=2?"st-ok":v===1?"st-warn":"st-bad";return `<span class="pill ${c}" style="padding:1px 8px">${v}</span>`;}
+function obsDetail(o,showDispute){
+  return Object.entries(o.scores).map(([sk,sc])=>{
+    const rep=repById(o.rep);const target=SKILLS[skillIdx(sk)].targets[rep.role];const m=obsMeets(o,sk,target);
+    return `<div class="stack" style="gap:8px"><div class="row"><b class="mono">${sk}</b><span>${esc(SKILLS[skillIdx(sk)].name)}</span>${m.meets?`<span class="pill st-ok">Meets L${target}</span>`:`<span class="pill ${m.crit?"st-bad":"st-warn"}">${m.crit?"Critical flag":"Below L"+target}</span>`}</div>
+     ${sc.map((s,i)=>{const c=SC[sk][i];const q=c.q[s.score];const key=o.id+sk+c.id;
+      return `<div class="stack" style="gap:4px;padding-left:4px"><div class="row">${scoreChip(s.score)}<span><b class="mono">${c.id}</b> ${esc(c.name)}</span><span class="tag">L${c.lvl}</span><span class="note">${esc(c.a[s.score])}</span></div>
+      ${q?`<div class="quote ${c.crit&&s.score===0?"crit":""}">“${esc(q)}” <span class="mono note" style="font-style:normal">${s.ts}</span></div>`:`<div class="absent">Criterion applied; no matching behavior found in the transcript.</div>`}
+      ${showDispute?(STATE.disputes[key]?`<div class="toast">Dispute sent to ${esc(rep.mgr)} for review. Demo only: nothing is saved.</div>`:`<div><button class="btn ghost" data-dispute="${key}" style="padding:2px 8px;font-size:12px">Dispute this score</button><div data-form="${key}" hidden class="stack" style="margin-top:6px"><label for="d-${key}" class="note">What did the AI miss? Point to a timestamp if you can.</label><textarea id="d-${key}"></textarea><div class="row"><button class="btn primary" data-send="${key}">Send to manager</button></div></div></div>`):""}</div>`}).join("")}</div>`}).join("");
+}
+function vEvidence(){
+  const list=OBS.filter(o=>CALL_REP==="all"||o.rep===CALL_REP).slice().reverse();
+  const repOpps=OPPS.filter(o=>CALL_REP==="all"||o.ae===CALL_REP||o.sa===CALL_REP);
+  return `
+  <div class="stack"><span class="eyebrow">How validation is performed · fictional data</span><h2>Call and CRM evidence</h2>
+  <p class="lede">Recorded calls and AI role-plays are transcribed, each applicable scorecard is applied, and every score carries a quote. CRM opportunities link calls to deal stages, which is how the predictive check and the impact view are calculated.</p></div>
+  <ol class="flow"><li><b>Capture</b>Call recorded and transcribed; speakers separated.</li><li><b>Gate</b>Call type and buyer topics decide which scorecards apply.</li><li><b>Score</b>AI scores each criterion and quotes its evidence.</li><li><b>Roll up</b>Last five observations per seller per skill.</li><li><b>Link</b>Observations joined to CRM stage and outcome.</li></ol>
+  <section class="panel"><div class="row" style="justify-content:space-between"><h3>Scored observations (${list.length})</h3>
+   <label class="row note" for="ev-rep">Seller <select id="ev-rep"><option value="all">All sellers</option>${REPS.map(r=>`<option value="${r.id}" ${r.id===CALL_REP?"selected":""}>${esc(r.name)} (${r.role})</option>`).join("")}</select></label></div>
+   <div class="stack">${list.slice(0,40).map(o=>`<details><summary><span class="mono note">${o.date}</span><b>${esc(repById(o.rep).name)}</b><span class="tag">${esc(o.type)}</span><span>${esc(o.acct)}</span>${o.opp?`<span class="mono note">${o.opp}</span>`:""}${o.comp?`<span class="tag crit">BI assistant raised</span>`:""}<span class="note">${Object.keys(o.scores).join(", ")}</span></summary><div class="inner">${obsDetail(o,false)}</div></details>`).join("")}</div>
+   ${list.length>40?`<p class="note">Showing the 40 most recent. Filter by seller to see all of theirs.</p>`:""}</section>
+  <section class="panel"><h3>CRM: Genie opportunities, Q3 FY27</h3>
+   <div class="scroll"><table><thead><tr><th>Opportunity</th><th>Account</th><th>AE</th><th>SA</th><th>Competitive (BI assistant)</th><th>Stage reached</th><th class="c">Genie ARR ($K)</th><th class="c">Calls scored</th></tr></thead><tbody>
+   ${repOpps.map(o=>`<tr><td class="mono">${o.id}</td><td>${esc(o.acct)}</td><td>${esc(repById(o.ae).name)}</td><td>${esc(repById(o.sa).name)}</td><td>${o.comp?"Yes":"No"}</td><td>${o.lost?`<span class="pill st-bad">Lost at ${STAGES[o.stage]}</span>`:o.stage===4?`<span class="pill st-ok">Closed won</span>`:esc(STAGES[o.stage])}</td><td class="c num">${o.arr}</td><td class="c num">${OBS.filter(x=>x.opp===o.id).length}</td></tr>`).join("")}
+   </tbody></table></div></section>`;
+}
+
+/* ---------- Calibration & validity (steps 6-7) ---------- */
+function vCalibration(){
+  const W=640,rowH=30,top=26,left=210,H=top+PRED.length*rowH+30,maxV=60,sx=v=>left+(v/maxV)*(W-left-50);
+  const pchart=`<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Validate to proof of value conversion when criterion met versus not met">
+   ${[0,20,40,60].map(v=>`<line x1="${sx(v)}" x2="${sx(v)}" y1="${top-6}" y2="${H-24}" stroke="var(--line)"/><text x="${sx(v)}" y="${H-8}" text-anchor="middle" font-size="11" fill="var(--muted)" font-family="DM Mono, monospace">${v}%</text>`).join("")}
+   ${PRED.map((p,i)=>{const y=top+i*rowH;const up=p[2]-p[3];const weak=up<10;return `<text x="${left-10}" y="${y+12}" text-anchor="end" font-size="12" fill="var(--ink)" font-family="DM Mono, monospace">${p[0]} ${p[1]}</text>
+     <line x1="${sx(p[3])}" x2="${sx(p[2])}" y1="${y+8}" y2="${y+8}" stroke="${weak?"var(--warn)":"var(--accent)"}" stroke-width="3"/>
+     <circle cx="${sx(p[3])}" cy="${y+8}" r="5" fill="var(--surface)" stroke="var(--none)" stroke-width="2"/>
+     <circle cx="${sx(p[2])}" cy="${y+8}" r="6" fill="${weak?"var(--warn)":"var(--accent)"}"/>
+     <text x="${sx(p[2])+12}" y="${y+12}" font-size="11.5" fill="${weak?"var(--warn)":"var(--muted)"}" font-family="DM Mono, monospace">+${up} pts${weak?" · review":""}</text>`}).join("")}
+  </svg>`;
+  return `
+  <div class="stack"><span class="eyebrow">Steps 6 and 7 · fictional calibration study</span><h2>Calibration and validity</h2>
+  <p class="lede">Before scores are trusted, three expert raters and the AI score the same gold set of 24 recorded calls and role-plays. Criteria are revised until expert agreement is high and the AI reaches the threshold set in advance: 80% within one level of the expert consensus.</p></div>
+  <div class="kpis"><div class="kpi"><span class="v num">24</span><span class="l">Gold-set observations, weak to strong</span></div><div class="kpi"><span class="v num">3</span><span class="l">Expert raters (2 sales leaders, 1 SA lead)</span></div><div class="kpi"><span class="v num">80%</span><span class="l">AI threshold: within one level of consensus</span></div><div class="kpi"><span class="v num">15/15</span><span class="l">Criteria passing after one revision</span></div></div>
+  <section class="panel"><h3>Agreement by criterion</h3>
+   <div class="scroll"><table><thead><tr><th>Criterion</th><th class="c">Experts: exact</th><th class="c">Experts: within one</th><th class="c">AI vs consensus: within one</th><th>Result</th></tr></thead><tbody>
+   ${CAL.map(c=>{const crit=SC[c[0]].find(x=>x.id===c[1]);return `<tr><td><b class="mono">${c[0]} ${c[1]}</b> ${esc(crit.name)}</td><td class="c num">${c[2]}%</td><td class="c num">${c[3]}%</td><td class="c num">${c[5]?`<span class="bad-text">${c[5]}%</span> → `:""}${c[4]}%</td><td>${c[5]?`<span class="pill st-ok">Pass after revision</span>`:`<span class="pill st-ok">Pass</span>`}</td></tr>`}).join("")}
+   </tbody></table></div>
+   <div class="diff"><b class="mono">Revision log · GEN-04 C2, anchor “2 · Meets”</b><div class="del">Positions Genie well against the incumbent.</div><div class="add">Positions Genie where governed, cross-domain data lives in the lakehouse.</div>
+   <span class="note">First run: experts agreed exactly only 68% of the time and the AI reached 71% within one level. The original anchor (“well”) was not observable. After rewording, AI agreement rose to 87%. Re-calibration is scheduled monthly and after every skill version change.</span></div></section>
+  <section class="panel"><h3>Predictive check: does meeting the criterion relate to deal progress?</h3>
+   <p class="note">Validate → proof-of-value conversion on Genie opportunities, Q2 FY27 (May–Jul 2026), when the criterion was met on that opportunity’s calls versus not met. Fictional data.</p>
+   <div class="legend"><span><svg width="14" height="14"><circle cx="7" cy="7" r="5" fill="var(--surface)" stroke="var(--none)" stroke-width="2"/></svg>Criterion not met</span><span><svg width="14" height="14"><circle cx="7" cy="7" r="6" fill="var(--accent)"/></svg>Criterion met</span></div>
+   <div class="scroll">${pchart}</div>
+   <p>GEN-01 C3 (identifies who feels the pain) shows almost no difference in conversion. It is kept for now, because it may matter later in the cycle, but it is flagged for review next quarter. The GEN-04 criteria show the largest gaps, which supports making competitive objection handling the reinforcement priority.</p></section>`;
+}
+
+/* ---------- Impact (future quarter projection) ---------- */
+function conv(aes){const c=OPPS.filter(o=>o.comp&&aes.includes(o.ae));const adv=c.filter(o=>o.stage>=2).length;return {n:c.length,adv,pct:c.length?Math.round(adv/c.length*100):0};}
+function vImpact(){
+  const reinforced=["marcus","daniel","hannah"],compare=["elena","tomas"];
+  const q3r=conv(reinforced),q3c=conv(compare);
+  const data=[["Q2 FY27",27,55,false],["Q3 FY27",q3r.pct,q3c.pct,false],["Q4 FY27",44,58,true]];
+  const W=600,H=300,L=46,B=40,T=20,R=16,gw=(W-L-R)/3,bw=46,sy=v=>H-B-(v/80)*(H-B-T);
+  const chart=`<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Competitive Genie opportunity conversion by cohort and quarter">
+   <defs><pattern id="hatchA" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" fill="var(--accent-soft)"/><line x1="0" y1="0" x2="0" y2="6" stroke="var(--lava)" stroke-width="3"/></pattern>
+   <pattern id="hatchB" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" fill="var(--none-soft)"/><line x1="0" y1="0" x2="0" y2="6" stroke="var(--none)" stroke-width="3"/></pattern></defs>
+   ${[0,20,40,60,80].map(v=>`<line x1="${L}" x2="${W-R}" y1="${sy(v)}" y2="${sy(v)}" stroke="var(--line)"/><text x="${L-8}" y="${sy(v)+4}" text-anchor="end" font-size="11" fill="var(--muted)" font-family="DM Mono, monospace">${v}%</text>`).join("")}
+   ${data.map((d,i)=>{const cx=L+gw*i+gw/2;const x1=cx-bw-3,x2=cx+3;
+     return `<rect x="${x1}" y="${sy(d[1])}" width="${bw}" height="${sy(0)-sy(d[1])}" rx="3" fill="${d[3]?"url(#hatchA)":"var(--lava)"}"/>
+     <rect x="${x2}" y="${sy(d[2])}" width="${bw}" height="${sy(0)-sy(d[2])}" rx="3" fill="${d[3]?"url(#hatchB)":"var(--none)"}"/>
+     <text x="${x1+bw/2}" y="${sy(d[1])-6}" text-anchor="middle" font-size="12" font-weight="600" fill="var(--ink)" font-family="DM Mono, monospace">${d[1]}%</text>
+     <text x="${x2+bw/2}" y="${sy(d[2])-6}" text-anchor="middle" font-size="12" fill="var(--muted)" font-family="DM Mono, monospace">${d[2]}%</text>
+     <text x="${cx}" y="${H-B+18}" text-anchor="middle" font-size="12" fill="var(--ink)">${d[0]}${d[3]?" (projected)":""}</text>`}).join("")}
+   <line x1="${L}" x2="${W-R}" y1="${sy(0)}" y2="${sy(0)}" stroke="var(--muted)"/>
+  </svg>`;
+  const lift=(44-q3r.pct)-(58-q3c.pct);
+  const aeOk=REPS.filter(r=>r.role==="AE"&&mastery(r,"GEN-04").status==="ok").length;
+  return `
+  <div class="stack"><span class="eyebrow">Fictional projection · Q4 FY27 = Nov 2026 – Jan 2027</span><h2>Impact of reinforcing GEN-04</h2>
+  <p class="lede">In October, three AEs below target on the competitive objection skill (Marcus, Daniel, Hannah) completed the “${esc(REINF["GEN-04"].rp)}” role-play, a short lesson and a manager coaching session. Two AEs closer to target (Elena, Tomás) had not yet been assigned it, which gives a comparison group for the same quarter.</p></div>
+  <div class="kpis">
+   <div class="kpi"><span class="v num">${q3r.pct}% → 44%</span><span class="l">Competitive Validate → PoV conversion, reinforced cohort (Q3 actual → Q4 projected)</span></div>
+   <div class="kpi"><span class="v num">+${lift} pts</span><span class="l">Lift beyond the comparison cohort’s change over the same period</span></div>
+   <div class="kpi"><span class="v num">${aeOk} → ${Math.min(6,aeOk+3)} of 6</span><span class="l">AEs validated on GEN-04 (Q3 actual → Q4 target)</span></div>
+   <div class="kpi"><span class="v num">$590K</span><span class="l">Projected additional Genie ARR reaching proof of value in Q4 (fictional)</span></div>
+  </div>
+  <section class="panel"><h3>Competitive Genie opportunities: Validate → proof of value conversion</h3>
+   <div class="legend"><span><i class="sw" style="background:var(--lava)"></i>Reinforced on GEN-04 (Marcus, Daniel, Hannah)</span><span><i class="sw" style="background:var(--none)"></i>Comparison (Elena, Tomás)</span><span><i class="sw" style="background:repeating-linear-gradient(45deg,var(--accent-soft) 0 3px,var(--lava) 3px 5px)"></i>Hatched = projected</span></div>
+   <div class="scroll">${chart}</div>
+   <p class="note">Q3 values are calculated from the CRM table on the evidence tab (reinforced: ${q3r.adv} of ${q3r.n} competitive opportunities advanced; comparison: ${q3c.adv} of ${q3c.n}). Q2 is fictional history; Q4 is a projection.</p></section>
+  <div class="grid2">
+   <section class="panel"><h3>How to read this</h3><p>The reinforced cohort was chosen because it was weaker, so a raw before-and-after would overstate the effect. Comparing its change with the comparison cohort’s change over the same quarter removes shared seasonality and market effects. The cohorts are small, so treat the projection as a hypothesis to confirm with Q4 actuals.</p></section>
+   <section class="panel"><h3>What would confirm it</h3><ul style="margin:0;padding-left:18px"><li>GEN-04 observations reach Meets on 3 of the last 5 for the reinforced AEs.</li><li>No new critical flags on competitive claims.</li><li>Conversion lift holds in Q4 actuals after the comparison cohort is also reinforced in Q1.</li></ul></section>
+  </div>`;
+}
+
+/* ---------- Seller view ---------- */
+function vSeller(){
+  const rep=repById(SELLER);
+  const ms=SKILLS.map(s=>({s,m:mastery(rep,s.id)}));
+  const order={ok:0,warn:1,rev:2,none:3,bad:4};
+  const strengths=ms.filter(x=>x.m.status==="ok").sort((a,b)=>b.m.avg-a.m.avg);
+  const gaps=ms.filter(x=>x.m.status==="bad"||x.m.status==="warn").sort((a,b)=>a.m.met-b.m.met||a.m.avg-b.m.avg);
+  const other=ms.filter(x=>x.m.status==="none"||x.m.status==="rev");
+  const card=(x)=>{const {s,m}=x;return `<section class="panel"><div class="row" style="justify-content:space-between"><div class="stack" style="gap:2px"><span class="eyebrow">${s.id} · ${esc(s.stage)}</span><h3>${esc(s.name)}</h3></div>${pill(m.status)}</div>
+   <div class="row"><span class="tag acc">Your target: L${m.target} ${LEVELS[m.target]}</span><span class="note">Last ${m.n} observations:</span><span class="dots">${m.last.map(r=>`<span class="dot ${r.crit?"f":r.meets?"m":"x"}" title="${r.o.date} · ${esc(r.o.type)} · ${r.crit?"critical flag":r.meets?"meets":"below target"}"></span>`).join("")}${Array.from({length:5-m.n}).map(()=>`<span class="dot" title="No observation yet"></span>`).join("")}</span><span class="note num">${m.met} of ${m.n} met</span></div>
+   <div class="stack" style="gap:6px">${SC[s.id].map((c,i)=>`<div class="critline"><span><b class="mono">${c.id}</b> ${esc(c.name)} ${c.lvl<=m.target?"":`<span class="tag">above target</span>`}</span><span class="bar"><i style="width:${(m.critAvg[i]/3*100).toFixed(0)}%;${c.lvl<=m.target&&m.critAvg[i]<2?"background:var(--bad)":""}"></i></span><span class="mono num">${m.critAvg[i].toFixed(1)}</span></div>`).join("")}</div>
+   <details><summary>Evidence from ${m.n} observations</summary><div class="inner">${m.last.slice().reverse().map(r=>`<div class="stack" style="border-top:1px solid var(--line);padding-top:10px"><div class="row"><span class="mono note">${r.o.date}</span><span class="tag">${esc(r.o.type)}</span><span>${esc(r.o.acct)}</span></div>${obsDetail({...r.o,scores:{[s.id]:r.o.scores[s.id]}},true)}</div>`).join("")}</div></details>
+  </section>`};
+  const top=gaps[0];
+  const rf=top?REINF[top.s.id]:null;
+  const weakCrit=top?SC[top.s.id].map((c,i)=>({c,v:top.m.critAvg[i]})).filter(x=>x.c.lvl<=top.m.target).sort((a,b)=>a.v-b.v)[0]:null;
+  return `
+  <div class="row" style="justify-content:space-between;align-items:flex-end"><div class="stack" style="gap:4px"><span class="eyebrow">My Genie readiness · Q3 FY27</span><h2>${esc(rep.name)}</h2><span class="note">${ROLE_NAME[rep.role]} · ${esc(rep.seg)} · Manager: ${esc(rep.mgr)}</span></div>
+  <label class="row note" for="seller-pick">Viewing as <select id="seller-pick">${REPS.map(r=>`<option value="${r.id}" ${r.id===SELLER?"selected":""}>${esc(r.name)} (${r.role})</option>`).join("")}</select></label></div>
+  <div class="kpis"><div class="kpi"><span class="v num ok-text">${strengths.length}</span><span class="l">Skills validated at your target</span></div><div class="kpi"><span class="v num ${gaps.length?"bad-text":""}">${gaps.length}</span><span class="l">Skills below target</span></div><div class="kpi"><span class="v num">${other.length}</span><span class="l">Need more evidence or re-validation</span></div></div>
+  ${top?`<section class="rp"><header><span class="eyebrow">Your next step · reinforcement for ${top.s.id}</span><h3>AI role-play: ${esc(rf.rp)}</h3><span class="note">Assigned because ${top.m.met} of your last ${top.m.n} observations met L${top.m.target}${weakCrit?`; your lowest required criterion is ${weakCrit.c.id} “${esc(weakCrit.c.name)}” (average ${weakCrit.v.toFixed(1)} of 3)`:""}.</span></header>
+   <div class="body"><div class="grid2"><div class="stack"><h4>Scenario</h4><p><b>Buyer:</b> ${esc(rf.persona)}</p><div class="chat"><div class="b">${esc(rf.open)}</div><div class="s">Your response is scored live against SC-${top.s.id}: ${SC[top.s.id].filter(c=>c.lvl<=top.m.target).map(c=>c.id).join(", ")}${SC[top.s.id].some(c=>c.crit)?", plus the critical accuracy check":""}.</div></div>
+    <p class="note">Pass: Meets on every required criterion with no critical flag. A pass counts as one observation toward validation; you still need live-call evidence.</p>
+    <div class="row"><button class="btn primary" id="start-rp">Start role-play</button><span id="rp-msg" class="note" aria-live="polite"></span></div></div>
+    <div class="stack"><h4>Also in this plan</h4><ul style="margin:0;padding-left:18px"><li><b>Lesson:</b> ${esc(rf.lesson)}</li><li><b>Top-performer clip:</b> ${esc(rf.clip)}</li><li><b>Manager coaching (${esc(rep.mgr)}):</b> ${esc(rf.coach)}</li><li><b>Source of truth:</b> ${esc(SKILLS[skillIdx(top.s.id)].sources[0])}</li></ul></div></div></div></section>`:`<section class="panel"><h3>No skills below target</h3><p>Keep generating evidence on calls. Skills marked “Not enough evidence” need more observations.</p></section>`}
+  ${gaps.length?`<div class="stack"><h3>Below target</h3>${gaps.map(card).join("")}</div>`:""}
+  ${strengths.length?`<div class="stack"><h3>Strengths</h3>${strengths.map(card).join("")}</div>`:""}
+  ${other.length?`<div class="stack"><h3>Needs more evidence</h3>${other.map(card).join("")}</div>`:""}
+  <p class="note">Every score shows its transcript quote. If a score looks wrong, open the evidence and dispute it; your manager reviews disputes before scores are used anywhere beyond coaching.</p>`;
+}
+
+/* ---------- render + events ---------- */
+function render(){
+  if(VIEW==="lead"){renderTabs();
+    app.innerHTML={overview:vOverview,framework:vFramework,scorecards:vScorecards,evidence:vEvidence,calibration:vCalibration,impact:vImpact}[TAB]();}
+  else app.innerHTML=vSeller();
+  bind();
+}
+function bind(){
+  app.querySelectorAll("[data-open]").forEach(b=>b.onclick=()=>{SELLER=b.dataset.open;setView("seller");});
+  app.querySelectorAll("[data-tab-go]").forEach(b=>b.onclick=()=>{TAB=b.dataset.tabGo;render();window.scrollTo(0,0);});
+  app.querySelectorAll("[data-fw]").forEach(b=>b.onclick=()=>{FW_SKILL=b.dataset.fw;render();});
+  const g=id=>document.getElementById(id);
+  if(g("fw-pick"))g("fw-pick").onchange=e=>{FW_SKILL=e.target.value;render();};
+  if(g("sc-pick"))g("sc-pick").onchange=e=>{SC_SKILL=e.target.value;render();};
+  if(g("ev-rep"))g("ev-rep").onchange=e=>{CALL_REP=e.target.value;render();};
+  if(g("seller-pick"))g("seller-pick").onchange=e=>{SELLER=e.target.value;render();};
+  if(g("run-ai"))g("run-ai").onclick=()=>{STATE.proposals=PROPOSAL.map(()=>null);render();};
+  app.querySelectorAll("[data-approve]").forEach(b=>b.onclick=()=>{const i=+b.dataset.approve,p=PROPOSAL[i];STATE.proposals[i]="approved";
+    const s=SKILLS[skillIdx(p.skill)];
+    if(p.kind==="UPDATE"){s.version=p.to;s.levels[3]=p.add;s.log.unshift(["2026-10-17",p.to,"AI-proposed from FR-2611, approved"]);STATE.revalidate[p.skill]=true;FW_SKILL=p.skill;}
+    render();});
+  app.querySelectorAll("[data-reject]").forEach(b=>b.onclick=()=>{STATE.proposals[+b.dataset.reject]="rejected";render();});
+  app.querySelectorAll("[data-dispute]").forEach(b=>b.onclick=()=>{const f=app.querySelector(`[data-form="${b.dataset.dispute}"]`);f.hidden=!f.hidden;});
+  app.querySelectorAll("[data-send]").forEach(b=>b.onclick=()=>{STATE.disputes[b.dataset.send]=true;const d=b.closest("details");render();});
+  if(g("start-rp"))g("start-rp").onclick=()=>{g("rp-msg").textContent="Demo: in production this opens a voice role-play with the simulated buyer.";};
+}
+render();
+})();
+</script>
+
+</body></html>
