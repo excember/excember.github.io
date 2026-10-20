@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+</head>
+<body>
+<title>Genie Call Coach</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a guided five-step story through one deal, with a step rail. Same system as Genie Readiness Studio.
+   Palette and type follow Databricks' public brand colors (Lava, Navy, Oat) and DM Sans / DM Mono. No logo.
+   Deliberately single-theme: the Oat light look in every viewer theme. */
+:root{
+  --bg:#F9F7F4; --surface:#FFFFFF; --sunk:#EEEDE9; --ink:#0B2026; --muted:#4F5F66; --line:#DCD9D2;
+  --band:#1B3139; --band-ink:#FFFFFF; --band-muted:#B9C4C8;
+  --lava:#FF3621; --accent:#D2301C; --accent-ink:#FFFFFF; --accent-soft:#FFE6E1;
+  --ok:#2A7A45; --ok-soft:#E1F1E6; --warn:#946000; --warn-soft:#FAEED6; --bad:#9E1730; --bad-soft:#F8E1E5;
+  --none:#76838A; --none-soft:#ECEBE7; --hl:#FFF4C7;
+  --body:"DM Sans","Helvetica Neue",Arial,sans-serif; --mono:"DM Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:14.5px;line-height:1.55}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--band)}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--band);color:var(--band-ink);border-bottom:3px solid var(--lava)}
+header.top .wrap{display:flex;flex-wrap:wrap;gap:6px 20px;align-items:baseline;justify-content:space-between;padding-block:12px}
+header h1{font-size:20px;font-weight:700;margin:0;letter-spacing:-.01em}
+header small{color:var(--band-muted);font-size:12.5px}
+.notice{background:var(--warn-soft);font-size:12.5px}
+.notice .wrap{padding-block:8px}
+.notice b{color:var(--warn)}
+nav.steps{background:var(--bg);border-bottom:1px solid var(--line)}
+nav.steps .wrap{display:flex;gap:4px;overflow-x:auto}
+nav.steps button{border:0;background:none;font:500 13.5px var(--body);color:var(--muted);padding:12px 10px;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;display:inline-flex;gap:7px;align-items:center}
+nav.steps button .n{font:500 11px var(--mono);width:20px;height:20px;border-radius:50%;display:inline-grid;place-items:center;background:var(--sunk);color:var(--muted)}
+nav.steps button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--lava);font-weight:600}
+nav.steps button[aria-selected="true"] .n{background:var(--lava);color:#fff}
+main .wrap{padding-block:24px 64px;display:flex;flex-direction:column;gap:20px}
+h2{font-size:24px;font-weight:700;margin:0;letter-spacing:-.02em;text-wrap:balance}
+h3{font-size:16px;font-weight:600;margin:0}
+h4{font-size:13px;font-weight:600;margin:0}
+p{margin:0;max-width:72ch}
+.lede{color:var(--muted);max-width:78ch}
+.eyebrow{font:500 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.cols{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:860px){.cols{grid-template-columns:1fr}}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px}
+.row{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center}
+.stack{display:flex;flex-direction:column;gap:10px;min-width:0}
+.tag{display:inline-block;font:500 11.5px var(--mono);padding:1px 7px;border-radius:5px;background:var(--sunk);border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.pill{display:inline-flex;align-items:center;gap:6px;font:500 12px var(--body);padding:2px 9px;border-radius:999px;white-space:nowrap}
+.pill::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.st-ok{background:var(--ok-soft);color:var(--ok)}.st-warn{background:var(--warn-soft);color:var(--warn)}.st-bad{background:var(--bad-soft);color:var(--bad)}.st-none{background:var(--none-soft);color:var(--none)}
+button.btn{font:500 13.5px var(--body);border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:8px 14px;border-radius:7px;cursor:pointer}
+button.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+button:focus-visible{outline:2px solid var(--lava);outline-offset:2px}
+.note{font-size:12.5px;color:var(--muted)}
+.mono{font-family:var(--mono)}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:500 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--sunk)}
+.scroll{overflow-x:auto;min-width:0}
+/* mock surfaces */
+.mock{border:1px solid var(--line);border-radius:10px;background:var(--surface);overflow:hidden}
+.mock .bar{background:var(--sunk);padding:7px 12px;font:500 11.5px var(--mono);color:var(--muted);display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.mock .in{padding:14px;display:flex;flex-direction:column;gap:10px}
+.msg{display:grid;grid-template-columns:34px minmax(0,1fr);gap:10px}
+.av{width:34px;height:34px;border-radius:8px;display:grid;place-items:center;font:600 12px var(--body);background:var(--band);color:#fff}
+.av.buyer{background:#5B6F76}.av.you{background:var(--accent)}
+.fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:10px}
+.field{display:flex;flex-direction:column;gap:2px}
+.field span:first-child{font:500 11px var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+/* transcript */
+.tx{display:flex;flex-direction:column;gap:2px}
+.line{display:grid;grid-template-columns:52px 110px minmax(0,1fr);gap:10px;padding:6px 8px;border-radius:6px;font-size:13.5px}
+.line .ts{font:500 12px var(--mono);color:var(--muted)}
+.line .who{font-weight:600}
+.line.flag{background:var(--hl);cursor:pointer}
+.line.flag.sel{outline:2px solid var(--lava)}
+@media (max-width:560px){.line{grid-template-columns:44px minmax(0,1fr)}.line .who{grid-column:2}.line .say{grid-column:2}}
+.score{display:inline-grid;place-items:center;min-width:22px;height:22px;border-radius:6px;font:600 12px var(--mono);padding:0 5px}
+.s0{background:var(--bad);color:#fff}.s1{background:var(--warn-soft);color:var(--warn)}.s2{background:var(--ok-soft);color:var(--ok)}.s3{background:var(--ok);color:#fff}
+/* roleplay */
+.chat{display:flex;flex-direction:column;gap:10px}
+.bub{max-width:88%;padding:9px 12px;border-radius:12px;font-size:14px}
+.bub.b{align-self:flex-start;background:var(--sunk);border-bottom-left-radius:3px}
+.bub.y{align-self:flex-end;background:var(--accent-soft);border-bottom-right-radius:3px}
+.bub .who{display:block;font:500 11px var(--mono);color:var(--muted);margin-bottom:2px;text-transform:uppercase;letter-spacing:.05em}
+.fb{align-self:stretch;border-left:3px solid var(--line);padding:6px 10px;font-size:13px;background:var(--surface)}
+.fb.good{border-left-color:var(--ok)}.fb.mid{border-left-color:var(--warn)}.fb.bad{border-left-color:var(--bad)}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{text-align:left;font:400 14px var(--body);border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:10px 12px;border-radius:8px;cursor:pointer}
+.opt:hover{border-color:var(--ink)}
+.crit{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center;font-size:13px;padding:6px 0;border-bottom:1px solid var(--line)}
+.stage{display:flex;gap:0;flex-wrap:wrap}
+.stage span{font:500 12px var(--body);padding:6px 12px;background:var(--sunk);color:var(--muted);border-right:2px solid var(--bg)}
+.stage span.cur{background:var(--band);color:#fff}
+.stage span.done{background:var(--none-soft);color:var(--ink)}
+.stage span.new{background:var(--lava);color:#fff}
+.flow{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,170px),1fr));gap:10px}
+.flow li{border:1px solid var(--line);border-radius:8px;padding:10px;background:var(--surface);font-size:13px;display:flex;flex-direction:column;gap:3px}
+.flow li b{font-size:13.5px}
+.flow .when{font:500 11px var(--mono);color:var(--lava)}
+.plan{background:var(--surface);border:1px solid var(--line);border-top:4px solid var(--band);border-radius:8px;padding:16px;display:flex;flex-direction:column;gap:8px}
+.plan ul,.plan ol{margin:0;padding-left:18px}
+.nextbar{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.medd{display:flex;flex-direction:column;gap:6px}.mrow{display:grid;grid-template-columns:150px minmax(0,1fr);gap:10px;align-items:start;font-size:13px}.mrow .pill{justify-self:start}@media (max-width:480px){.mrow{grid-template-columns:1fr}}
+</style>
+
+<header class="top"><div class="wrap"><h1>Genie Call Coach</h1><small>Unofficial concept · AI role-play in the flow of work · MEDDPICC · use-case-led motion</small></div></header>
+<div class="notice"><div class="wrap"><b>Portfolio concept.</b> Unofficial and not affiliated with or endorsed by Databricks; colors and type reference its public brand palette. All people, accounts, calls, transcripts and CRM records are fictional, and product positioning is illustrative. Companion to Genie Readiness Studio. Built by Moira McIntyre.</div></div>
+<nav class="steps" aria-label="Steps"><div class="wrap" id="steps" role="tablist"></div></nav>
+<main><div class="wrap" id="app"></div></main>
+
+<script>
+(function(){
+"use strict";
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const CRIT={
+ "GEN-02 C1":"Gets the buyer’s own usage numbers","GEN-02 C2":"Builds metrics and a consumption estimate with the buyer","GEN-02 C3":"Ties metrics to the economic buyer’s goal",
+ "GEN-03 C2":"Shows that answers can be verified",
+ "GEN-04 C1":"Acknowledges and probes the objection","GEN-04 C2":"Positions a differentiated fit","GEN-04 C3":"Accuracy of competitive claims",
+ "GEN-05 C1":"Defines measurable success criteria","GEN-05 C2":"Confirms the champion and scopes the pilot","GEN-05 C3":"Secures the economic buyer and decision process",
+ "GEN-06 C1":"Agrees a path to production","GEN-06 C2":"Uncovers the paper process","GEN-06 C3":"Identifies the next use case"};
+const LVL={"GEN-02 C1":2,"GEN-02 C2":3,"GEN-02 C3":3,"GEN-03 C2":3,"GEN-04 C1":2,"GEN-04 C2":3,"GEN-04 C3":4,"GEN-05 C1":2,"GEN-05 C2":3,"GEN-05 C3":3,"GEN-06 C1":2,"GEN-06 C2":3,"GEN-06 C3":3};
+const CRITICAL={"GEN-04 C3":true};
+const sc=v=>`<span class="score s${v}">${v}</span>`;
+const STAGE_NAMES=["Identified","Validated","Proof of value","Onboarding","Live and consuming"];
+const stageBar=(cur,isNew)=>`<div class="stage" aria-label="Use case stage">${STAGE_NAMES.map((n,i)=>`<span class="${i<cur?"done":i===cur?(isNew?"new":"cur"):""}">${n}</span>`).join("")}</div>`;
+const MEDD_BEFORE=[["Metrics","bad","Not captured"],["Economic buyer","bad","Not engaged (likely Tom Becker, CFO)"],["Decision criteria","bad","Unknown"],["Decision process","bad","Unknown"],["Paper process","bad","Unknown"],["Identify pain","ok","Dispatch prices loads blind while waiting days for lane-profitability answers"],["Champion","warn","Renee Alvarez, VP Analytics (unconfirmed)"],["Competition","ok","BI vendor’s AI assistant, 300 users"]];
+const MEDD_AFTER=[["Metrics","ok","400 questions and about 200 analyst hours a week (buyer-confirmed)"],["Economic buyer","ok","Tom Becker, CFO"],["Decision criteria","ok","16 of top 20 lane questions correct, under a minute each; governed data"],["Decision process","ok","Tom decides Nov 6 after Renee’s readout"],["Paper process","ok","Existing commit; Tom signs under $50K; finance needs a week"],["Identify pain","ok","Dispatch prices loads blind while waiting days for answers"],["Champion","ok","Renee Alvarez (confirmed; presents the readout)"],["Competition","ok","Coexists with BI assistant for sales dashboards"]];
+const meddGrid=rows=>`<div class="medd">${rows.map(([k,s,v])=>`<div class="mrow"><span class="pill st-${s}">${k}</span><span>${esc(v)}</span></div>`).join("")}</div>`;
+
+const STEPS=[["nudge","In the flow of work"],["last","Last call, scored"],["replay","Replay the missed moment"],["dryrun","Dry run for the next call"],["next","Next call, scored"],["how","How it works"]];
+let STEP="nudge";
+
+/* ---------- step 2 data: last call transcript ---------- */
+const LAST=[
+ ["03:10","Renee Alvarez","Buyer","Thanks for coming back with Omar. We’re trying to figure out where Genie fits for us."],
+ ["06:15","Renee Alvarez","Buyer","Our dispatch managers wait days on lane-profitability questions. They end up pricing loads blind."],
+ ["06:24","Marcus Webb","AE","Got it. Let me have Omar show you Genie.",[["GEN-02 C1",0,"Buyer named the pain; no usage numbers asked (how many managers, how many questions, how long each takes)."]]],
+ ["09:40","Omar Haddad","SA","Here’s a question in plain English, and here’s the SQL Genie generated, so your analysts can check it.",[["GEN-03 C2",2,"Shows the generated SQL behind an answer. (Omar’s scorecard.)"]]],
+ ["14:32","Renee Alvarez","Buyer","Honestly, we turned on the AI assistant in our BI tool in August. About 300 people have it. Why would we add Genie?"],
+ ["14:41","Marcus Webb","AE","Ours is just better at this. Genie was built for this from the ground up.",[["GEN-04 C1",1,"Responded without asking what the assistant is used for."],["GEN-04 C2",1,"“We’re better” with no specifics."]]],
+ ["14:58","Renee Alvarez","Buyer","Better how? People already know that tool."],
+ ["15:06","Marcus Webb","AE","Their assistant can’t handle more than one table at a time.",[["GEN-04 C3",0,"Unapproved claim about the incumbent. Critical flag."]]],
+ ["15:30","Renee Alvarez","Buyer","That’s not what we’ve seen. Anyway, I’d need to see this on our own shipment data, and Tom would have to sign off."],
+ ["15:44","Marcus Webb","AE","Great, I’ll send over some materials and we can go from there.",[["GEN-05 C1",1,"Buyer opened the door to a pilot; no success criteria proposed."],["GEN-05 C3",1,"Buyer named the economic buyer (Tom); no attempt to involve him."]]]
+];
+
+/* ---------- step 3: replay branches ---------- */
+const REPLAY=[
+ {buyer:"Honestly, we turned on the AI assistant in our BI tool in August. About 300 people have it. Why would we add Genie?",
+  opts:[
+   {t:"Ours is just better at this. Genie was built for this from the ground up.",s:[["GEN-04 C1",1]],fb:["mid","This is what you said on the call. It skips the probe, so you don’t learn what the assistant is missing."],r:"Better how? People already know that tool."},
+   {t:"That makes sense. What do people use it for today, and where does it fall short?",s:[["GEN-04 C1",2]],fb:["good","Acknowledges, then probes. Meets the C1 anchor."],r:"Mostly the sales dashboards. Anything about shipments or lane costs still goes to the analysts."},
+   {t:"Honestly, that assistant isn’t built for real analytics.",s:[["GEN-04 C2",0]],fb:["bad","Disparages the incumbent. Scores 0 on C2 and puts the buyer on the defensive."],r:"We picked it for good reasons. I’m not looking to rip it out."}]},
+ {buyer:null,
+  opts:[
+   {t:"So questions that cross from sales into shipments still wait on analysts. How many of those come in a week, and how many people ask them?",s:[["GEN-04 C1",3],["GEN-02 C1",2]],fb:["good","Uncovers the gap in her words and starts on Metrics. Exemplary on C1."],r:"Forty dispatch managers, maybe ten questions a week each. They usually wait two or three days."},
+   {t:"Genie can query all your tables, and their assistant can’t.",s:[["GEN-04 C3",0]],fb:["bad","Unapproved claim about a competitor. Critical flag, the same issue as the original call."],r:"I don’t think that’s right."},
+   {t:"Genie is more accurate than your BI assistant.",s:[["GEN-04 C3",1]],fb:["mid","Vague comparison. Not wrong, but you can’t back it up with an approved claim."],r:"Says every vendor."}]},
+ {buyer:"Okay. So where would Genie fit, then?",
+  opts:[
+   {t:"Keep the assistant for the sales dashboards. Genie covers the cross-domain questions, like lane profitability, that still go to analysts, on governed data in your lakehouse with the permissions you already have.",s:[["GEN-04 C2",3],["GEN-04 C3",2]],fb:["good","Coexistence positioning built on the gap she named, with an approved differentiator. It also shapes her decision criteria: cross-domain, governed answers."],r:"That I could explain to Tom."},
+   {t:"Genie works directly on governed data in your lakehouse, with the permissions you already have.",s:[["GEN-04 C2",2],["GEN-04 C3",2]],fb:["mid","Accurate and approved, but not tied to the gap she just described."],r:"Okay. And for the lane questions specifically?"},
+   {t:"You should standardize everyone on Genie.",s:[["GEN-04 C2",1]],fb:["bad","Pushes displacement with no reason tied to her situation."],r:"That’s not happening this year."}]},
+ {buyer:"I’d need to see this on our own shipment data, and Tom would have to sign off.",
+  opts:[
+   {t:"Great, I’ll send over some materials and we can go from there.",s:[["GEN-05 C1",1]],fb:["bad","What you said on the call. The buyer offered a next step and named the economic buyer, and neither was taken."],r:"Sure, send them over."},
+   {t:"Could we test it on your shipment data, with Tom reviewing the results?",s:[["GEN-05 C3",2]],fb:["mid","Brings in the economic buyer. Add measurable criteria to make it a real proof of value."],r:"I can ask Tom."},
+   {t:"Could we take your top 20 lane-profitability questions and measure how many Genie answers correctly in two weeks, then put the result in front of Tom? Would you run the pilot on your side?",s:[["GEN-05 C1",2],["GEN-05 C2",2],["GEN-05 C3",2]],fb:["good","Measurable criteria, a champion test and the economic buyer. This is the move that advances the use case to Proof of value."],r:"Yes, I’ll run it. Let’s get time with Tom next week."}]}
+];
+
+/* ---------- step 4: dry run ---------- */
+const DRY=[
+ {buyer:"Renee says this saves her team time. Before I approve a pilot, I need to know what it’s worth and what it costs to run.",who:"Tom Becker, CFO",
+  opts:[
+   {t:"How many dispatch managers would use it, how many questions a week do they ask, and how long does each one take an analyst today?",s:[["GEN-02 C1",3]],fb:["good","Gets users, questions and time: the inputs for both the metrics and the consumption estimate."],r:"Forty managers, about ten questions a week each. Roughly half an hour of analyst time per question."},
+   {t:"Customers typically see big productivity gains.",s:[["GEN-02 C2",1]],fb:["mid","Vendor benchmark only. A CFO will discount it."],r:"I don’t care about typical. We have forty dispatch managers, about ten questions a week each, half an hour per question."},
+   {t:"It’ll pay for itself quickly.",s:[["GEN-02 C2",0]],fb:["bad","Generic ROI claim with nothing behind it."],r:"Everything pays for itself, apparently. Here’s what I know: forty managers, ten questions a week, half an hour each."}]},
+ {buyer:"So what does that add up to?",who:"Tom Becker, CFO",
+  opts:[
+   {t:"That’s about 400 questions and 200 analyst hours a week. Genie is consumption-based, so cost tracks those 400 questions and starts small in the pilot. Does that match how you see it, and would you test both numbers in the pilot?",s:[["GEN-02 C2",3]],fb:["good","Metrics and expected consumption from his numbers, and he co-owns them. Exemplary on C2."],r:"Roughly, yes. If the pilot shows it, that’s real money."},
+   {t:"That’s about 200 analyst hours a week.",s:[["GEN-02 C2",2]],fb:["mid","Right metric, but no usage picture, and he doesn’t own it yet."],r:"If you say so. And what does it cost to run?"},
+   {t:"Our benchmark is a 30% saving.",s:[["GEN-02 C2",1]],fb:["bad","Swaps his numbers for a vendor figure."],r:"That’s your number, not mine."}]},
+ {buyer:"Fine. What would a pilot have to show, and how do we decide?",who:"Tom Becker, CFO",
+  opts:[
+   {t:"Genie answers at least 16 of your top 20 lane-profitability questions correctly, each in under a minute. That confirms the 200-hour estimate. Renee runs the pilot and you make the call. Does anyone else need to sign off?",s:[["GEN-05 C1",3],["GEN-05 C3",2]],fb:["good","Criteria tied to the metrics, the champion named, and it maps the decision process."],r:"Just me, under $50K. Finance takes about a week to process it."},
+   {t:"Success is Renee’s team liking it.",s:[["GEN-05 C1",1]],fb:["bad","Not measurable. Pilots like this rarely end in a decision."],r:"Liking it isn’t a reason to spend money."},
+   {t:"We’d show you a range of Genie features.",s:[["GEN-05 C1",0]],fb:["bad","No criteria at all."],r:"I don’t need a tour."}]},
+ {buyer:"And if it works, then what?",who:"Tom Becker, CFO",
+  opts:[
+   {t:"Renee’s team curates one Genie space on the shipment tables by the 21st, eight dispatch managers pilot it, and you decide on Nov 6. If it passes, all 40 go live by Dec 1 on your existing commit. After that, carrier performance for procurement looks like the next use case. Does that work?",s:[["GEN-05 C2",3],["GEN-05 C3",3],["GEN-06 C1",2],["GEN-06 C3",3]],fb:["good","Champion, scope, decision date, production date and the next use case. The full land-and-expand path."],r:"Put it in writing and I’ll hold the date."},
+   {t:"Would you review the readout when we’re done?",s:[["GEN-05 C3",2]],fb:["mid","Economic buyer engaged, but no decision date and no path to production."],r:"Sure, send it when it’s ready."},
+   {t:"We can figure out next steps after the pilot.",s:[["GEN-06 C1",0]],fb:["bad","No path to production. This is how use cases get stuck in pilot and never consume."],r:"Okay."}]}
+];
+
+/* ---------- step 5: next call ---------- */
+const NEXT=[
+ ["02:20","Marcus Webb","AE","Tom, before I show anything: how many dispatch managers would use this, how many questions a week, and how long does each take today?",[["GEN-02 C1",3,"Gets users, questions and time."]]],
+ ["02:41","Tom Becker","Buyer","Forty managers, about ten a week each. Half an hour of analyst time per question."],
+ ["03:05","Marcus Webb","AE","So about 400 questions and 200 analyst hours a week, and consumption tracks those questions. Does that match your view? We could test both in a pilot.",[["GEN-02 C2",3,"Metrics and consumption estimate from the buyer’s numbers, co-owned."]]],
+ ["08:50","Renee Alvarez","Buyer","Tom will ask why we need this on top of our BI assistant."],
+ ["08:58","Marcus Webb","AE","Fair. What are people using the assistant for, and what still goes to analysts?",[["GEN-04 C1",3,"Probes and surfaces the gap in her words."]]],
+ ["09:30","Marcus Webb","AE","Keep it for the sales dashboards. Genie covers the cross-domain lane questions, on governed data in the lakehouse with the permissions you already have.",[["GEN-04 C2",3,"Coexistence based on the named gap."],["GEN-04 C3",2,"Approved differentiator, accurate."]]],
+ ["18:15","Marcus Webb","AE","Success would be 16 of your top 20 lane questions answered correctly, under a minute each. That confirms the 200-hour estimate.",[["GEN-05 C1",3,"Measurable, tied to the metrics."]]],
+ ["19:02","Tom Becker","Buyer","If it hits that, I’ll make the call on November 6. Under $50K it’s just my sign-off."],
+ ["19:10","Marcus Webb","AE","Great. Renee runs it: her team curates the space by the 21st, eight dispatch managers pilot it, and we meet on the 6th.",[["GEN-05 C2",3,"Champion confirmed; scope, owner, users, dates."],["GEN-05 C3",3,"Economic buyer commits to a decision date and states who signs."]]],
+ ["20:05","Marcus Webb","AE","If it passes, all 40 managers go live by Dec 1 on your existing commit, and carrier performance for procurement could be next.",[["GEN-06 C1",2,"Production date named."],["GEN-06 C3",3,"Second use case with users, data and timing."]]]
+];
+
+/* ---------- state ---------- */
+const S={replay:{turn:0,log:[],scores:{}},dry:{turn:0,log:[],scores:{}},sel:null};
+const steps=document.getElementById("steps"), app=document.getElementById("app");
+
+function renderSteps(){steps.innerHTML=STEPS.map(([k,l],i)=>`<button role="tab" aria-selected="${STEP===k}" data-step="${k}">${k==="how"?"":`<span class="n">${i+1}</span>`}${l}</button>`).join("");
+  steps.querySelectorAll("button").forEach(b=>b.onclick=()=>{STEP=b.dataset.step;render();window.scrollTo(0,0);});}
+const nextBtn=(k,label)=>`<div class="nextbar"><span></span><button class="btn primary" data-go="${k}">${label} →</button></div>`;
+
+/* ---------- views ---------- */
+function vNudge(){return `
+ <div class="stack"><span class="eyebrow">Step 1 · Tuesday, Oct 13, 2026 · 4:05 pm</span><h2>The coach shows up where Marcus already works</h2>
+ <p class="lede">Marcus Webb (Account Executive) has a Genie use case stuck at Validated. In a consumption business it earns nothing until it goes live. His last call with Northwind Freight stalled when the buyer raised her BI tool’s AI assistant. Tomorrow he meets her again, this time with the CFO. The field assistant notices and reaches out.</p></div>
+ <div class="grid2">
+  <div class="mock"><div class="bar"><span>Team chat · direct message (mock)</span><span>Field assistant</span></div><div class="in">
+   <div class="msg"><div class="av">FA</div><div class="stack" style="gap:6px"><b>Field assistant</b>
+    <p>Your Northwind Freight call with Renee Alvarez and Tom Becker (CFO) is tomorrow at 10:00.</p>
+    <p>Last call (Oct 8) stalled at 14:32 when Renee raised her BI assistant. The use case hasn’t moved in 9 days. MEDDPICC gaps blocking Proof of value: <b>Metrics</b>, <b>Economic buyer</b>, <b>Decision criteria</b>.</p>
+    <p class="note">Suggested prep, 12 minutes: replay the 14:32 moment, then a dry run with an AI version of Tom.</p>
+    <div class="row"><button class="btn primary" data-go="last">Start prep</button><button class="btn">Remind me at 8:30</button></div></div></div>
+  </div></div>
+  <div class="mock"><div class="bar"><span>CRM use-case record (mock)</span><span>UC-3111</span></div><div class="in">
+   <h3>Northwind Freight — Lane-profitability Q&amp;A for dispatch</h3>
+   ${stageBar(1,false)}
+   <div class="fields">
+    <div class="field"><span>Product</span><span>Genie</span></div>
+    <div class="field"><span>Owners</span><span>Marcus Webb (AE) · Omar Haddad (SA)</span></div>
+    <div class="field"><span>Projected consumption</span><span>$22K/month once live</span></div>
+    <div class="field"><span>Days in stage</span><span style="color:var(--warn)">9</span></div>
+   </div>
+   <h4>MEDDPICC</h4>${meddGrid(MEDD_BEFORE)}
+   <div class="row"><button class="btn primary" data-go="dryrun">Prep with AI</button><span class="note">Same coach, opened from the record</span></div>
+  </div></div>
+ </div>
+ <section class="panel"><h3>What the coach already knows before Marcus clicks</h3>
+  <ul style="margin:0;padding-left:18px">
+   <li><b>The use case:</b> stage, days in stage, projected consumption, and which MEDDPICC fields are empty, from the CRM record.</li>
+   <li><b>The last conversation:</b> the Oct 8 call transcript, already scored against the Genie scorecards.</li>
+   <li><b>Marcus’s skill profile:</b> Gap on GEN-02 (metrics and consumption), GEN-04 (BI-assistant objection) and GEN-06 (path to production) in Genie Readiness Studio.</li>
+   <li><b>Approved positioning:</b> the current competitive brief and approved claims list, so the AI buyer and the feedback never invent claims.</li>
+  </ul></section>
+ ${nextBtn("last","See the last call")}`;}
+
+function vTranscript(lines,mode){
+  return `<div class="tx">${lines.map((l,i)=>{const f=l[4];return `<div class="line ${f?"flag":""} ${S.sel===mode+i?"sel":""}" ${f?`data-sel="${mode+i}" tabindex="0" role="button"`:""}><span class="ts">${l[0]}</span><span class="who">${esc(l[1])}<br><span class="note" style="font-weight:400">${l[2]}</span></span><span class="say">${esc(l[3])} ${f?f.map(x=>sc(x[1])).join(" "):""}</span></div>`}).join("")}</div>`;
+}
+function detailFor(lines,mode){
+  const i=S.sel&&S.sel.startsWith(mode)?+S.sel.slice(mode.length):lines.findIndex(l=>l[4]);
+  const l=lines[i];if(!l||!l[4])return "";
+  return `<div class="stack"><span class="eyebrow">${l[0]} · ${esc(l[1])}</span><p>“${esc(l[3])}”</p>${l[4].map(([k,v,why])=>`<div class="crit"><span><b class="mono">${k}</b> ${esc(CRIT[k])}${CRITICAL[k]?` <span class="tag" style="color:var(--bad)">critical</span>`:""}<br><span class="note">${esc(why)}</span></span>${sc(v)}</div>`).join("")}</div>`;
+}
+function vLast(){return `
+ <div class="stack"><span class="eyebrow">Step 2 · Oct 8 call · Demo · 41 min · recorded with consent</span><h2>Where the last call stalled</h2>
+ <p class="lede">After every call, the transcript from the call recording platform is scored against the Genie scorecards. Each score quotes the moment behind it. Highlighted lines carry scores; select one to see the criterion.</p></div>
+ <div class="cols">
+  <section class="panel"><h3>Transcript excerpt</h3>${vTranscript(LAST,"L")}</section>
+  <div class="stack">
+   <section class="panel">${detailFor(LAST,"L")}</section>
+   <section class="panel" style="border-color:var(--lava)"><span class="eyebrow">What this cost the use case</span>
+    <p>Renee offered a next step and named the economic buyer (“Tom would have to sign off”). Neither was taken: no metrics, no success criteria, no meeting with Tom. The use case has stayed at <b>Validated</b> for 9 days, so nothing is consuming yet.</p>
+    <div class="row"><span class="pill st-bad">Competition · GEN-04 critical flag</span><span class="pill st-bad">Metrics · GEN-02 not asked</span><span class="pill st-warn">Economic buyer · GEN-05 not engaged</span></div></section>
+  </div>
+ </div>
+ ${nextBtn("replay","Replay the 14:32 moment")}`;}
+
+function rpView(key,data,title,persona,ctx){
+  const st=S[key];const done=st.turn>=data.length;const cur=data[st.turn];
+  const crits=Object.keys(st.scores);
+  const tally=crits.map(k=>{const v=st.scores[k];const req=LVL[k]<=3;const ok=v>=2;return `<div class="crit"><span><b class="mono">${k}</b> ${esc(CRIT[k])}<br><span class="note">${req?"Required at Marcus’s target (L3)":"Above target (L4)"}${CRITICAL[k]?" · critical at 0":""}</span></span>${sc(v)}</div>`}).join("");
+  const pass=crits.length&&crits.every(k=>!(CRITICAL[k]&&st.scores[k]===0))&&crits.filter(k=>LVL[k]<=3).every(k=>st.scores[k]>=2);
+  return `
+  <div class="cols">
+   <section class="panel"><div class="row" style="justify-content:space-between"><h3>${title}</h3><span class="tag">${esc(persona)}</span></div>
+    <p class="note">${ctx}</p>
+    <div class="chat">${st.log.map(e=>e.k==="b"?`<div class="bub b"><span class="who">${esc(e.w)}</span>${esc(e.t)}</div>`:e.k==="y"?`<div class="bub y"><span class="who">Marcus</span>${esc(e.t)}</div>`:`<div class="fb ${e.c}">${e.s.map(([k,v])=>`<b class="mono">${k}</b> ${sc(v)}`).join(" ")} ${esc(e.t)}</div>`).join("")}
+     ${done||!cur.buyer?"":`<div class="bub b"><span class="who">${esc(cur.who||"Renee Alvarez, VP Analytics")}</span>${esc(cur.buyer)}</div>`}</div>
+    ${done?`<div class="row"><button class="btn" data-reset="${key}">Try again</button></div>`:`<div class="stack"><span class="eyebrow">Your response · turn ${st.turn+1} of ${data.length}</span><div class="opts">${cur.opts.map((o,i)=>`<button class="opt" data-pick="${key}:${i}">${esc(o.t)}</button>`).join("")}</div></div>`}
+   </section>
+   <section class="panel"><h3>Live scorecard</h3>${tally||`<p class="note">Scores appear here as you respond. Each criterion keeps your most recent score.</p>`}
+    ${done?`<div class="stack"><span class="pill ${pass?"st-ok":"st-warn"}">${pass?"Passed: meets target on every required criterion":"Not yet: try again to reach Meets"}</span><p class="note">A passed role-play counts as one observation toward validation in Genie Readiness Studio. Live-call evidence is still required.</p></div>`:""}
+   </section>
+  </div>`;
+}
+function vReplay(){const done=S.replay.turn>=REPLAY.length;return `
+ <div class="stack"><span class="eyebrow">Step 3 · Replay · about 4 minutes</span><h2>Try the 14:32 moment again</h2>
+ <p class="lede">The AI buyer starts exactly where the real call went wrong, using Renee’s words from the transcript. Each response is scored on the same scorecards as the live call (GEN-04 Competition, GEN-02 Metrics, GEN-05 Champion and Economic buyer). The buyer reacts to what you choose.</p></div>
+ ${rpView("replay",REPLAY,"Northwind Freight, 14:32","Renee Alvarez · VP Analytics","Context from the transcript: 300 users have the BI assistant; lane-profitability questions are the pain she named at 06:15; she said Tom would have to sign off.")}
+ ${done?nextBtn("dryrun","Prep for tomorrow’s call"):""}`;}
+
+function vDry(){const done=S.dry.turn>=DRY.length;
+ const plan=done?`<section class="plan"><span class="eyebrow">Generated call plan · Northwind Freight · Wed, Oct 14, 10:00</span><h3>Objective: agree metrics, pilot criteria and a decision date with Tom</h3>
+  <div class="scroll"><table><thead><tr><th>MEDDPICC</th><th>Today</th><th>Goal for this call</th></tr></thead><tbody>
+   <tr><td>Metrics</td><td>Not captured</td><td>Users × questions per week × analyst time; about 200 hours a week; consumption tracks about 400 questions</td></tr>
+   <tr><td>Economic buyer</td><td>Not engaged</td><td>Tom owns the go or no-go decision</td></tr>
+   <tr><td>Decision criteria</td><td>Unknown</td><td>16 of top 20 lane questions correct, under a minute each, on governed data</td></tr>
+   <tr><td>Decision process</td><td>Unknown</td><td>Renee’s readout, then Tom decides on Nov 6</td></tr>
+   <tr><td>Paper process</td><td>Unknown</td><td>Existing commit? Who signs, and how long finance takes</td></tr>
+   <tr><td>Champion</td><td>Unconfirmed</td><td>Renee runs the pilot and presents the result</td></tr>
+   <tr><td>Competition</td><td>BI assistant</td><td>Probe first; approved claim only; position coexistence</td></tr>
+   <tr><td>Expand</td><td>None</td><td>Name the next use case: carrier performance for procurement</td></tr>
+  </tbody></table></div>
+  <p class="note">Built from the CRM record, the Oct 8 transcript and the approved claims list. Marcus can edit it, then it’s attached to UC-3111. Bring Omar to show generated SQL on one lane question.</p></section>`:"";
+ return `
+ <div class="stack"><span class="eyebrow">Step 4 · Dry run · about 8 minutes</span><h2>Rehearse tomorrow with an AI version of the economic buyer</h2>
+ <p class="lede">The persona is assembled from the CRM record (Metrics and Economic buyer empty) and the transcript (Renee said Tom would have to sign off). The goal is what moves the use case to Proof of value and onto a path to consumption: metrics in his numbers, pilot criteria, a decision date, and a production date.</p></div>
+ ${rpView("dry",DRY,"Northwind Freight, tomorrow 10:00","Tom Becker · CFO · economic buyer","Stage goal: Validated → Proof of value. Focus skills: GEN-02 (metrics and consumption), GEN-05 (champion, economic buyer, decision process) and GEN-06 (path to production and next use case).")}
+ ${plan}
+ ${done?nextBtn("next","See how the real call went"):""}`;}
+
+function vNext(){
+ const before={"GEN-02 C1":0,"GEN-04 C1":1,"GEN-04 C2":1,"GEN-04 C3":0,"GEN-05 C1":1,"GEN-05 C3":1};
+ const after={"GEN-02 C1":3,"GEN-02 C2":3,"GEN-04 C1":3,"GEN-04 C2":3,"GEN-04 C3":2,"GEN-05 C1":3,"GEN-05 C2":3,"GEN-05 C3":3,"GEN-06 C1":2,"GEN-06 C3":3};
+ const keys=Object.keys(after);
+ return `
+ <div class="stack"><span class="eyebrow">Step 5 · Oct 14 call · Business review · 38 min · recorded with consent</span><h2>The next call advanced the use case</h2>
+ <p class="lede">The Oct 14 transcript is scored the same way. The behaviors practiced in the replay and dry run show up on the live call. The use case moves to Proof of value with every MEDDPICC field filled, a production date, and a second use case logged to expand into.</p></div>
+ <section class="panel"><div class="row" style="justify-content:space-between"><h3>UC-3111 · Lane-profitability Q&amp;A for dispatch</h3><span class="note">Updated by Marcus on Oct 15 with the mutual plan attached</span></div>
+  ${stageBar(2,true)}
+  <div class="grid2"><div class="stack"><h4>MEDDPICC</h4>${meddGrid(MEDD_AFTER)}</div>
+   <div class="stack"><h4>Land and expand</h4>
+    <div class="fields"><div class="field"><span>Decision date</span><span>Nov 6, 2026</span></div><div class="field"><span>Target live date</span><span>Dec 1, 2026 · 40 dispatch managers</span></div><div class="field"><span>Projected consumption</span><span>$22K/month once live</span></div><div class="field"><span>Days in Validated</span><span>16 (closed out)</span></div></div>
+    <div class="mock"><div class="bar"><span>New use case (mock)</span><span>UC-3115</span></div><div class="in"><b>Northwind Freight — Carrier performance Q&amp;A for procurement</b>${stageBar(0,false)}<span class="note">Same shipment tables. Logged from the Oct 14 call; revisit after Dec 1.</span></div></div>
+   </div></div></section>
+ <div class="cols">
+  <section class="panel"><h3>Transcript excerpt</h3>${vTranscript(NEXT,"N")}</section>
+  <div class="stack"><section class="panel">${detailFor(NEXT,"N")}</section>
+   <section class="panel"><h3>Oct 8 vs. Oct 14</h3><div class="scroll"><table><thead><tr><th>Criterion</th><th>Oct 8</th><th>Oct 14</th></tr></thead><tbody>
+   ${keys.map(k=>`<tr><td><b class="mono">${k}</b> <span class="note">${esc(CRIT[k])}</span></td><td>${k in before?sc(before[k]):`<span class="note">n/a</span>`}</td><td>${sc(after[k])}</td></tr>`).join("")}
+   </tbody></table></div>
+   <p class="note">In Genie Readiness Studio, this call adds one Meets observation on GEN-02, GEN-04, GEN-05 and GEN-06. GEN-04 stays at Gap until more calls confirm the behavior. One good call doesn’t validate a skill.</p></section></div>
+ </div>
+ ${nextBtn("how","How it works")}`;}
+
+function vHow(){return `
+ <div class="stack"><span class="eyebrow">Design notes</span><h2>How the coach fits into the seller’s week</h2>
+ <p class="lede">One loop, run per use case: prep, call, score, replay, prep again. In a consumption-based, use-case-led motion, success is measured by use cases going live and consuming, then expanding, not by role-play scores alone.</p></div>
+ <ol class="flow">
+  <li><span class="when">Before a call</span><b>Nudge</b>Calendar shows a meeting on an open Genie use case; the field assistant offers prep in team chat.</li>
+  <li><span class="when">Prep</span><b>Dry run</b>AI buyer built from the use-case record, MEDDPICC gaps, last transcript and approved positioning.</li>
+  <li><span class="when">The call</span><b>Live conversation</b>Recorded with consent on the call recording platform.</li>
+  <li><span class="when">Within the hour</span><b>Score</b>Transcript scored against the Genie scorecards, with quotes; MEDDPICC fields suggested for the record.</li>
+  <li><span class="when">Next day</span><b>Replay</b>The stalled moment, re-run with the same buyer words.</li>
+  <li><span class="when">Ongoing</span><b>Roll up</b>Observations feed the seller’s skill profile and the team view in Readiness Studio.</li>
+ </ol>
+ <div class="grid2">
+  <section class="panel"><h3>Entry points</h3><ul style="margin:0;padding-left:18px"><li>Pre-call nudge in team chat, triggered by a calendar event on an open Genie use case.</li><li>“Prep with AI” on the CRM use-case record.</li><li>A command in the field assistant, such as “prep Northwind.”</li><li>A “Replay this moment” link in the post-call summary.</li></ul></section>
+  <section class="panel"><h3>Inputs</h3><ul style="margin:0;padding-left:18px"><li>CRM: use-case stage, days in stage, MEDDPICC fields, projected consumption, contacts.</li><li>Call transcripts from whichever recording platform the field uses.</li><li>Approved positioning and claims list (source of truth).</li><li>The seller’s skill profile and the Genie scorecards.</li></ul></section>
+  <section class="panel"><h3>Guardrails</h3><ul style="margin:0;padding-left:18px"><li>The AI buyer and feedback use only approved claims; unapproved claims are flagged, never suggested.</li><li>Calls are recorded with customer consent; transcripts stay in governed storage.</li><li>Sellers see every score and quote, and can dispute it.</li><li>Scores are for coaching first; they don’t feed compensation.</li></ul></section>
+  <section class="panel"><h3>What enablement measures</h3><ul style="margin:0;padding-left:18px"><li>Days in stage before and after prep.</li><li>Share of use cases live within 90 days of validation, with prep vs. without.</li><li>Time from validation to first consumption.</li><li>Use cases per account (expansion), and score movement on the targeted criteria in the next live call.</li></ul></section>
+ </div>
+ <section class="panel"><h3>About this prototype</h3><p>Built as a single HTML and JavaScript page with Claude. The buyer follows authored branches so every viewer gets the same experience; in production the buyer would be generated live from the same inputs, with the scorecards as the grading rubric. Stage names are illustrative, and the call recording platform is left unnamed because Databricks’ actual tooling isn’t public.</p></section>`;}
+
+/* ---------- render + events ---------- */
+function render(){renderSteps();
+  app.innerHTML={nudge:vNudge,last:vLast,replay:vReplay,dryrun:vDry,next:vNext,how:vHow}[STEP]();bind();}
+function pick(key,i){
+  const data=key==="replay"?REPLAY:DRY, st=S[key], turn=data[st.turn], o=turn.opts[i];
+  if(turn.buyer)st.log.push({k:"b",w:turn.who||"Renee Alvarez, VP Analytics",t:turn.buyer});
+  st.log.push({k:"y",t:o.t});
+  st.log.push({k:"f",c:o.fb[0],t:o.fb[1],s:o.s});
+  st.log.push({k:"b",w:turn.who||"Renee Alvarez, VP Analytics",t:o.r});
+  o.s.forEach(([k,v])=>st.scores[k]=v);
+  st.turn++;render();
+}
+function bind(){
+  app.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>{STEP=b.dataset.go;render();window.scrollTo(0,0);});
+  app.querySelectorAll("[data-pick]").forEach(b=>b.onclick=()=>{const [k,i]=b.dataset.pick.split(":");pick(k,+i);});
+  app.querySelectorAll("[data-reset]").forEach(b=>b.onclick=()=>{S[b.dataset.reset]={turn:0,log:[],scores:{}};render();});
+  app.querySelectorAll("[data-sel]").forEach(el=>{const f=()=>{S.sel=el.dataset.sel;render();};el.onclick=f;el.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();f();}};});
+}
+render();
+})();
+</script>
+
+</body>
+</html>
